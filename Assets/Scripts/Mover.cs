@@ -4,47 +4,32 @@ using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class Mover : MonoBehaviour
-{
-    //[SerializeField] Transform target;
 
-    // Update is called once per frame
-    void Update()
-    {      
+    public class Mover : MonoBehaviour
+    {
+        //[SerializeField] Transform target;
 
-        if (Input.GetMouseButton(0))
+        // Update is called once per frame
+        void Update()
         {
-            MoveToCursor();
+            UpdateAnimator();
         }
 
-        UpdateAnimator();
-    }
-
-    private void MoveToCursor()
-    {
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        //Debug.DrawRay(lastRay.origin, lastRay.direction * 100); // just a visualization
-        RaycastHit hit; // << informatuion from hit event stored here
-        bool hashit = Physics.Raycast(ray, out hit); // storing in hit, information about where the ray hit, which can be one of multiple ptoperties such as point
-        if (hashit)
+        public void MoveTo(RaycastHit hit)
         {
-            GetComponent<NavMeshAgent>().destination = hit.point;
+            GetComponent<NavMeshAgent>().destination = hit.point; // hit.point is a Vector3
         }
-        //if() //if something happens move player to a fixed target
-        //{
-        //    GetComponent<NavMeshAgent>().destination = target.position;
-        //}
+
+        private void UpdateAnimator()
+        {
+            Vector3 velocity = GetComponent<NavMeshAgent>().velocity;
+            Vector3 localVelocity = transform.InverseTransformDirection(velocity); //world space direction and speed to local values for animator v^
+            float forwardSpeed = localVelocity.z;
+            GetComponent<Animator>().SetFloat("forward", forwardSpeed);
+        }
+
+
+
+
     }
 
-    private void UpdateAnimator()
-    {
-        Vector3 velocity = GetComponent<NavMeshAgent>().velocity;
-        Vector3 localVelocity = transform.InverseTransformDirection(velocity); //world space direction and speed to local values for animator v^
-        float forwardSpeed = localVelocity.z;
-        GetComponent<Animator>().SetFloat("forward", forwardSpeed);
-    }
-
-
-
-
-}
