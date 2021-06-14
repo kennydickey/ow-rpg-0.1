@@ -1,8 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using RPG.Movement;
 
-
+namespace RPG.Control
+{
     public class PlayerController : MonoBehaviour
     {
 
@@ -35,3 +37,4 @@ using UnityEngine;
             //}
         }
     }
+}

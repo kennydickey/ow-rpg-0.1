@@ -4,6 +4,8 @@ using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.AI;
 
+namespace RPG.Movement
+{
 
     public class Mover : MonoBehaviour
     {
@@ -33,3 +35,4 @@ using UnityEngine.AI;
 
     }
 
+}
