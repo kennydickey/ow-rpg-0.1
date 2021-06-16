@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using RPG.Movement;
+using System;
 
 namespace RPG.Control
 {
@@ -15,18 +16,38 @@ namespace RPG.Control
 
         void Update()
         {
+            InteractWithMovement();
+            InteractWithCombat();
+        }
+
+        private void InteractWithMovement()
+        {
             if (Input.GetMouseButton(0))
             {
                 MoveToCursor();
             }
         }
 
+        private void InteractWithCombat()
+        {
+            RaycastHit[] hits = Physics.RaycastAll(GetMouseRay()); // returns list of hits
+            foreach(RaycastHit hit in hits)
+            {
+                CombatTarget target = hit.transform.GetComponent<CombatTarget>();
+                if (target = null) continue;
+                if (Input.GetMouseButtonDown(0))
+                {
+                    GetComponent<Fighter>().Attack(target);
+                }
+            }
+
+        }
+
         public void MoveToCursor()
         {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            //Debug.DrawRay(lastRay.origin, lastRay.direction * 100); // just a visualization
+            //Debug.DrawRay(GetMouseRay().origin, GetMouseRay().direction * 100); // visualization
             RaycastHit hit; // << informatuion from hit event stored here
-            bool hashit = Physics.Raycast(ray, out hit); // storing in hit, information about where the ray hit, which can be one of multiple ptoperties such as point
+            bool hashit = Physics.Raycast(GetMouseRay(), out hit); // storing in hit, information about where the ray hit, which can be one of multiple ptoperties such as point
             if (hashit)
             {
                 GetComponent<Mover>().MoveTo(hit);
@@ -35,6 +56,11 @@ namespace RPG.Control
             //{
             //    GetComponent<NavMeshAgent>().destination = target.position;
             //}
+        }
+
+        private static Ray GetMouseRay()
+        {
+            return Camera.main.ScreenPointToRay(Input.mousePosition);
         }
     }
 }
