@@ -9,7 +9,14 @@ namespace RPG.Movement
 
     public class Mover : MonoBehaviour
     {
-        //[SerializeField] Transform target;
+        [SerializeField] Transform target;
+
+        NavMeshAgent navMeshAgent;
+
+        private void Start()
+        {
+            navMeshAgent = GetComponent<NavMeshAgent>();
+        }
 
         // Update is called once per frame
         void Update()
@@ -17,9 +24,22 @@ namespace RPG.Movement
             UpdateAnimator();
         }
 
-        public void MoveTo(RaycastHit hit)
+        public void StartMoveAction(Vector3 destination)
         {
-            GetComponent<NavMeshAgent>().destination = hit.point; // hit.point is a Vector3
+            GetComponent<Fighter>().Cancel();
+            MoveTo(destination);
+        }
+
+        public void Stop()
+        {
+                navMeshAgent.isStopped = true;     
+        }
+
+        public void MoveTo(Vector3 destination)
+        {
+            GetComponent<NavMeshAgent>().destination = destination; // hit.point is a Vector3
+            navMeshAgent.isStopped = false;
+            
         }
 
         private void UpdateAnimator()
