@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using RPG.Movement;
+using RPG.Core;
 
 public class Fighter : MonoBehaviour
 {
@@ -11,8 +12,8 @@ public class Fighter : MonoBehaviour
 
     private void Update()
     {
-        //if target is null and isinrange, result is nullreferror
-        if (target == null) return;
+        // !if target is null && isinrange, result is nullreferror
+        if (target == null) return; // so if target is null, we exit
         if (!IsInRange())
         {
             GetComponent<Mover>().MoveTo(target.position);
@@ -30,6 +31,7 @@ public class Fighter : MonoBehaviour
 
     public void Attack(CombatTarget combatTarget)
     {
+        GetComponent<ActionScheduler>().StartAction(this); // htis monobehaviour
         print("attacked!");
         target = combatTarget.transform;
         

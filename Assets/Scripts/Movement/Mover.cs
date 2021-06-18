@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using RPG.Core;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -26,6 +27,7 @@ namespace RPG.Movement
 
         public void StartMoveAction(Vector3 destination)
         {
+            GetComponent<ActionScheduler>().StartAction(this); // htis monobehaviour
             GetComponent<Fighter>().Cancel();
             MoveTo(destination);
         }
