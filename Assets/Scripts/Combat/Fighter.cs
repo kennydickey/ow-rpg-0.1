@@ -4,7 +4,7 @@ using UnityEngine;
 using RPG.Movement;
 using RPG.Core;
 
-public class Fighter : MonoBehaviour
+public class Fighter : MonoBehaviour, Iaction
 {
     [SerializeField] float weaponRange = 1f;
 
@@ -20,7 +20,7 @@ public class Fighter : MonoBehaviour
         }
         else
         {
-            GetComponent<Mover>().Stop();
+            GetComponent<Mover>().Cancel();
         }
     }
 
@@ -34,11 +34,14 @@ public class Fighter : MonoBehaviour
         GetComponent<ActionScheduler>().StartAction(this); // htis monobehaviour
         print("attacked!");
         target = combatTarget.transform;
+        GetComponent<Animator>().SetBool("attack", true);
         
     }
 
-    public void Cancel()
+    public void Cancel() // different Cancel() than mover
     {
         target = null;
     }
+
+   
 }

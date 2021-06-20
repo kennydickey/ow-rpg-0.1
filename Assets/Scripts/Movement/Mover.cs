@@ -8,7 +8,7 @@ using UnityEngine.AI;
 namespace RPG.Movement
 {
 
-    public class Mover : MonoBehaviour
+    public class Mover : MonoBehaviour, Iaction
     {
         [SerializeField] Transform target;
 
@@ -32,16 +32,16 @@ namespace RPG.Movement
             MoveTo(destination);
         }
 
-        public void Stop()
-        {
-                navMeshAgent.isStopped = true;     
-        }
-
         public void MoveTo(Vector3 destination)
         {
             GetComponent<NavMeshAgent>().destination = destination; // hit.point is a Vector3
-            navMeshAgent.isStopped = false;
-            
+            navMeshAgent.isStopped = false;           
+        }
+
+
+        public void Cancel()
+        {
+            navMeshAgent.isStopped = true;
         }
 
         private void UpdateAnimator()
@@ -51,9 +51,6 @@ namespace RPG.Movement
             float forwardSpeed = localVelocity.z;
             GetComponent<Animator>().SetFloat("forward", forwardSpeed);
         }
-
-
-
 
     }
 
