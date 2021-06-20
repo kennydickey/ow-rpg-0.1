@@ -240,6 +240,10 @@ PrefabInstance:
       propertyPath: target
       value: 
       objectReference: {fileID: 610461685}
+    - target: {fileID: 535833182, guid: 3483bd755b4a34160b515adee151ad52, type: 3}
+      propertyPath: attackBuffer
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 221402383227329065, guid: 3483bd755b4a34160b515adee151ad52, type: 3}
       propertyPath: m_RootOrder
       value: 1

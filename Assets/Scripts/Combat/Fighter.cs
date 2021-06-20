@@ -7,11 +7,15 @@ using RPG.Core;
 public class Fighter : MonoBehaviour, Iaction
 {
     [SerializeField] float weaponRange = 1f;
+    [SerializeField] float timeSinceAttack = 0f;
+    [SerializeField] float attackBuffer = 1f; // !Must be set in inspector
 
     Transform target;
 
     private void Update()
     {
+        timeSinceAttack += Time.deltaTime; // we will reset after each update
+
         // !if target is null && isinrange, result is nullreferror
         if (target == null) return; // so if target is null, we exit
         if (!IsInRange())
@@ -20,8 +24,19 @@ public class Fighter : MonoBehaviour, Iaction
         }
         else
         {
-            GetComponent<Mover>().Cancel();
+            GetComponent<Mover>().Cancel();        
+            AttackBehaviour();       
         }
+    }
+
+    private void AttackBehaviour()
+    {
+        if (timeSinceAttack > attackBuffer)
+        {
+            GetComponent<Animator>().SetTrigger("attack"); // sets trigger and then returns to false
+            timeSinceAttack = 0;
+        }           
+       
     }
 
     private bool IsInRange()
@@ -33,9 +48,7 @@ public class Fighter : MonoBehaviour, Iaction
     {
         GetComponent<ActionScheduler>().StartAction(this); // htis monobehaviour
         print("attacked!");
-        target = combatTarget.transform;
-        GetComponent<Animator>().SetBool("attack", true);
-        
+        target = combatTarget.transform;     
     }
 
     public void Cancel() // different Cancel() than mover
@@ -43,5 +56,10 @@ public class Fighter : MonoBehaviour, Iaction
         target = null;
     }
 
+    //Animation Event
+    void Hit()
+    {
+        
+    }
    
 }
