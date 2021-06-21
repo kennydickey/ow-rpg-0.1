@@ -9,6 +9,7 @@ public class Fighter : MonoBehaviour, Iaction
     [SerializeField] float weaponRange = 1f;
     [SerializeField] float timeSinceAttack = 0f;
     [SerializeField] float attackBuffer = 1f; // !Must be set in inspector
+    [SerializeField] float weaponDamage = 5f;
 
     Transform target;
 
@@ -33,10 +34,19 @@ public class Fighter : MonoBehaviour, Iaction
     {
         if (timeSinceAttack > attackBuffer)
         {
+            //this will trigger the Hit() animation event
             GetComponent<Animator>().SetTrigger("attack"); // sets trigger and then returns to false
             timeSinceAttack = 0;
+            
         }           
        
+    }
+
+    //Animation Event
+    void Hit()
+    {
+        Health healthComponent = target.GetComponent<Health>();
+        healthComponent.TakeDamage(weaponDamage);
     }
 
     private bool IsInRange()
@@ -44,11 +54,12 @@ public class Fighter : MonoBehaviour, Iaction
         return Vector3.Distance(transform.position, target.position) < weaponRange;
     }
 
-    public void Attack(CombatTarget combatTarget)
+    public void Attack(CombatTarget combatTarget) //called in PlayerController
     {
         GetComponent<ActionScheduler>().StartAction(this); // htis monobehaviour
         print("attacked!");
-        target = combatTarget.transform;     
+        target = combatTarget.transform;
+
     }
 
     public void Cancel() // different Cancel() than mover
@@ -56,10 +67,5 @@ public class Fighter : MonoBehaviour, Iaction
         target = null;
     }
 
-    //Animation Event
-    void Hit()
-    {
-        
-    }
    
 }
