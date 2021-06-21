@@ -37,16 +37,16 @@ public class Fighter : MonoBehaviour, Iaction
             //this will trigger the Hit() animation event
             GetComponent<Animator>().SetTrigger("attack"); // sets trigger and then returns to false
             timeSinceAttack = 0;
-            
         }           
        
     }
 
-    //Animation Event
+    //Animation Event we set up on Attack animation clip
     void Hit()
     {
         Health healthComponent = target.GetComponent<Health>();
         healthComponent.TakeDamage(weaponDamage);
+        
     }
 
     private bool IsInRange()
