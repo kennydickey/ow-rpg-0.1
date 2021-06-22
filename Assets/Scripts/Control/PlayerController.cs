@@ -9,16 +9,11 @@ namespace RPG.Control
     public class PlayerController : MonoBehaviour
     {
 
-        void Start()
-        {
-
-        }
-
         void Update()
         {
-            if(InteractWithCombat()) return;
+            if(InteractWithCombat()) return; // actually calls each method I think
             if(InteractWithMovement()) return;
-            print("edge of world");
+            //print("edge of world"); 
         }
 
         private bool InteractWithCombat() // just making a bool for if statement above
