@@ -107,6 +107,19 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0.4, z: 0}
+--- !u!114 &3435352245170234097
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4058284212432643838}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e7128fcf04c8c442f8f4892ea801f211, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  chaseDistance: 5
 --- !u!114 &3805715794165230931
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -131,19 +144,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96f119a0471a940d997b6cbbfddfdc10, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &3435352245170234097
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4058284212432643838}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e7128fcf04c8c442f8f4892ea801f211, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  chaseDistance: 5
 --- !u!1 &955581618454996649
 GameObject:
   m_ObjectHideFlags: 0
@@ -1490,6 +1490,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 194257065, guid: 3483bd755b4a34160b515adee151ad52, type: 3}
+      propertyPath: m_Speed
+      value: 2.5
+      objectReference: {fileID: 0}
     - target: {fileID: 221402383227329065, guid: 3483bd755b4a34160b515adee151ad52, type: 3}
       propertyPath: m_RootOrder
       value: 0

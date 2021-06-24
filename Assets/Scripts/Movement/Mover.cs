@@ -27,7 +27,7 @@ namespace RPG.Movement
 
         public void StartMoveAction(Vector3 destination)
         {
-            GetComponent<ActionScheduler>().StartAction(this); // htis monobehaviour
+            GetComponent<ActionScheduler>().StartAction(this); // this monobehaviour
             GetComponent<Fighter>().Cancel();
             MoveTo(destination);
         }

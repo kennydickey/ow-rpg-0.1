@@ -1,28 +1,42 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using RPG.Movement;
 
 namespace RPG.Control
 {
-
     public class EnemyAIController : MonoBehaviour
     {
-        [SerializeField] float chaseDistance = 5f;
+        [SerializeField] float chaseDistance = 2f;
+        Fighter fighter;
+        GameObject player;
 
-        // Update is called once per frame
+        private void Start()
+        {          
+            fighter = GetComponent<Fighter>();
+            player = GameObject.FindWithTag("Player");
+        }
+
         void Update()
         {
-            if(DistanceToPlayer() < chaseDistance)
+            if (InAttackRange() && fighter.CanAttack(player))
             {
+                
                 // if(gameObject.name/tag == "enemy") to select individual items or debug
-                print(gameObject.name + " chase");
+                //print(gameObject.name + " chase");
+                GetComponent<Fighter>().Attack(player);
+            }
+            else
+            {
+                fighter.Cancel();
             }
         }
 
-        private float DistanceToPlayer() // returns a float to compare with chaseDistance 
+
+        private bool InAttackRange() // returns a float to compare with chaseDistance 
         {
-            GameObject player = GameObject.FindWithTag("Player");
-            return Vector3.Distance(player.transform.position, transform.position);            
+            float distanceToPlayer = Vector3.Distance(player.transform.position, transform.position);
+            return distanceToPlayer < chaseDistance; // return bool in range or not         
         }
     }
 }

@@ -59,17 +59,17 @@ public class Fighter : MonoBehaviour, Iaction
         return Vector3.Distance(transform.position, target.transform.position) < weaponRange;
     }
 
-    public bool CanAttack(CombatTarget combatTarget) // for use in PlayerController
+    public bool CanAttack(GameObject combatTarget) // for use in PlayerController
     {
         if (combatTarget == null) return false;
         Health targetToTest = combatTarget.GetComponent<Health>(); // info from combatTarget
         return targetToTest != null && !targetToTest.IsDead(); // can attack if IsDead is false
     }
 
-    public void Attack(CombatTarget combatTarget) //called in PlayerController
+    
+    public void Attack(GameObject combatTarget) //called in PlayerController
     {
         GetComponent<ActionScheduler>().StartAction(this); // htis monobehaviour
-        print("attacked!");
         target = combatTarget.GetComponent<Health>();
     }
 
