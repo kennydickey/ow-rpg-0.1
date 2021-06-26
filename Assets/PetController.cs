@@ -17,8 +17,17 @@ public class PetController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        GetComponent<Mover>().MoveTo(player.transform.position);
-
+        
+        if(Vector3.Distance(player.transform.position, transform.position) > 2)
+        {
+            GetComponent<Mover>().MoveTo(player.transform.position);
+            GetComponent<Animator>().SetInteger("animation", 1);
+        }
+        else
+        {
+            GetComponent<Mover>().Cancel();
+            GetComponent<Animator>().SetInteger("animation", 0);
+        }
     }
 
 }
