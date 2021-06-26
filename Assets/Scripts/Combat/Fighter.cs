@@ -7,7 +7,7 @@ using RPG.Core;
 public class Fighter : MonoBehaviour, Iaction
 {
     [SerializeField] float weaponRange = 1f;
-    [SerializeField] float timeSinceAttack = 0f;
+    [SerializeField] float timeSinceAttack = Mathf.Infinity; // to be ready only at start
     [SerializeField] float attackBuffer = 1f; // !Must be set in inspector
     [SerializeField] float weaponDamage = 5f;
 

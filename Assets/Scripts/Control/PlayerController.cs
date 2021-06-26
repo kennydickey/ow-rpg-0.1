@@ -3,15 +3,22 @@ using System.Collections.Generic;
 using UnityEngine;
 using RPG.Movement;
 using System;
+using RPG.Core;
 
 namespace RPG.Control
 {
     public class PlayerController : MonoBehaviour
     {
+        Health health;
 
+        private void Start()
+        {
+            health = GetComponent<Health>();
+        }
         void Update()
         {
-            if(InteractWithCombat()) return; // actually calls each method I think
+            if (health.IsDead()) return;
+            if (InteractWithCombat()) return; // actually calls each method I think
             if(InteractWithMovement()) return;
             //print("edge of world"); 
         }
@@ -58,11 +65,6 @@ namespace RPG.Control
             //}
             return false;
         }
-
-        //public void MoveToCursor()
-        //{
-            
-        //}
 
         private static Ray GetMouseRay()
         {

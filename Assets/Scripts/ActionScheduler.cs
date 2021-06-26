@@ -20,5 +20,10 @@ namespace RPG.Core
             }
             currentAction = action; // so like setting currentAction to Mover.cs or Fighter.cs
         }
+
+        public void CancelCurrentAction()
+        {
+            StartAction(null);
+        }
     }
 }
