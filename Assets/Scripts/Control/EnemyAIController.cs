@@ -9,11 +9,13 @@ namespace RPG.Control
     public class EnemyAIController : MonoBehaviour
     {
         [SerializeField] float chaseDistance = 2f;
+        [SerializeField] float suspicionTime = 4f;
         Fighter fighter;
         Mover mover;
         GameObject player;
         Health health;
         Vector3 guardPosition;
+        float timeSinceSawPlayer = Mathf.Infinity; // only the starting value
 
         private void Start()
         {          
@@ -24,23 +26,46 @@ namespace RPG.Control
             guardPosition = transform.position;
         }
 
+        IEnumerator WaitAfterChase(float seconds)
+        {
+            yield return new WaitForSeconds(seconds);
+        }
+
         void Update()
         {
             if (health.IsDead()) return;
             if (InAttackRange() && fighter.CanAttack(player))
             {
-                
+                timeSinceSawPlayer = 0; // stays at zero through updates
                 // if(gameObject.name/tag == "enemy") to select individual items or debug
-                //print(gameObject.name + " chase");
-                fighter.Attack(player);
+                AttackBehaviour();
+            }
+            // out of range, time now increments
+            else if (timeSinceSawPlayer < suspicionTime) // so, while incrementing..
+            {
+                SuspicionBehaviour();                
             }
             else
             {
-                fighter.Cancel();
-                mover.StartMoveAction(guardPosition);
+                GuardBehaviour();
             }
+            timeSinceSawPlayer += Time.deltaTime; // 
         }
 
+
+        private void AttackBehaviour()
+        {
+            fighter.Attack(player);
+        }
+        private void SuspicionBehaviour()
+        {
+            GetComponent<ActionScheduler>().CancelCurrentAction();
+            //WaitAfterChase(suspicionTime);
+        }
+        private void GuardBehaviour()
+        {
+            mover.StartMoveAction(guardPosition);
+        }
 
         private bool InAttackRange() // returns a float to compare with chaseDistance 
         {
