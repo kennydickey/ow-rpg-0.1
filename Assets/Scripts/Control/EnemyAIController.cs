@@ -10,14 +10,18 @@ namespace RPG.Control
     {
         [SerializeField] float chaseDistance = 2f;
         Fighter fighter;
+        Mover mover;
         GameObject player;
         Health health;
+        Vector3 guardPosition;
 
         private void Start()
         {          
             fighter = GetComponent<Fighter>();
+            mover = GetComponent<Mover>();
             player = GameObject.FindWithTag("Player");
             health = GetComponent<Health>();
+            guardPosition = transform.position;
         }
 
         void Update()
@@ -28,11 +32,12 @@ namespace RPG.Control
                 
                 // if(gameObject.name/tag == "enemy") to select individual items or debug
                 //print(gameObject.name + " chase");
-                GetComponent<Fighter>().Attack(player);
+                fighter.Attack(player);
             }
             else
             {
                 fighter.Cancel();
+                mover.StartMoveAction(guardPosition);
             }
         }
 
