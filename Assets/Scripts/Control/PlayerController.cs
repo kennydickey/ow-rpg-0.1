@@ -35,7 +35,7 @@ namespace RPG.Control
                     {
                     continue; // continue within foreach on to next hit object
                     }
-                    if (Input.GetMouseButtonDown(0))
+                    if (Input.GetMouseButton(0)) // consider GetMouseButtonDown()
                     {
                         GetComponent<Fighter>().Attack(target.gameObject);
                     }

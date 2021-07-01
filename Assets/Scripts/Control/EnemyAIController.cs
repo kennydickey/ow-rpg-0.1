@@ -13,6 +13,7 @@ namespace RPG.Control
         [SerializeField] float suspicionTime = 4f;
         [SerializeField] PatrolPath patrolPath;
         [SerializeField] float wayPointTolerance = 1f; // 1m
+        [SerializeField] float wayPointDwell = 1f; // 1m
 
         Fighter fighter;
         Mover mover;
@@ -20,6 +21,8 @@ namespace RPG.Control
         Health health;
         Vector3 guardPosition;
         float timeSinceSawPlayer = Mathf.Infinity; // only the starting value
+        float timeSinceLastWaypoint = Mathf.Infinity;
+
         int waypointIndex = 0;
 
         private void Start()
@@ -31,35 +34,36 @@ namespace RPG.Control
             guardPosition = transform.position; // starts at our position
         }
 
-        IEnumerator WaitAfterChase(float seconds)
-        {
-            yield return new WaitForSeconds(seconds);
-        }
-
         void Update()
         {
             if (health.IsDead()) return;
             if (InAttackRange() && fighter.CanAttack(player))
-            {
-                timeSinceSawPlayer = 0; // stays at zero through updates
+            {              
                 // if(gameObject.name/tag == "enemy") to select individual items or debug
                 AttackBehaviour();
             }
             // out of range, time now increments
             else if (timeSinceSawPlayer < suspicionTime) // so, while incrementing..
             {
-                SuspicionBehaviour();                
+                SuspicionBehaviour();
             }
             else
             {
                 PatrolBehaviour();
             }
-            timeSinceSawPlayer += Time.deltaTime; // 
+            UpdateTimers();
         }
 
+        private void UpdateTimers()
+        {
+            timeSinceSawPlayer += Time.deltaTime;
+            timeSinceLastWaypoint += Time.deltaTime;
+            
+        }
 
         private void AttackBehaviour()
         {
+            timeSinceSawPlayer = 0; // stays at zero through updates
             fighter.Attack(player);
         }
         private void SuspicionBehaviour()
@@ -76,15 +80,21 @@ namespace RPG.Control
             {
                 if (AtWaypoint()) // bool, if approching waypoint within 1m
                 {
+                    timeSinceLastWaypoint = 0;
                     CycleWaypoint(); // waypointIndex increments
                 }
                 nextPosition = GetCurrentWaypoint(); // nextPosition is incremented waypoint
             }
-            mover.StartMoveAction(nextPosition);
+            if(timeSinceLastWaypoint > wayPointDwell)
+            {
+                mover.StartMoveAction(nextPosition);
+            }
+            
         }
 
         private bool AtWaypoint() // if within a certain distance tolerance
         {
+            
             float distanceToWaypoint = Vector3.Distance(transform.position, GetCurrentWaypoint());
             return distanceToWaypoint < wayPointTolerance;
         }     
