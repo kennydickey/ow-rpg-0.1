@@ -20,7 +20,7 @@ public class PetController : MonoBehaviour
         
         if(Vector3.Distance(player.transform.position, transform.position) > 2)
         {
-            GetComponent<Mover>().MoveTo(player.transform.position);
+            GetComponent<Mover>().MoveTo(player.transform.position, 1f);
             GetComponent<Animator>().SetInteger("animation", 1);
         }
         else

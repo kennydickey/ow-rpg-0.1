@@ -24,7 +24,7 @@ public class Fighter : MonoBehaviour, Iaction
         if (target.IsDead()) return;
         if (!IsInRange())
         {
-            GetComponent<Mover>().MoveTo(target.transform.position);
+            GetComponent<Mover>().MoveTo(target.transform.position, 1f); // 1f is full speed
         }
         else
         {
