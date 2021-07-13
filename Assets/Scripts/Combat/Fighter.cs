@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using RPG.Movement;
 using RPG.Core;
+using RPG.Control;
 
 public class Fighter : MonoBehaviour, Iaction
 {
@@ -22,7 +23,7 @@ public class Fighter : MonoBehaviour, Iaction
         // !if target is null && isinrange, result is nullreferror
         if (target == null) return; // so if target is null, we exit
         if (target.IsDead()) return;
-        if (!IsInRange())
+        if (!IsInRange()) // if not in range to attack
         {
             GetComponent<Mover>().MoveTo(target.transform.position, 1f); // 1f is full speed
         }
@@ -78,6 +79,8 @@ public class Fighter : MonoBehaviour, Iaction
         GetComponent<Animator>().ResetTrigger("attack"); //prevent trigger bug
         GetComponent<Animator>().SetTrigger("stopAttack");
         target = null;
+        GetComponent<Mover>().Cancel(); // also cancel movement
+        
     }
 
    
