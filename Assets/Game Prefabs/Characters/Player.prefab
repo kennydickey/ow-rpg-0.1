@@ -2309,7 +2309,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 194257065, guid: 3483bd755b4a34160b515adee151ad52, type: 3}
       propertyPath: m_BaseOffset
-      value: -0.1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 221402383227329065, guid: 3483bd755b4a34160b515adee151ad52, type: 3}
       propertyPath: m_RootOrder

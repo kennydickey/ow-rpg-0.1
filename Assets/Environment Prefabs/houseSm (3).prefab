@@ -16,7 +16,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &6595759539400740819
 Transform:
@@ -282,6 +282,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Medieval_Window_B (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 8859786848984915238, guid: 9be37b901819726459e093accb93674b, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: db5319cf710bde0428f53f5fb2341407, type: 2}
     - target: {fileID: 8859786848984915240, guid: 9be37b901819726459e093accb93674b, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -392,7 +396,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6230536014858810088, guid: 9be37b901819726459e093accb93674b, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.33
+      value: 3.74
       objectReference: {fileID: 0}
     - target: {fileID: 6230536014858810088, guid: 9be37b901819726459e093accb93674b, type: 3}
       propertyPath: m_LocalPosition.z
@@ -430,6 +434,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Medieval_Window_B
       objectReference: {fileID: 0}
+    - target: {fileID: 8859786848984915238, guid: 9be37b901819726459e093accb93674b, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: db5319cf710bde0428f53f5fb2341407, type: 2}
     - target: {fileID: 8859786848984915240, guid: 9be37b901819726459e093accb93674b, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
