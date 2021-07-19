@@ -11,16 +11,17 @@ namespace RPG.SceneManagement
         void Start()
         {
             canvasGroup = GetComponent<CanvasGroup>();
-            StartCoroutine(FadeOutIn());
+            //StartCoroutine(FadeOutIn());
         }
 
-        IEnumerator FadeOutIn() // nested coroutine
-        {
-            yield return FadeOut(1f);
-            print("fade out");
-            yield return FadeIn(2f);
-            print("faded in");
-        }
+        // not needed as Portal is now calling these methods
+        //IEnumerator FadeOutIn() // nested coroutine
+        //{
+        //    yield return FadeOut(1f);
+        //    print("fade out");
+        //    yield return FadeIn(2f);
+        //    print("faded in");
+        //}
 
         public IEnumerator FadeOut(float time) // total time taken
         {           

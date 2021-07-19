@@ -16,6 +16,9 @@ namespace RPG.SceneManagement
         [SerializeField] int toScene = -1;
         [SerializeField] Transform spawnPoint;
         [SerializeField] DestinationIdentity destinationId;
+        [SerializeField] float fadeOutTime = 0.5f;
+        [SerializeField] float fadeInTime = 0.6f;
+        [SerializeField] float fadeWait = 0.5f;
 
         private void OnTriggerEnter(Collider other)
         {
@@ -35,13 +38,20 @@ namespace RPG.SceneManagement
                 Debug.LogError("toScene not set");
                 yield return null; // or yield break
             }
-
+            
             DontDestroyOnLoad(gameObject);
+
+            Fader fader = FindObjectOfType<Fader>();
+            yield return fader.FadeOut(fadeOutTime);         
+
             yield return SceneManager.LoadSceneAsync(toScene);
             //yield return new WaitForSeconds(2); // just to see destroy happening for now
 
             Portal otherPortal = GetOtherPortal();
             UpdatePlayer(otherPortal);
+
+            yield return new WaitForSeconds(fadeWait);
+            fader.StartCoroutine(fader.FadeIn(fadeInTime));
 
             Destroy(gameObject);
         }
