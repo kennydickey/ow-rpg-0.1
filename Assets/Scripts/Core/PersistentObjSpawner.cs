@@ -23,4 +23,7 @@ public class PersistentObjSpawner : MonoBehaviour
         GameObject persistentObj = Instantiate(persistentObjPrefab);
         DontDestroyOnLoad(persistentObj);
     }
+
+
+    
 }
