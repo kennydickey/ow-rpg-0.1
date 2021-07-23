@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using UnityEngine;
 
@@ -24,9 +25,14 @@ namespace RPG.Saving
                                         // Alternatively..
                 Transform playerTransform = GetPlayerTransform();
                 // then serialize playerTransform..
-                byte[] positionBuffer = SerializeVector(playerTransform.position);
+                //byte[] positionBuffer = SerializeVector(playerTransform.position);
                 //byte[] byteArray = Encoding.UTF8.GetBytes("¡ yeah um µ");
-                stream.Write(positionBuffer, 0, positionBuffer.Length);
+
+                BinaryFormatter advancedFormatter = new BinaryFormatter(); // Calling BinaryFormatter's constructor
+                SerializableVector3 playerPosition = new SerializableVector3(playerTransform.position);
+                advancedFormatter.Serialize(stream, playerPosition); // stream file and "graph" to serialize
+
+                //stream.Write(positionBuffer, 0, positionBuffer.Length);
                 //stream.Write(byteArray, 0, byteArray.Length);
                 // auto closes stream on exit of using
             }
@@ -40,12 +46,16 @@ namespace RPG.Saving
             print("loading " + path);
             using (FileStream stream = File.Open(path, FileMode.Open)) // bc .Create overwrites file
             {
-                byte[] loadBuffer = new byte[stream.Length]; // create a buffer and specify it's size
-                stream.Read(loadBuffer, 0, loadBuffer.Length);
-                print(Encoding.UTF8.GetString(loadBuffer));
+                //byte[] loadBuffer = new byte[stream.Length]; // create a buffer and specify it's size
+                //stream.Read(loadBuffer, 0, loadBuffer.Length);
+                //print(Encoding.UTF8.GetString(loadBuffer));
 
                 Transform playerTransform = GetPlayerTransform();
-                playerTransform.position = DeserializeVector(loadBuffer);
+                BinaryFormatter advancedFormatter = new BinaryFormatter();
+                SerializableVector3 serialPosition = (SerializableVector3)advancedFormatter.Deserialize(stream); // (cast)cast
+                playerTransform.position = serialPosition.ToVector();// DeserializeVector(loadBuffer);
+
+
             }
         }
 
@@ -69,8 +79,8 @@ namespace RPG.Saving
         {
             Vector3 resultVector3 = new Vector3();
             resultVector3.x = BitConverter.ToSingle(bufferArray, 0); //convert one byte(4 chars) starting from 0
-            resultVector3.y = BitConverter.ToSingle(bufferArray, 4);
-            resultVector3.z = BitConverter.ToSingle(bufferArray, 8);
+            resultVector3.y = BitConverter.ToSingle(bufferArray, 4); // filling in Vector3.y
+            resultVector3.z = BitConverter.ToSingle(bufferArray, 8); // filling in Vector3.z
             return resultVector3;
         }
 
