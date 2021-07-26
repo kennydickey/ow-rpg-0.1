@@ -14,13 +14,24 @@ namespace RPG.Saving
     {
         public void Save(string saveFile)
         {
+            SaveFile(saveFile, CaptureState());
+        }
+
+        public void Load(string saveFile)
+        {        
+            RestoreState(LoadFile(saveFile));
+        }
+
+
+        private void SaveFile(string saveFile, object capturedState)
+        {
             string path = GetPathFromFile(saveFile);
             print("saving to " + path); //FromFile(defaultSaveFile)
 
-            using(FileStream stream = File.Open(path, FileMode.Create))
+            using (FileStream stream = File.Open(path, FileMode.Create))
             {
                 BinaryFormatter advancedFormatter = new BinaryFormatter(); // Calling BinaryFormatter's constructor
-                advancedFormatter.Serialize(stream, CaptureState()); // stream file and "graph" to serialize         
+                advancedFormatter.Serialize(stream, capturedState); // stream file and "graph" to serialize         
             }
             // auto closes stream on exit of using
 
@@ -28,18 +39,20 @@ namespace RPG.Saving
             // stream.Close(); no longer needed with using(Filestream)
         }
 
-        public void Load(string saveFile)
+        private Dictionary<string, object> LoadFile(string saveFile)
         {
             string path = GetPathFromFile(saveFile);
             print("loading " + path);
             using (FileStream stream = File.Open(path, FileMode.Open)) // bc .Create overwrites file
             {
                 BinaryFormatter advancedFormatter = new BinaryFormatter();
-                RestoreState(advancedFormatter.Deserialize(stream)); // (cast)cast
+                return (Dictionary<string, object>)advancedFormatter.Deserialize(stream); // cast(cast)
             }
-        }       
+            
+        }
 
-        private object CaptureState()
+
+        private Dictionary<string, object> CaptureState()
         {
             // entire state of game will be a dictionary, dictionaries are serializeable by default, so ready for save file
             Dictionary<string, object> state = new Dictionary<string, object>();
@@ -52,9 +65,8 @@ namespace RPG.Saving
             return state;
         }
 
-        private void RestoreState(object restoredState)
+        private void RestoreState(Dictionary<string, object> stateDictionary)
         {
-            Dictionary<string, object> stateDictionary = (Dictionary<string, object>)restoredState;
             foreach(SaveableEntity saveable in FindObjectsOfType<SaveableEntity>())
             {
                 saveable.EntityRestoreState(stateDictionary[saveable.GetUniqueIdentifier()]);
