@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
+using UnityEngine.AI;
+using RPG.Core;
 
 namespace RPG.Saving
 {
@@ -34,15 +36,19 @@ namespace RPG.Saving
             return uniqueIdentifier;
         }
 
-        public object EntityCaptureState()
+        // lives on player and enemies, so captures all of them
+        public object EntityCaptureState() // object is the root for everything so anything can be returned here
         {
-            print("Capturing state for uid " +  GetUniqueIdentifier());
-            return null; // temp to avoid value error
+            return new SerializableVector3(transform.position); // needs to be serializeable
         }
 
         public void EntityRestoreState(object state)
         {
-            print("Restoring state for uid" + GetUniqueIdentifier());
+            SerializableVector3 position = (SerializableVector3)state;
+            GetComponent<NavMeshAgent>().enabled = false; // to prevent glitches when warging
+            transform.position = position.ToVector(); // needed to convert to an actoual Vector3 from Serializeable
+            GetComponent<NavMeshAgent>().enabled = true;
+            GetComponent<ActionScheduler>().CancelCurrentAction(); // keeps player from moving to a clicked point
         }
 
         
