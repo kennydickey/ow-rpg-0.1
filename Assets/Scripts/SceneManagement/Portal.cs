@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using RPG.Saving;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.SceneManagement;
@@ -23,12 +24,9 @@ namespace RPG.SceneManagement
         private void OnTriggerEnter(Collider other)
         {
             if (other.tag == "Player")
-            {
-                
+            {              
                 StartCoroutine(Transition());
             }
-
-
         }
 
         private IEnumerator Transition()
@@ -42,12 +40,20 @@ namespace RPG.SceneManagement
             DontDestroyOnLoad(gameObject);
 
             Fader fader = FindObjectOfType<Fader>();
-            yield return fader.FadeOut(fadeOutTime);         
+
+            SavingWrapper savingWrapper = FindObjectOfType<SavingWrapper>();
+
+            yield return fader.FadeOut(fadeOutTime);
+
+            savingWrapper.Save();
 
             yield return SceneManager.LoadSceneAsync(toScene);
             //yield return new WaitForSeconds(2); // just to see destroy happening for now
 
+            savingWrapper.Load();
+
             Portal otherPortal = GetOtherPortal();
+
             UpdatePlayer(otherPortal);
 
             yield return new WaitForSeconds(fadeWait);

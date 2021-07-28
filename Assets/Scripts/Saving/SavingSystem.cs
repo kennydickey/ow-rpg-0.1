@@ -14,7 +14,9 @@ namespace RPG.Saving
     {
         public void Save(string saveFile)
         {
-            SaveFile(saveFile, CaptureState());
+            Dictionary<string, object> state = LoadFile(saveFile);
+            CaptureState(state);
+            SaveFile(saveFile, state);
         }
 
         public void Load(string saveFile)
@@ -42,7 +44,10 @@ namespace RPG.Saving
         private Dictionary<string, object> LoadFile(string saveFile)
         {
             string path = GetPathFromFile(saveFile);
-            print("loading " + path);
+            if (!File.Exists(path))
+            {
+                return new Dictionary<string, object>(); // if no .sav file exists, create new one
+            }
             using (FileStream stream = File.Open(path, FileMode.Open)) // bc .Create overwrites file
             {
                 BinaryFormatter advancedFormatter = new BinaryFormatter();
@@ -51,25 +56,27 @@ namespace RPG.Saving
             
         }
 
-
-        private Dictionary<string, object> CaptureState()
+        // updating state?
+        private void CaptureState(Dictionary<string, object> state)
         {
             // entire state of game will be a dictionary, dictionaries are serializeable by default, so ready for save file
-            Dictionary<string, object> state = new Dictionary<string, object>();
             foreach(SaveableEntity saveable in FindObjectsOfType<SaveableEntity>())
             {
                 //store our captured state object into the dictionary
                 state[saveable.GetUniqueIdentifier()] = saveable.EntityCaptureState(); // so setting key and value for Dictionary state
             }
-
-            return state;
         }
 
         private void RestoreState(Dictionary<string, object> stateDictionary)
         {
             foreach(SaveableEntity saveable in FindObjectsOfType<SaveableEntity>())
             {
-                saveable.EntityRestoreState(stateDictionary[saveable.GetUniqueIdentifier()]);
+                string id = saveable.GetUniqueIdentifier();
+                if (stateDictionary.ContainsKey(id))
+                {
+                    saveable.EntityRestoreState(stateDictionary[id]);
+
+                }
             }
         }
 
