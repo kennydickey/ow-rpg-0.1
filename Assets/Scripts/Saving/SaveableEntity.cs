@@ -37,18 +37,38 @@ namespace RPG.Saving
         }
 
         // lives on player and enemies, so captures all of them
-        public object EntityCaptureState() // object is the root for everything so anything can be returned here
+        public object EntityCaptureState() // object is the root for everything so anything can be returned here, captureState doesn't mind what type of objit the saveableentity returns
         {
-            return new SerializableVector3(transform.position); // needs to be serializeable
+            // State to return  vv
+            Dictionary<string, object> stateDictCapture = new Dictionary<string, object>();
+
+            // gets list of components implementing ISaveable at runtime, such as Mover
+            foreach(ISaveable isaveable in GetComponents<ISaveable>())
+            {
+                // create key for each saveable, for ex. Mover.cs would be key of "Mover"
+                stateDictCapture[isaveable.GetType().ToString()] = isaveable.CaptureState();
+            }
+            return stateDictCapture;
+            //return new SerializableVector3(transform.position); // needs to be serializeable
         }
 
         public void EntityRestoreState(object state)
         {
-            SerializableVector3 position = (SerializableVector3)state;
-            GetComponent<NavMeshAgent>().enabled = false; // to prevent glitches when warging
-            transform.position = position.ToVector(); // needed to convert to an actoual Vector3 from Serializeable
-            GetComponent<NavMeshAgent>().enabled = true;
-            GetComponent<ActionScheduler>().CancelCurrentAction(); // keeps player from moving to a clicked point
+            // setting new dictionary to be state that we recieved, and as a cast to be sure
+            Dictionary<string, object> stateDictRestore = (Dictionary<string, object>)state;
+            foreach (ISaveable isaveable in GetComponents<ISaveable>())
+            {
+                string typeString = isaveable.GetType().ToString();
+                if (stateDictRestore.ContainsKey(typeString))
+                {
+                    isaveable.RestoreState(stateDictRestore[typeString]);
+                }
+            }
+            //SerializableVector3 position = (SerializableVector3)state;
+            //GetComponent<NavMeshAgent>().enabled = false; // to prevent glitches when warging
+            //transform.position = position.ToVector(); // needed to convert to an actoual Vector3 from Serializeable
+            //GetComponent<NavMeshAgent>().enabled = true;
+            //GetComponent<ActionScheduler>().CancelCurrentAction(); // keeps player from moving to a clicked point
         }
 
         
