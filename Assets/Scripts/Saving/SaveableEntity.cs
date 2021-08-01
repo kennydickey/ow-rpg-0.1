@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEditor;
 using UnityEngine.AI;
 using RPG.Core;
+using System;
 
 namespace RPG.Saving
 {
@@ -13,6 +14,8 @@ namespace RPG.Saving
         // SerializeField persists in scene / scene file across reloads, but not across scenes
         // uid needs to be saved in scene/ scene file, not in prefab file as it will create duplicate instance uids
         [SerializeField] string uniqueIdentifier = "";
+        // dictionary with unique id as string, and SaveableEntity as object with id
+        static Dictionary<string, SaveableEntity> globalLookup = new Dictionary<string, SaveableEntity>();
 
         // following code only needed to initially generate uids while creating
 #if UNITY_EDITOR // to avoid error, as this code is not available to package, code is removed entirely when packaging
@@ -24,13 +27,39 @@ namespace RPG.Saving
 
             SerializedObject serializedObject = new SerializedObject(this); // gives the serialization of this monobehaviour
             SerializedProperty idProperty = serializedObject.FindProperty("uniqueIdentifier"); // now we can access it's properties
-            if(string.IsNullOrEmpty(idProperty.stringValue))
+            // if empty or not unique..
+            if(string.IsNullOrEmpty(idProperty.stringValue) || !IsUnique(idProperty.stringValue))
             {
                 idProperty.stringValue = System.Guid.NewGuid().ToString();
                 serializedObject.ApplyModifiedProperties(); // to update or "tell" Unity about the change
             }
+
+            globalLookup[idProperty.stringValue] = this; // 'this' is the current SaveableEntity
         }
+
 #endif
+
+        private bool IsUnique(string uniqueCandidate) // check for positive value when called
+        {
+            // all return trues mean that there is no need to update unique id
+            if (!globalLookup.ContainsKey(uniqueCandidate)) return true; // if key is not in global already
+            if (globalLookup[uniqueCandidate] == this) return true; // if uniqueCandidate is the same as ours
+
+            if(globalLookup[uniqueCandidate] == null)
+            {
+                globalLookup.Remove(uniqueCandidate); // remove in global only
+                return true;
+            }
+            // if lookup is not up to date, pointing to correct value, then..
+            if (globalLookup[uniqueCandidate].GetUniqueIdentifier() != uniqueCandidate)
+            {
+                globalLookup.Remove(uniqueCandidate); // remove in global only
+                return true;
+            }
+            // otherwise..
+            return false;
+        }
+
         public string GetUniqueIdentifier()
         {
             return uniqueIdentifier;
