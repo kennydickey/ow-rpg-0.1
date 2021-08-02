@@ -1,19 +1,31 @@
 using System.Collections;
 using System.Collections.Generic;
+using RPG.Saving;
 using UnityEngine;
 
 // for saving based on key bindings
 // wrapper is also for the case where we want different save slots
 
-namespace RPG.Saving
+namespace RPG.SceneManagement
 {
     public class SavingWrapper : MonoBehaviour
     {
         const string defaultSaveFile = "save";
 
-        private void Start()
+        [SerializeField] float fadeInTime = 1f;
+
+        private IEnumerator Start() // calls start as a coroutine
         {
-            Load();
+            Fader fader = FindObjectOfType<Fader>();
+            fader.FadeOutImmediate();
+
+            yield return GetComponent<SavingSystem>().LoadLastScene(defaultSaveFile);
+            // or without start as a coroutine..
+            //StartCoroutine(GetComponent<SavingSystem>().LoadLastScene(defaultSaveFile));
+            //Load();
+
+            // we can yield return rather than start coroutine since it's a nested coroutine
+            yield return fader.FadeIn(fadeInTime);
         }
 
         private void Update()

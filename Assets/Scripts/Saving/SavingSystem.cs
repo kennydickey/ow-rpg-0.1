@@ -5,6 +5,7 @@ using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 // core(main) saving system
 
@@ -12,6 +13,23 @@ namespace RPG.Saving
 {
     public class SavingSystem : MonoBehaviour
     {
+        public IEnumerator LoadLastScene(string saveFile)
+        {
+            Dictionary<string, object> state = LoadFile(saveFile);
+            if (state.ContainsKey("lastScene"))
+            {
+                int buildIndex = (int)state["lastScene"]; // int as a value that is updated in CaptureState
+
+                if (buildIndex != SceneManager.GetActiveScene().buildIndex) // if last is not current scene, load last scene
+                {
+                    yield return SceneManager.LoadSceneAsync(buildIndex); // wait and then load last scene                                                                     
+                }
+            }
+            
+            RestoreState(state); // restore all SaveableEntity uid's
+
+        }
+
         public void Save(string saveFile)
         {
             Dictionary<string, object> state = LoadFile(saveFile);
@@ -65,6 +83,8 @@ namespace RPG.Saving
                 //store our captured state object into the dictionary
                 state[saveable.GetUniqueIdentifier()] = saveable.EntityCaptureState(); // so setting key and value for Dictionary state
             }
+            // setting part of state for last scene with string key and int scene index
+            state["lastScene"] = SceneManager.GetActiveScene().buildIndex;
         }
 
         private void RestoreState(Dictionary<string, object> stateDictionary)

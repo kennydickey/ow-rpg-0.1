@@ -8,7 +8,7 @@ namespace RPG.SceneManagement
     {
         CanvasGroup canvasGroup;
 
-        void Start()
+        private void Awake() // to call ahead of SavingWrapper.Start(), where canvas group does not exist yet
         {
             canvasGroup = GetComponent<CanvasGroup>();
             //StartCoroutine(FadeOutIn());
@@ -22,6 +22,11 @@ namespace RPG.SceneManagement
         //    yield return FadeIn(2f);
         //    print("faded in");
         //}
+
+        public void FadeOutImmediate() // for use in saving wrapper
+        {
+            canvasGroup.alpha = 1;
+        }
 
         public IEnumerator FadeOut(float time) // total time taken
         {           

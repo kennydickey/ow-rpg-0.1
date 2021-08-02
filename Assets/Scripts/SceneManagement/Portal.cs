@@ -45,16 +45,20 @@ namespace RPG.SceneManagement
 
             yield return fader.FadeOut(fadeOutTime);
 
+            // leave last scene behind and save state
             savingWrapper.Save();
 
             yield return SceneManager.LoadSceneAsync(toScene);
             //yield return new WaitForSeconds(2); // just to see destroy happening for now
 
+            // loads necessary state for new world
             savingWrapper.Load();
 
             Portal otherPortal = GetOtherPortal();
-
             UpdatePlayer(otherPortal);
+
+            // save again after player's location etc has been updated, before fadein
+            savingWrapper.Save();
 
             yield return new WaitForSeconds(fadeWait);
             fader.StartCoroutine(fader.FadeIn(fadeInTime));
