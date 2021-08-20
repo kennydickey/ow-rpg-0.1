@@ -12,6 +12,10 @@ public class Fighter : MonoBehaviour, Iaction
     [SerializeField] float attackBuffer = 1f; // !Must be set in inspector
     [SerializeField] float weaponDamage = 5f;
 
+    [SerializeField] GameObject weaponPrefab = null;
+    [SerializeField] Transform handTransform = null;
+
+
     Health target; // will always be of health type so we don't have to GetComponent
 
  
@@ -72,6 +76,7 @@ public class Fighter : MonoBehaviour, Iaction
     {
         GetComponent<ActionScheduler>().StartAction(this); // htis monobehaviour
         target = combatTarget.GetComponent<Health>();
+        SpawnWeapon();
     }
 
     public void Cancel() // different Cancel() than mover
@@ -81,6 +86,11 @@ public class Fighter : MonoBehaviour, Iaction
         target = null;
         GetComponent<Mover>().Cancel(); // also cancel movement
         
+    }
+
+    private void SpawnWeapon()
+    {
+        Instantiate(weaponPrefab, handTransform);
     }
 
    
