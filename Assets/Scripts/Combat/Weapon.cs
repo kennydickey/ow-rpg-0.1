@@ -11,13 +11,22 @@ namespace RPG.Combat
 
         [SerializeField] float weaponRange = 1f;
         [SerializeField] float weaponDamage = 5f;
+        [SerializeField] bool isRightHanded = true;
 
 
-        public void Spawn(Transform handTransform, Animator animator)
+        public void Spawn(Transform rightHandTr, Transform leftHandTr, Animator animator)
         {
             if (equipPrefab != null) // if there is a prefab able to equip
             {
-                Instantiate(equipPrefab, handTransform);
+                if (isRightHanded)
+                {
+                    Instantiate(equipPrefab, rightHandTr);
+                }
+                else
+                {
+                    Instantiate(equipPrefab, leftHandTr);
+                }
+
                 // otherwise don't create weapon for unarmed case
             }
             if (weaponAnimOverride != null)

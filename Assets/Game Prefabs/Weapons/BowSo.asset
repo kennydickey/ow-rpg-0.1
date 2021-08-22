@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 74c34f0440556420b9588f0b28dcf49b, type: 3}
-  m_Name: SwordSO
+  m_Name: BowSo
   m_EditorClassIdentifier: 
-  equipPrefab: {fileID: 786136518038875215, guid: 542b8b6d8706f47db8430c7290c89ae0, type: 3}
-  weaponAnimOverride: {fileID: 22100000, guid: e6239473f517c4f6980755eca57a024c, type: 2}
-  weaponRange: 1
+  equipPrefab: {fileID: 3044168978934373331, guid: f5d2889194aa14b8da9b38ef4d1bd97b, type: 3}
+  weaponAnimOverride: {fileID: 22100000, guid: 41775fdd5a4494567859e3ef2bc5643c, type: 2}
+  weaponRange: 5
   weaponDamage: 5
   isRightHanded: 1

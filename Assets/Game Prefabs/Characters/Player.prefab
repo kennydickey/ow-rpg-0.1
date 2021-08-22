@@ -799,6 +799,7 @@ Transform:
   - {fileID: 1399689629432189481}
   - {fileID: 6666020014888380868}
   - {fileID: 5025684032940956153}
+  - {fileID: 8964175947554069679}
   m_Father: {fileID: 8909261473555948376}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2310,7 +2311,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 786136518038875215, guid: 542b8b6d8706f47db8430c7290c89ae0, type: 3}
       propertyPath: m_Name
-      value: My Equipped Spear
+      value: My Equipped Sword
       objectReference: {fileID: 0}
     - target: {fileID: 8276968299717218968, guid: 542b8b6d8706f47db8430c7290c89ae0, type: 3}
       propertyPath: m_RootOrder
@@ -2363,6 +2364,72 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8276968299717218968, guid: 542b8b6d8706f47db8430c7290c89ae0, type: 3}
   m_PrefabInstance: {fileID: 176916491962751223}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &6706978761060539846
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 7076673616911191380}
+    m_Modifications:
+    - target: {fileID: 2410797039200092521, guid: f5d2889194aa14b8da9b38ef4d1bd97b, type: 3}
+      propertyPath: m_RootOrder
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2410797039200092521, guid: f5d2889194aa14b8da9b38ef4d1bd97b, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.117
+      objectReference: {fileID: 0}
+    - target: {fileID: 2410797039200092521, guid: f5d2889194aa14b8da9b38ef4d1bd97b, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.002
+      objectReference: {fileID: 0}
+    - target: {fileID: 2410797039200092521, guid: f5d2889194aa14b8da9b38ef4d1bd97b, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.039
+      objectReference: {fileID: 0}
+    - target: {fileID: 2410797039200092521, guid: f5d2889194aa14b8da9b38ef4d1bd97b, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2410797039200092521, guid: f5d2889194aa14b8da9b38ef4d1bd97b, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2410797039200092521, guid: f5d2889194aa14b8da9b38ef4d1bd97b, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.49773106
+      objectReference: {fileID: 0}
+    - target: {fileID: 2410797039200092521, guid: f5d2889194aa14b8da9b38ef4d1bd97b, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.8673314
+      objectReference: {fileID: 0}
+    - target: {fileID: 2410797039200092521, guid: f5d2889194aa14b8da9b38ef4d1bd97b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 120.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2410797039200092521, guid: f5d2889194aa14b8da9b38ef4d1bd97b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 180
+      objectReference: {fileID: 0}
+    - target: {fileID: 2410797039200092521, guid: f5d2889194aa14b8da9b38ef4d1bd97b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3044168978934373331, guid: f5d2889194aa14b8da9b38ef4d1bd97b, type: 3}
+      propertyPath: m_Name
+      value: MyBowEpic
+      objectReference: {fileID: 0}
+    - target: {fileID: 3044168978934373331, guid: f5d2889194aa14b8da9b38ef4d1bd97b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: f5d2889194aa14b8da9b38ef4d1bd97b, type: 3}
+--- !u!4 &8964175947554069679 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2410797039200092521, guid: f5d2889194aa14b8da9b38ef4d1bd97b, type: 3}
+  m_PrefabInstance: {fileID: 6706978761060539846}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &9156824090904774623
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2375,9 +2442,17 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 535833182, guid: 3483bd755b4a34160b515adee151ad52, type: 3}
+      propertyPath: leftHand
+      value: 
+      objectReference: {fileID: 7076673616911191380}
+    - target: {fileID: 535833182, guid: 3483bd755b4a34160b515adee151ad52, type: 3}
       propertyPath: weaponSO
       value: 
       objectReference: {fileID: 11400000, guid: b6ba68e58c3144784b0074d65bfb5308, type: 2}
+    - target: {fileID: 535833182, guid: 3483bd755b4a34160b515adee151ad52, type: 3}
+      propertyPath: rightHand
+      value: 
+      objectReference: {fileID: 6633816428172760641}
     - target: {fileID: 535833182, guid: 3483bd755b4a34160b515adee151ad52, type: 3}
       propertyPath: weaponPrefab
       value: 

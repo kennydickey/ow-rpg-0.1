@@ -11,7 +11,8 @@ public class Fighter : MonoBehaviour, Iaction
     [SerializeField] float timeSinceAttack = Mathf.Infinity; // to be ready only at start
     [SerializeField] float attackBuffer = 1f; // !Must be set in inspector
 
-    [SerializeField] Transform handTransform = null;
+    [SerializeField] Transform rightHand = null;
+    [SerializeField] Transform leftHand = null;
     [SerializeField] Weapon defaultWeaponSO = null; // unity will be looking for our Weapon ScriptableObject
     Weapon currentWeaponSO = null; // just to initialize as null
 
@@ -95,7 +96,7 @@ public class Fighter : MonoBehaviour, Iaction
     {
         currentWeaponSO = weapon; // currentWeapon becomes whatever is specified when EquipWeapon called
         Animator animator = GetComponent<Animator>();
-        weapon.Spawn(handTransform, animator);
+        weapon.Spawn(rightHand, leftHand, animator);
 
     }
 
