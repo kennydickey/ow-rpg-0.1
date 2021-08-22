@@ -2374,6 +2374,22 @@ PrefabInstance:
       propertyPath: m_BaseOffset
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 535833182, guid: 3483bd755b4a34160b515adee151ad52, type: 3}
+      propertyPath: weaponSO
+      value: 
+      objectReference: {fileID: 11400000, guid: b6ba68e58c3144784b0074d65bfb5308, type: 2}
+    - target: {fileID: 535833182, guid: 3483bd755b4a34160b515adee151ad52, type: 3}
+      propertyPath: weaponPrefab
+      value: 
+      objectReference: {fileID: 786136518038875215, guid: 542b8b6d8706f47db8430c7290c89ae0, type: 3}
+    - target: {fileID: 535833182, guid: 3483bd755b4a34160b515adee151ad52, type: 3}
+      propertyPath: handTransform
+      value: 
+      objectReference: {fileID: 6633816428172760641}
+    - target: {fileID: 535833182, guid: 3483bd755b4a34160b515adee151ad52, type: 3}
+      propertyPath: weaponAnimOverride
+      value: 
+      objectReference: {fileID: 22100000, guid: e6239473f517c4f6980755eca57a024c, type: 2}
     - target: {fileID: 221402383227329065, guid: 3483bd755b4a34160b515adee151ad52, type: 3}
       propertyPath: m_RootOrder
       value: 0

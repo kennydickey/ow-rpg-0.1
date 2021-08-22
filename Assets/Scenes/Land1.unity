@@ -123,11 +123,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 23800000, guid: 0a36aa1bb1ead473aafcf79bc428400e, type: 2}
---- !u!4 &11269626 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 7026323157453210647, guid: e4022cc8dcfab4023b92c1f1df76cb73, type: 3}
-  m_PrefabInstance: {fileID: 4436766137451228919}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &19463471
 GameObject:
   m_ObjectHideFlags: 3
@@ -2779,6 +2774,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 5050644071721126289, guid: 41ca7aef9fadb4976b4b179de7c8f0d8, type: 3}
     - target: {fileID: 3823253891140069102, guid: e4022cc8dcfab4023b92c1f1df76cb73, type: 3}
+      propertyPath: m_Name
+      value: My Equipped Sword
+      objectReference: {fileID: 0}
+    - target: {fileID: 3823253891140069102, guid: e4022cc8dcfab4023b92c1f1df76cb73, type: 3}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
@@ -2886,14 +2885,6 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 27.491661
       objectReference: {fileID: 0}
-    - target: {fileID: 4792144143496560599, guid: e4022cc8dcfab4023b92c1f1df76cb73, type: 3}
-      propertyPath: weaponPrefab
-      value: 
-      objectReference: {fileID: 786136518038875215, guid: 542b8b6d8706f47db8430c7290c89ae0, type: 3}
-    - target: {fileID: 4792144143496560599, guid: e4022cc8dcfab4023b92c1f1df76cb73, type: 3}
-      propertyPath: handTransform
-      value: 
-      objectReference: {fileID: 11269626}
     - target: {fileID: 8305287458096342379, guid: e4022cc8dcfab4023b92c1f1df76cb73, type: 3}
       propertyPath: m_IsActive
       value: 1

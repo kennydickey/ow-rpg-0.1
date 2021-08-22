@@ -4,21 +4,24 @@ using UnityEngine;
 using RPG.Movement;
 using RPG.Core;
 using RPG.Control;
+using RPG.Combat;
 
 public class Fighter : MonoBehaviour, Iaction
 {
-    [SerializeField] float weaponRange = 1f;
     [SerializeField] float timeSinceAttack = Mathf.Infinity; // to be ready only at start
     [SerializeField] float attackBuffer = 1f; // !Must be set in inspector
-    [SerializeField] float weaponDamage = 5f;
 
-    [SerializeField] GameObject weaponPrefab = null;
     [SerializeField] Transform handTransform = null;
+    [SerializeField] Weapon weaponSO = null; // unity will be looking for our Weapon ScriptableObject
 
 
     Health target; // will always be of health type so we don't have to GetComponent
 
- 
+    private void Start()
+    {
+        EquipWeapon();
+
+    }
 
     private void Update()
     {
@@ -55,13 +58,13 @@ public class Fighter : MonoBehaviour, Iaction
     void Hit()
     {
         if (target == null) return;
-        target.TakeDamage(weaponDamage);
+        target.TakeDamage(weaponSO.GetDamage());
         
     }
 
     private bool IsInRange()
     {
-        return Vector3.Distance(transform.position, target.transform.position) < weaponRange;
+        return Vector3.Distance(transform.position, target.transform.position) < weaponSO.GetRange();
     }
 
     public bool CanAttack(GameObject combatTarget) // for use in PlayerController
@@ -76,7 +79,6 @@ public class Fighter : MonoBehaviour, Iaction
     {
         GetComponent<ActionScheduler>().StartAction(this); // htis monobehaviour
         target = combatTarget.GetComponent<Health>();
-        SpawnWeapon();
     }
 
     public void Cancel() // different Cancel() than mover
@@ -88,10 +90,14 @@ public class Fighter : MonoBehaviour, Iaction
         
     }
 
-    private void SpawnWeapon()
+    public void EquipWeapon()
     {
-        Instantiate(weaponPrefab, handTransform);
+        if (weaponSO == null) return;
+        Animator animator = GetComponent<Animator>();
+        weaponSO.Spawn(handTransform, animator);
     }
+
+    
 
    
 }
