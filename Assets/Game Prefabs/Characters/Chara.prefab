@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 535833183}
   - component: {fileID: 8366235228760886947}
   - component: {fileID: 5272361154512334093}
+  - component: {fileID: 1068686950480404743}
   m_Layer: 0
   m_Name: Chara
   m_TagString: Player
@@ -131,10 +132,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19f792757cfc14f0a96a2a6364d85407, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponRange: 2
   timeSinceAttack: 0
   attackBuffer: 1
-  weaponDamage: 5
+  handTransform: {fileID: 0}
+  defaultWeaponSO: {fileID: 0}
 --- !u!114 &535833183
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -173,3 +174,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c29c5756824e4d58ad98988d36d3851, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  uniqueIdentifier: 
+--- !u!54 &1068686950480404743
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3839826190888495162}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0

@@ -12,14 +12,15 @@ public class Fighter : MonoBehaviour, Iaction
     [SerializeField] float attackBuffer = 1f; // !Must be set in inspector
 
     [SerializeField] Transform handTransform = null;
-    [SerializeField] Weapon weaponSO = null; // unity will be looking for our Weapon ScriptableObject
+    [SerializeField] Weapon defaultWeaponSO = null; // unity will be looking for our Weapon ScriptableObject
+    Weapon currentWeaponSO = null; // just to initialize as null
 
 
     Health target; // will always be of health type so we don't have to GetComponent
 
     private void Start()
     {
-        EquipWeapon();
+        EquipWeapon(defaultWeaponSO);
 
     }
 
@@ -58,13 +59,13 @@ public class Fighter : MonoBehaviour, Iaction
     void Hit()
     {
         if (target == null) return;
-        target.TakeDamage(weaponSO.GetDamage());
+        target.TakeDamage(currentWeaponSO.GetDamage());
         
     }
 
     private bool IsInRange()
     {
-        return Vector3.Distance(transform.position, target.transform.position) < weaponSO.GetRange();
+        return Vector3.Distance(transform.position, target.transform.position) < currentWeaponSO.GetRange();
     }
 
     public bool CanAttack(GameObject combatTarget) // for use in PlayerController
@@ -90,11 +91,12 @@ public class Fighter : MonoBehaviour, Iaction
         
     }
 
-    public void EquipWeapon()
+    public void EquipWeapon(Weapon weapon)
     {
-        if (weaponSO == null) return;
+        currentWeaponSO = weapon; // currentWeapon becomes whatever is specified when EquipWeapon called
         Animator animator = GetComponent<Animator>();
-        weaponSO.Spawn(handTransform, animator);
+        weapon.Spawn(handTransform, animator);
+
     }
 
     
