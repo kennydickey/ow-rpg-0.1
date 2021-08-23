@@ -1,3 +1,4 @@
+using System;
 using NUnit.Framework;
 using RPG.Core;
 using UnityEngine;
@@ -15,18 +16,23 @@ namespace RPG.Combat
         [SerializeField] bool isRightHanded = true;
         [SerializeField] Projectile projectile = null; // keep as null if weapon has no projectile
 
+        const string weaponName = "Weapon"; // just an easier way to access Weapon as a string
 
         public void Spawn(Transform rightHandTr, Transform leftHandTr, Animator animator)
         {
+            DestroyOldWeapon(rightHandTr, leftHandTr); // destroys whichever weapon it finds before we equip
+
             if (equipPrefab != null) // if there is a prefab able to equip
             {
                 if (isRightHanded)
                 {
-                    Instantiate(equipPrefab, rightHandTr);
+                    GameObject weaponEquip = Instantiate(equipPrefab, rightHandTr);
+                    weaponEquip.name = weaponName;
                 }
                 else
                 {
-                    Instantiate(equipPrefab, leftHandTr);
+                    GameObject weaponEquip = Instantiate(equipPrefab, leftHandTr);
+                    weaponEquip.name = weaponName;
                 }
 
                 // otherwise don't create weapon for unarmed case
@@ -38,6 +44,20 @@ namespace RPG.Combat
             }
                 
         }
+
+        private void DestroyOldWeapon(Transform rightHandLook, Transform leftHandLook)
+        {
+            Transform oldWeapon = rightHandLook.Find(weaponName); // look for "Weapon" in right hand
+            if(oldWeapon == null) // if no weapon found in right hand..
+            {
+                oldWeapon = leftHandLook.Find(weaponName);
+            }
+            if (oldWeapon == null) return;
+            // if "Weapon" is found..
+            oldWeapon.name = "DestroyProcessing"; // to explicitly destroy oldWeapon and not destroy new "Weapon"
+            Destroy(oldWeapon.gameObject);
+        }
+
 
         public bool HasProjectile()
         {

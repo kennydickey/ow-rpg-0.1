@@ -148,6 +148,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3435352245170234097, guid: 8c91a72b0de6a4f3d8fe0c6bfbd2f8e4, type: 3}
+      propertyPath: patrolPath
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3435352245170234097, guid: 8c91a72b0de6a4f3d8fe0c6bfbd2f8e4, type: 3}
+      propertyPath: chaseDistance
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 4058284212432643838, guid: 8c91a72b0de6a4f3d8fe0c6bfbd2f8e4, type: 3}
       propertyPath: m_Name
       value: EnemyVariantArcher
