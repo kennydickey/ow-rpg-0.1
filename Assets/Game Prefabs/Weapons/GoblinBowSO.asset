@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 74c34f0440556420b9588f0b28dcf49b, type: 3}
-  m_Name: BowSo
+  m_Name: GoblinBowSO
   m_EditorClassIdentifier: 
-  equipPrefab: {fileID: 3044168978934373331, guid: f5d2889194aa14b8da9b38ef4d1bd97b, type: 3}
-  weaponAnimOverride: {fileID: 22100000, guid: 41775fdd5a4494567859e3ef2bc5643c, type: 2}
-  weaponRange: 10
+  equipPrefab: {fileID: 4104761924091125389, guid: 0216eae944cf2424a9a78574a86e49a7, type: 3}
+  weaponAnimOverride: {fileID: 22100000, guid: e09a6f982ebea4edda70ad37c145fda1, type: 2}
+  weaponRange: 5
   weaponDamage: 5
   isRightHanded: 0
-  projectile: {fileID: 1355129204984356582, guid: cbe4642c2a12a4137a895d4c51d0d40d, type: 3}
+  projectile: {fileID: 4743514549688843198, guid: 04e56ca0111e04f9d8ce7b4c68ca688d, type: 3}
