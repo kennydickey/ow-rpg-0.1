@@ -1,4 +1,5 @@
 using NUnit.Framework;
+using RPG.Core;
 using UnityEngine;
 
 namespace RPG.Combat
@@ -12,6 +13,7 @@ namespace RPG.Combat
         [SerializeField] float weaponRange = 1f;
         [SerializeField] float weaponDamage = 5f;
         [SerializeField] bool isRightHanded = true;
+        [SerializeField] Projectile projectile = null; // keep as null if weapon has no projectile
 
 
         public void Spawn(Transform rightHandTr, Transform leftHandTr, Animator animator)
@@ -35,6 +37,26 @@ namespace RPG.Combat
                 animator.runtimeAnimatorController = weaponAnimOverride;
             }
                 
+        }
+
+        public bool HasProjectile()
+        {
+            return projectile != null;
+        }
+
+        public void LaunchProjectile(Transform rightHandTr, Transform leftHandTr, Health target)
+        {
+            if (isRightHanded)
+            {
+                Projectile projectileInstance = Instantiate(projectile, rightHandTr.position, Quaternion.identity);
+                projectileInstance.SetTarget(target, weaponDamage);
+            }
+            else
+            {
+                Projectile projectileInstance = Instantiate(projectile, leftHandTr.position, Quaternion.identity);
+                projectileInstance.SetTarget(target, weaponDamage);
+            }
+            
         }
 
         public float GetRange()

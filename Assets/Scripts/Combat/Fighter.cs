@@ -60,9 +60,21 @@ public class Fighter : MonoBehaviour, Iaction
     void Hit()
     {
         if (target == null) return;
-        target.TakeDamage(currentWeaponSO.GetDamage());
-        
+        if (currentWeaponSO.HasProjectile())
+        {
+            currentWeaponSO.LaunchProjectile(rightHand, leftHand, target);
+        }
+        else
+        {
+            target.TakeDamage(currentWeaponSO.GetDamage());
+        }
+
     }
+    // ! Save This
+    //void Shoot() // in a case where the evnt is called something else
+    //{       
+    //    Hit();       
+    //}
 
     private bool IsInRange()
     {
