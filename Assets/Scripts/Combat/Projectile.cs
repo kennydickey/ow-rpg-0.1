@@ -9,9 +9,11 @@ namespace RPG.Combat
     {
         [SerializeField] float projectileSpeed = 1f;        
         [SerializeField] bool isHoming;
-        [SerializeField] int projectileDwell = 12;
+        [SerializeField] float projectileDwell = 12;
         // Effects
         [SerializeField] GameObject impactEffect = null;
+        [SerializeField] GameObject[] toDestroyImmediate = null;
+        [SerializeField] float lifeAfterImpact = 1;
 
         Health projectileTarget = null; // uses RPG.Core
         float projectileDamage = 0; // no damage from projectile as of now, weapon controls amount
@@ -19,7 +21,7 @@ namespace RPG.Combat
         private void Start()
         {
             transform.LookAt(AimLocation());
-            StartCoroutine(ProjectileDwell());
+            Destroy(gameObject, projectileDwell); // limit projectile lifetime
         }
 
         // Update is called once per frame
@@ -34,11 +36,6 @@ namespace RPG.Combat
             transform.Translate(Vector3.forward * projectileSpeed * Time.deltaTime);
         }
 
-        IEnumerator ProjectileDwell()
-        {
-            yield return new WaitForSeconds(projectileDwell);
-            Destroy(gameObject);
-        }
 
         public void SetTarget(Health target, float damage)
         {   
@@ -59,13 +56,21 @@ namespace RPG.Combat
         private void OnTriggerEnter(Collider other)
         {
             if (other.GetComponent<Health>() != projectileTarget) return;
-            if (projectileTarget.IsDead()) return;    // arrow continues without giving damage or being destroyed       
+            if (projectileTarget.IsDead()) return;    // arrow continues without giving damage or being destroyed
+                                                      // 
             projectileTarget.TakeDamage(projectileDamage); // Takedamage method is on Health component of our target
-            if(impactEffect != null)
+            //projectileSpeed = 0; // maybe not needed, for the case where projectiles go through target
+
+            if (impactEffect != null)
             {
                 Instantiate(impactEffect, AimLocation(), transform.rotation);
             }
-            Destroy(gameObject);
+
+            foreach(GameObject toDestroy in toDestroyImmediate)
+            {
+                Destroy(toDestroy);
+            }
+            Destroy(gameObject, lifeAfterImpact);
 
         }
     }
