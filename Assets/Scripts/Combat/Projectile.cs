@@ -7,11 +7,14 @@ namespace RPG.Combat
 {
     public class Projectile : MonoBehaviour
     {
-        [SerializeField] float projectileSpeed = 1f;
-        Health projectileTarget = null; // uses RPG.Core
-        float projectileDamage = 0; // no damage from projectile as of now, weapon controls amount
+        [SerializeField] float projectileSpeed = 1f;        
         [SerializeField] bool isHoming;
         [SerializeField] int projectileDwell = 12;
+        // Effects
+        [SerializeField] GameObject impactEffect = null;
+
+        Health projectileTarget = null; // uses RPG.Core
+        float projectileDamage = 0; // no damage from projectile as of now, weapon controls amount
 
         private void Start()
         {
@@ -58,7 +61,12 @@ namespace RPG.Combat
             if (other.GetComponent<Health>() != projectileTarget) return;
             if (projectileTarget.IsDead()) return;    // arrow continues without giving damage or being destroyed       
             projectileTarget.TakeDamage(projectileDamage); // Takedamage method is on Health component of our target
+            if(impactEffect != null)
+            {
+                Instantiate(impactEffect, AimLocation(), transform.rotation);
+            }
             Destroy(gameObject);
+
         }
     }
 }

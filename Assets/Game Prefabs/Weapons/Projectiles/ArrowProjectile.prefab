@@ -46,9 +46,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fce94b4f186314a72b6f6451e9f0c78a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  arrowSpeed: 8
+  projectileSpeed: 1
   isHoming: 1
-  arrowdwell: 12
+  projectileDwell: 12
+  impactEffect: {fileID: 1591955121441336510, guid: 45b7b75e788a340959e3af4757cde12a, type: 3}
 --- !u!65 &2977220994619677437
 BoxCollider:
   m_ObjectHideFlags: 0

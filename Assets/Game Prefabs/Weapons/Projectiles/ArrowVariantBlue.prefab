@@ -71,6 +71,10 @@ PrefabInstance:
       propertyPath: arrowSpeed
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4743514549688843198, guid: 04e56ca0111e04f9d8ce7b4c68ca688d, type: 3}
+      propertyPath: impactEffect
+      value: 
+      objectReference: {fileID: 1591955121441336510, guid: 45b7b75e788a340959e3af4757cde12a, type: 3}
     - target: {fileID: 8522924562755303605, guid: 04e56ca0111e04f9d8ce7b4c68ca688d, type: 3}
       propertyPath: m_Name
       value: ArrowVariantBlue
