@@ -38,19 +38,20 @@ namespace RPG.Combat
                 // otherwise don't create weapon for unarmed case
             }
 
+            // ! Review this 
             var overrideController = animator.runtimeAnimatorController as AnimatorOverrideController;
             if (weaponAnimOverride != null) // If it's already an override..
             {
                 // when spawning weapon, change attack animation to override anim
                 animator.runtimeAnimatorController = weaponAnimOverride;
             }
-            else if (overrideController != null)// ! Review this
-              // returns null if this is the RuntimeAC vv rather than the high level class AnimatorOverrideController              
+            else if (overrideController != null)// ! Review this also
+                                                // returns null if this is the RuntimeAC vv rather than the high level class AnimatorOverrideController              
             {
                 animator.runtimeAnimatorController = overrideController.runtimeAnimatorController;
             }
-            
-                
+
+
         }
 
         private void DestroyOldWeapon(Transform rightHandLook, Transform leftHandLook)

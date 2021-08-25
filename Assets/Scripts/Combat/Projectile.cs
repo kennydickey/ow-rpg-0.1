@@ -57,7 +57,7 @@ namespace RPG.Combat
         {
             if (other.GetComponent<Health>() != projectileTarget) return;
             if (projectileTarget.IsDead()) return;    // arrow continues without giving damage or being destroyed
-                                                      // 
+            
             projectileTarget.TakeDamage(projectileDamage); // Takedamage method is on Health component of our target
             //projectileSpeed = 0; // maybe not needed, for the case where projectiles go through target
 
