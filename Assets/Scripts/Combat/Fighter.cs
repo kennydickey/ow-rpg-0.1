@@ -14,14 +14,15 @@ public class Fighter : MonoBehaviour, Iaction
     [SerializeField] Transform rightHand = null;
     [SerializeField] Transform leftHand = null;
     [SerializeField] Weapon defaultWeaponSO = null; // unity will be looking for our Weapon ScriptableObject
+    [SerializeField] string defaultWeaponName = "UnarmedSO";
+
     Weapon currentWeaponSO = null; // just to initialize as null
-
-
     Health target; // will always be of health type so we don't have to GetComponent
 
     private void Start()
     {
-        EquipWeapon(defaultWeaponSO);
+        Weapon weapon = Resources.Load<Weapon>(defaultWeaponName); // looks for Objects with Weapon in Resources
+        EquipWeapon(weapon); // instead of defaultWeaponSO
 
     }
 

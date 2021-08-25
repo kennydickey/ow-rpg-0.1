@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 74c34f0440556420b9588f0b28dcf49b, type: 3}
-  m_Name: BowSo
+  m_Name: BowSO
   m_EditorClassIdentifier: 
   equipPrefab: {fileID: 3044168978934373331, guid: f5d2889194aa14b8da9b38ef4d1bd97b, type: 3}
   weaponAnimOverride: {fileID: 22100000, guid: 41775fdd5a4494567859e3ef2bc5643c, type: 2}
