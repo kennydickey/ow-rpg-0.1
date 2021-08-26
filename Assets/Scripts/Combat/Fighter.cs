@@ -5,8 +5,9 @@ using RPG.Movement;
 using RPG.Core;
 using RPG.Control;
 using RPG.Combat;
+using RPG.Saving;
 
-public class Fighter : MonoBehaviour, Iaction
+public class Fighter : MonoBehaviour, Iaction, ISaveable
 {
     [SerializeField] float timeSinceAttack = Mathf.Infinity; // to be ready only at start
     [SerializeField] float attackBuffer = 1f; // !Must be set in inspector
@@ -14,15 +15,17 @@ public class Fighter : MonoBehaviour, Iaction
     [SerializeField] Transform rightHand = null;
     [SerializeField] Transform leftHand = null;
     [SerializeField] Weapon defaultWeaponSO = null; // unity will be looking for our Weapon ScriptableObject
-    [SerializeField] string defaultWeaponName = "UnarmedSO";
 
     Weapon currentWeaponSO = null; // just to initialize as null
     Health target; // will always be of health type so we don't have to GetComponent
 
     private void Start()
     {
-        Weapon weapon = Resources.Load<Weapon>(defaultWeaponName); // looks for Objects with Weapon in Resources
-        EquipWeapon(weapon); // instead of defaultWeaponSO
+        if(currentWeaponSO == null) // if saving system has not already equipped a weapon
+        {
+            EquipWeapon(defaultWeaponSO);
+        }
+        EquipWeapon(defaultWeaponSO); // instead of defaultWeaponSO
 
     }
 
@@ -113,7 +116,15 @@ public class Fighter : MonoBehaviour, Iaction
 
     }
 
-    
+    public object CaptureState()
+    {
+        return currentWeaponSO.name;
+    }
 
-   
+    public void RestoreState(object state)
+    {
+        string savedWeaponName = (string)state; //state cast as a string here
+        Weapon savedWeapon = Resources.Load<Weapon>(savedWeaponName); // looks for Objects with Weapon in Resources
+        EquipWeapon(savedWeapon);
+    }
 }
