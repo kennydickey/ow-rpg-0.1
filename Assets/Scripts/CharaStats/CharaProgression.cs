@@ -1,5 +1,3 @@
-using RPG.Core;
-using RPG.Stats;
 using UnityEngine;
 
 namespace RPG.CharaStats
@@ -9,13 +7,13 @@ namespace RPG.CharaStats
     {
         [SerializeField] CharaProgressionClass[] charaClasses = null; // field of class created below
 
-        public int GetHealth(CharaClass charaClass, int level)
+        public int GetHealthFromProg(CharaClass charaClass, int level)
         {
             foreach(CharaProgressionClass charaProgressionClass in charaClasses)
             {
-                if(charaProgressionClass.charaClass == charaClass)
+                if(charaProgressionClass.charaClass == charaClass) // when called, just finding which class
                 {
-                    return charaProgressionClass.health[level - 1];
+                    return charaProgressionClass.health[level - 1]; // returns health amount in correct array slot
                 }
             }
 
@@ -26,7 +24,7 @@ namespace RPG.CharaStats
         [System.Serializable]
         class CharaProgressionClass
         {
-            public CharaClass charaClass;
+            public CharaClass charaClass; // this is our enum which displays itself as a dropdown of classes
             public int[] health; // just an array of ints for now called health
 
         }

@@ -1,4 +1,4 @@
-namespace RPG.Stats
+namespace RPG.CharaStats
 { 
     public enum CharaClass // needs to be publicly available for CharaProgression
     {

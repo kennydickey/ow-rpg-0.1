@@ -12,7 +12,7 @@ namespace RPG.Attributes
 
         private void Start()
         {
-            healthPoints = GetComponent<BaseCharaStats>().GetHealth();    
+            healthPoints = GetComponent<BaseCharaStats>().GetHealth();
         }
 
         public bool IsDead()

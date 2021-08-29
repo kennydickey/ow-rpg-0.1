@@ -205,6 +205,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3278c1228f29c4b4ca276f2565607289, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  charaLevel: 1
+  startCharaLevel: 1
   charaClass: 0
-  charaProgression: {fileID: 11400000, guid: b6e04d4506d3e411d84e589681917ace, type: 2}
+  charaProgSO: {fileID: 11400000, guid: b6e04d4506d3e411d84e589681917ace, type: 2}

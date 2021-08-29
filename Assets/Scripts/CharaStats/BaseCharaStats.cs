@@ -1,4 +1,3 @@
-using RPG.Stats;
 using UnityEngine;
 
 namespace RPG.CharaStats
@@ -12,7 +11,7 @@ namespace RPG.CharaStats
 
         public float GetHealth()
         {
-            return charaProgSO.GetHealth(charaClass, startCharaLevel);
+            return charaProgSO.GetHealthFromProg(charaClass, startCharaLevel);
         }
     }
 }
