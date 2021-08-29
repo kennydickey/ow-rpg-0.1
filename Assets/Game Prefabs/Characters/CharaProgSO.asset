@@ -13,12 +13,9 @@ MonoBehaviour:
   m_Name: CharaProgSO
   m_EditorClassIdentifier: Assembly-CSharp:RPG.CharaStats:CharaProgSO
   charaClasses:
-  - characlass: 0
-    health:
-    - 5
-    - 8
-    - 10
-  - characlass: 1
-    health: []
-  - characlass: 2
-    health: []
+  - charaClass: 0
+    health: 320000005000000064000000
+  - charaClass: 1
+    health: 01000000
+  - charaClass: 2
+    health: 01000000

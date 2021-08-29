@@ -1,9 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using RPG.Movement;
 using RPG.Core;
-using RPG.Control;
+using RPG.Attributes;
 using RPG.Combat;
 using RPG.Saving;
 
@@ -124,7 +122,7 @@ public class Fighter : MonoBehaviour, Iaction, ISaveable
     public void RestoreState(object state)
     {
         string savedWeaponName = (string)state; //state cast as a string here
-        Weapon savedWeapon = Resources.Load<Weapon>(savedWeaponName); // looks for Objects with Weapon in Resources
+        Weapon savedWeapon = UnityEngine.Resources.Load<Weapon>(savedWeaponName); // looks for Objects with Weapon in Resources
         EquipWeapon(savedWeapon);
     }
 }

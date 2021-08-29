@@ -9,11 +9,25 @@ namespace RPG.CharaStats
     {
         [SerializeField] CharaProgressionClass[] charaClasses = null; // field of class created below
 
+        public int GetHealth(CharaClass charaClass, int level)
+        {
+            foreach(CharaProgressionClass charaProgressionClass in charaClasses)
+            {
+                if(charaProgressionClass.charaClass == charaClass)
+                {
+                    return charaProgressionClass.health[level - 1];
+                }
+            }
+
+            return 0;
+
+        }
+
         [System.Serializable]
         class CharaProgressionClass
         {
-            [SerializeField] CharaClass characlass;
-            [SerializeField] float[] health; // just an array of floats for now called health
+            public CharaClass charaClass;
+            public int[] health; // just an array of ints for now called health
 
         }
 

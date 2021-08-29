@@ -1,6 +1,6 @@
 namespace RPG.Stats
 { 
-    enum CharaClass
+    public enum CharaClass // needs to be publicly available for CharaProgression
     {
         Player,
         Grunt,

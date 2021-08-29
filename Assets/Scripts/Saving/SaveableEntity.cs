@@ -1,10 +1,7 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 using UnityEngine.AI;
-using RPG.Core;
-using System;
 
 namespace RPG.Saving
 {
