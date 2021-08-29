@@ -3,9 +3,13 @@ using System.Collections.Generic;
 using RPG.Stats;
 using UnityEngine;
 
-public class BaseCharaStats : MonoBehaviour
+namespace RPG.CharaStats
 {
-    [Range(1,99)]
-    [SerializeField] int charaLevel = 1;
-    [SerializeField] CharaClass charaClass;
+    public class BaseCharaStats : MonoBehaviour
+    {
+        [Range(1,99)]
+        [SerializeField] int charaLevel = 1;
+        [SerializeField] CharaClass charaClass; // our ienum
+        [SerializeField] CharaProgression charaProgSO = null; // our scriptableobject
+    }
 }
