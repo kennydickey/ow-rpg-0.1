@@ -2,6 +2,7 @@
 using RPG.Saving;
 using RPG.CharaStats;
 using RPG.Core;
+using UnityEngine.UI;
 
 namespace RPG.Attributes
 {
@@ -27,6 +28,13 @@ namespace RPG.Attributes
             {
                 Die();
             }
+        }
+
+        public float GetHealthPercentage()
+        {
+            // amount of health in relation to base health, gives us a fraction, 100 x gives us percent
+            return 100 * (healthPoints / GetComponent<BaseCharaStats>().GetHealth());
+            
         }
 
         private void Die()
