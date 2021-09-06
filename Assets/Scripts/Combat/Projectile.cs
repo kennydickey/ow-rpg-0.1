@@ -15,6 +15,7 @@ namespace RPG.Combat
 
         Health projectileTarget = null; // uses RPG.Core
         float projectileDamage = 0; // no damage from projectile as of now, weapon controls amount
+        GameObject projectileInstigator = null;
 
         private void Start()
         {
@@ -34,11 +35,12 @@ namespace RPG.Combat
             transform.Translate(Vector3.forward * projectileSpeed * Time.deltaTime);
         }
 
-
-        public void SetTarget(Health target, float damage)
+        // Instigator -4- SetTarget() is called in Weapon.cs which has the value of instigator, which is the Fighter that attacked
+        public void SetTarget(Health target, GameObject instigator, float damage)
         {   
             this.projectileTarget = target; // assigns whatever we specify when calling to this.projectileTarget
             this.projectileDamage = damage; // damage input coming from weapon when SetTarget is called there
+            this.projectileInstigator = instigator;
         }
 
         private Vector3 AimLocation()
@@ -55,8 +57,9 @@ namespace RPG.Combat
         {
             if (other.GetComponent<Health>() != projectileTarget) return;
             if (projectileTarget.IsDead()) return;    // arrow continues without giving damage or being destroyed
-            
-            projectileTarget.TakeDamage(projectileDamage); // Takedamage method is on Health component of our target
+
+            // // Instigator -5- takes damage from whichever Fighter.cs did LaunchProjectile
+            projectileTarget.TakeDamage(projectileInstigator, projectileDamage); // Takedamage method is on Health component of our target
             //projectileSpeed = 0; // maybe not needed, for the case where projectiles go through target
 
             if (impactEffect != null)

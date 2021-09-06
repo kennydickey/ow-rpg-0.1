@@ -45,6 +45,11 @@ public class Fighter : MonoBehaviour, Iaction, ISaveable
         }
     }
 
+    public Health GetTarget()
+    {
+        return target;
+    }
+
     private void AttackBehaviour()
     {
         if (timeSinceAttack > attackBuffer)
@@ -64,11 +69,12 @@ public class Fighter : MonoBehaviour, Iaction, ISaveable
         if (target == null) return;
         if (currentWeaponSO.HasProjectile())
         {
-            currentWeaponSO.LaunchProjectile(rightHand, leftHand, target);
+            // // Instigator -1- our fighter gameObject is the instigator who attacked, so starts here
+            currentWeaponSO.LaunchProjectile(rightHand, leftHand, target, gameObject);
         }
         else
-        {
-            target.TakeDamage(currentWeaponSO.GetDamage());
+        {       
+            target.TakeDamage(this.gameObject, currentWeaponSO.GetDamage());
         }
 
     }

@@ -13,5 +13,10 @@ namespace RPG.CharaStats
         {
             return charaProgSO.GetHealthFromProg(charaClass, startCharaLevel);
         }
+
+        public float GetExperienceReward()
+        {
+            return 10;
+        }
     }
 }

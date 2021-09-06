@@ -19,3 +19,5 @@ MonoBehaviour:
     health: 01000000
   - charaClass: 2
     health: 01000000
+  - charaClass: 3
+    health: 1e000000

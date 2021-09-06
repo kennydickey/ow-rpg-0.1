@@ -71,17 +71,19 @@ namespace RPG.Combat
             return projectile != null;
         }
 
-        public void LaunchProjectile(Transform rightHandTr, Transform leftHandTr, Health target)
+                                // Instigator -2- gameObject from fighter who attacked then becomes the value of vv
+        public void LaunchProjectile(Transform rightHandTr, Transform leftHandTr, Health target, GameObject instigator)
         {
             if (isRightHanded)
             {
                 Projectile projectileInstance = Instantiate(projectile, rightHandTr.position, Quaternion.identity);
-                projectileInstance.SetTarget(target, weaponDamage);
+            // Instigator -3- Which then is the value of vv
+                projectileInstance.SetTarget(target, instigator, weaponDamage); // instigator set here
             }
             else
             {
                 Projectile projectileInstance = Instantiate(projectile, leftHandTr.position, Quaternion.identity);
-                projectileInstance.SetTarget(target, weaponDamage);
+                projectileInstance.SetTarget(target, instigator, weaponDamage);
             }
             
         }
