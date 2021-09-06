@@ -29,7 +29,7 @@ namespace RPG.Attributes
             if (healthPoints == 0 && isDead == false)
             {
                 Die();
-                AwardExperience(instigator); // will reward instigator(Fighter.cs) who attacked
+                AwardExperience(instigator); // will reward instigator(Fighter.cs) who attacked after Die()
             }
         }       
 

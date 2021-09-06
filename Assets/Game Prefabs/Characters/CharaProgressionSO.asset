@@ -10,14 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ec39a006c265a440ba9bd0440eeff72a, type: 3}
-  m_Name: CharaProgSO
-  m_EditorClassIdentifier: Assembly-CSharp:RPG.CharaStats:CharaProgSO
+  m_Name: CharaProgressionSO
+  m_EditorClassIdentifier: 
   charaClasses:
   - charaClass: 0
-    health: 320000005000000064000000
+    stats:
+      levels: []
   - charaClass: 1
-    health: 01000000
+    stats:
+      levels: []
   - charaClass: 2
-    health: 01000000
+    stats:
+      levels: []
   - charaClass: 3
-    health: 1e000000
+    stats:
+      levels: []
