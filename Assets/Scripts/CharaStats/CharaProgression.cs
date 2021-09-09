@@ -8,12 +8,18 @@ namespace RPG.CharaStats
     {
         [SerializeField] CharaProgressionClass[] charaClasses = null; // field of class created below
 
-        public int GetHealthFromProg(CharaClass charaClass, int level)
+        public float GetNewStatFromProg(UpCharaStats stat, CharaClass charaClass, int level)
         {
             foreach(CharaProgressionClass charaProgressionClass in charaClasses)
             {
-                if(charaProgressionClass.charaClass == charaClass) // when called, just finding which class
+                if (charaProgressionClass.charaClass != charaClass) continue;// not what we're looking for, continue foreach
+
+                foreach(Multistat multistat in charaProgressionClass.stats) // nested foreach
                 {
+                    if (multistat.newStat != stat) continue;
+                    if (multistat.levels.Length < level) continue;
+
+                    return multistat.levels[level - 1];
                     //return charaProgressionClass.health[level - 1]; // returns health amount in correct array slot
                 }
             }
@@ -26,7 +32,7 @@ namespace RPG.CharaStats
         class CharaProgressionClass
         {
             public CharaClass charaClass; // this is our enum which displays itself as a dropdown of classes
-            public Multistat stats;
+            public Multistat[] stats; // temp ProgressionStat[] stats
 
             //public int[] health; // just an array of ints for now called health
 
@@ -35,7 +41,7 @@ namespace RPG.CharaStats
         [System.Serializable]
         class Multistat
         {
-            NewCharaStat newStat; // we will define whether this is health, exp points, etc
+            public UpCharaStats newStat; // we will define whether this is health, exp points, etc // temp Stat stat
             public float[] levels;
         }
        

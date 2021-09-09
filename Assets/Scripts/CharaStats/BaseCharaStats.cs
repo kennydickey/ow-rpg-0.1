@@ -9,14 +9,9 @@ namespace RPG.CharaStats
         [SerializeField] CharaClass charaClass; // our ienum
         [SerializeField] CharaProgression charaProgSO = null; // our scriptableobject
 
-        public float GetHealth()
+        public float GetStatFromProg(UpCharaStats stat)// whatever user inputs when calling is the stat they will recieve
         {
-            return charaProgSO.GetHealthFromProg(charaClass, startCharaLevel);
-        }
-
-        public float GetExperienceReward()
-        {
-            return 10;
+            return charaProgSO.GetNewStatFromProg(stat, charaClass, startCharaLevel);
         }
     }
 }

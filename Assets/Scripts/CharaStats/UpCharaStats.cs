@@ -1,6 +1,6 @@
 namespace RPG.CharaStats
 {
-    enum NewCharaStat
+    public enum UpCharaStats
     {
         Health,
         ExperienceReward

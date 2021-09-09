@@ -15,13 +15,26 @@ MonoBehaviour:
   charaClasses:
   - charaClass: 0
     stats:
-      levels: []
+    - newStat: 0
+      levels:
+      - 50
   - charaClass: 1
     stats:
-      levels: []
+    - newStat: 0
+      levels:
+      - 30
+    - newStat: 1
+      levels:
+      - 20
   - charaClass: 2
     stats:
+    - newStat: 0
       levels: []
   - charaClass: 3
     stats:
-      levels: []
+    - newStat: 0
+      levels:
+      - 30
+    - newStat: 1
+      levels:
+      - 20

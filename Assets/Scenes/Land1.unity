@@ -130,10 +130,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1131018298}
     m_Modifications:
-    - target: {fileID: 1219925597471019250, guid: 1ebad0450d52d4bf0ac26375513795dd, type: 3}
-      propertyPath: uniqueIdentifier
-      value: 211e7a75-cc8c-4e72-9c48-95861e462b81
-      objectReference: {fileID: 0}
     - target: {fileID: 6545893119733049302, guid: 1ebad0450d52d4bf0ac26375513795dd, type: 3}
       propertyPath: m_RootOrder
       value: 4
@@ -1131,10 +1127,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1708102097211133658, guid: 8c91a72b0de6a4f3d8fe0c6bfbd2f8e4, type: 3}
-      propertyPath: charaProgSO
-      value: 
-      objectReference: {fileID: 11400000, guid: b6e04d4506d3e411d84e589681917ace, type: 2}
     - target: {fileID: 3435352245170234097, guid: 8c91a72b0de6a4f3d8fe0c6bfbd2f8e4, type: 3}
       propertyPath: patrolPath
       value: 
@@ -1142,10 +1134,6 @@ PrefabInstance:
     - target: {fileID: 4058284212432643838, guid: 8c91a72b0de6a4f3d8fe0c6bfbd2f8e4, type: 3}
       propertyPath: m_Name
       value: Enemy
-      objectReference: {fileID: 0}
-    - target: {fileID: 4914296803727205321, guid: 8c91a72b0de6a4f3d8fe0c6bfbd2f8e4, type: 3}
-      propertyPath: uniqueIdentifier
-      value: 4768184c-2ca3-455d-86df-521213d4c718
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8c91a72b0de6a4f3d8fe0c6bfbd2f8e4, type: 3}
@@ -3213,7 +3201,7 @@ PrefabInstance:
     - target: {fileID: 6353838093753374103, guid: e4022cc8dcfab4023b92c1f1df76cb73, type: 3}
       propertyPath: charaProgSO
       value: 
-      objectReference: {fileID: 11400000, guid: b6e04d4506d3e411d84e589681917ace, type: 2}
+      objectReference: {fileID: 11400000, guid: 79584519055a749c292ecd907c7f805f, type: 2}
     - target: {fileID: 8305287458096342379, guid: e4022cc8dcfab4023b92c1f1df76cb73, type: 3}
       propertyPath: m_IsActive
       value: 1
