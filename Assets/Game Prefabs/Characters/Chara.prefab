@@ -20,7 +20,7 @@ GameObject:
   - component: {fileID: 1921985497549717534}
   m_Layer: 0
   m_Name: Chara
-  m_TagString: Player
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -207,4 +207,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startCharaLevel: 1
   charaClass: 0
-  charaProgSO: {fileID: 11400000, guid: b6e04d4506d3e411d84e589681917ace, type: 2}
+  charaProgSO: {fileID: 0}
