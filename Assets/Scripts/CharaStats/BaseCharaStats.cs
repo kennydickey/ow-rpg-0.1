@@ -9,14 +9,6 @@ namespace RPG.CharaStats
         [SerializeField] CharaClass charaClass; // our ienum
         [SerializeField] CharaProgression charaProgSO = null; // our scriptableobject
 
-        private void Update()
-        {
-            if (gameObject.tag == "Player")
-            {
-                print(GetLevel());
-            }
-        }
-
         public float GetStatFromProg(UpCharaStats stat)// whatever user inputs when calling is the stat they will recieve
         {
             return charaProgSO.GetNewStatFromProg(charaClass, stat, GetLevel());
