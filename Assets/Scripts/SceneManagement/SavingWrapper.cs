@@ -39,6 +39,10 @@ namespace RPG.SceneManagement
             {
                 Load();
             }
+            if (Input.GetKeyDown(KeyCode.Delete)) // actual delete key
+            {
+                Delete(); // must be in play mode to delete
+            }
         }
 
         public void Save() // made this it's own method and public so it can be called from other scripts
@@ -50,6 +54,12 @@ namespace RPG.SceneManagement
         public void Load() // made this it's own method and public so it can be called from other scripts
         {
             GetComponent<SavingSystem>().Load(defaultSaveFile);
+        }
+
+        public void Delete()
+        {
+            GetComponent<SavingSystem>().Delete(defaultSaveFile);
+
         }
     }
   

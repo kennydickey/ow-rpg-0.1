@@ -2,19 +2,20 @@
 using RPG.Saving;
 using RPG.CharaStats;
 using RPG.Core;
-using UnityEngine.UI;
-using System;
 
 namespace RPG.Attributes
 {
     public class Health : MonoBehaviour, ISaveable
     {
-        [SerializeField] float healthPoints = 100f;
+        float healthPoints = -1f; // just the value uninitialized
         public bool isDead = false;
 
         private void Start()
         {
-            healthPoints = GetComponent<BaseCharaStats>().GetStatFromProg(UpCharaStats.Health);
+            if(healthPoints < 0)
+            {
+                healthPoints = GetComponent<BaseCharaStats>().GetStatFromProg(UpCharaStats.Health);
+            }
         }
 
         public bool IsDead()
