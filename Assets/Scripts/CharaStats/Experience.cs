@@ -5,7 +5,7 @@ using RPG.CharaStats;
 using RPG.Saving;
 using UnityEngine;
 
-namespace RPG.Attributes
+namespace RPG.CharaStats
 {
     // Script for the Player. Not using for enemies right now
     public class Experience : MonoBehaviour, ISaveable

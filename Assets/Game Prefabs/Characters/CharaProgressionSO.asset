@@ -18,6 +18,13 @@ MonoBehaviour:
     - newStat: 0
       levels:
       - 50
+    - newStat: 1
+      levels:
+      - 5
+      - 10
+      - 20
+      - 30
+      - 40
   - charaClass: 1
     stats:
     - newStat: 0

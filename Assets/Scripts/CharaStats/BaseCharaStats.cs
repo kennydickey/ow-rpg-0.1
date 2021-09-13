@@ -11,7 +11,13 @@ namespace RPG.CharaStats
 
         public float GetStatFromProg(UpCharaStats stat)// whatever user inputs when calling is the stat they will recieve
         {
-            return charaProgSO.GetNewStatFromProg(stat, charaClass, startCharaLevel);
+            return charaProgSO.GetNewStatFromProg(charaClass, stat, startCharaLevel);
         }
+
+        //public int GetLevel()
+        //{
+        //    float currentXp =  GetComponent<Experience>().GetExp();
+        //    foreach()
+        //}
     }
 }
