@@ -18,7 +18,7 @@ MonoBehaviour:
     - newStat: 0
       levels:
       - 50
-    - newStat: 1
+    - newStat: 2
       levels:
       - 5
       - 10

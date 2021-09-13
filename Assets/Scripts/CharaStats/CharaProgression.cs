@@ -39,7 +39,12 @@ namespace RPG.CharaStats
             //return 0;
         }
 
-        //public int ge
+        public int GetLevels(CharaClass charaClass, UpCharaStats stat)
+        {
+            BuildLookup(); // make sure lookup has been built first
+            float[] levels = lookupTable[charaClass][stat]; // get the values of charaClass and stat, then..
+            return levels.Length; // return the length of that array
+        }
 
         private void BuildLookup()
         {
