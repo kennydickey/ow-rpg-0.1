@@ -9,12 +9,44 @@ namespace RPG.CharaStats
         [SerializeField] CharaClass charaClass; // our ienum
         [SerializeField] CharaProgression charaProgSO = null; // our scriptableobject
 
+        int currentLevel = 0; // invalid here, must initialize afterward
+
+        private void Start()
+        {
+            currentLevel = CalculateLevel();
+            Experience experience = GetComponent<Experience>();
+            if(experience != null)
+            {
+                // when onExperienceGained is called in Experience script, UpdateLevel will execute as it is subscribed v
+                experience.onExperienceGained += UpdateLevel;
+            }
+        }
+
+        private void UpdateLevel()
+        {
+            int newLevel = CalculateLevel();
+            if(newLevel > currentLevel) // may need to tweak logic if it's decided that levels can go down also
+            {
+                currentLevel = newLevel; // updating currentLevel to reflect new
+                print("levelled up");
+            }
+        }
+
         public float GetStatFromProg(UpCharaStats stat)// whatever user inputs when calling is the stat they will recieve
         {
             return charaProgSO.GetNewStatFromProg(charaClass, stat, GetLevel());
         }
 
         public int GetLevel()
+        {
+            if(currentLevel < 1) // since 0 is not a valid num here
+            {
+                currentLevel = CalculateLevel(); // ensures our currentLevel is cached and ready
+            }
+            return currentLevel;
+        }
+
+        public int CalculateLevel()
         {
             Experience experience = GetComponent<Experience>();
             if (experience == null) return startCharaLevel; // for enemies mostly, just exits function

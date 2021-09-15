@@ -20,6 +20,7 @@ namespace RPG.Saving
 
                 if (buildIndex != SceneManager.GetActiveScene().buildIndex) // if last is not current scene, load last scene
                 {
+                    // LoadSceneAsync runs after Awakes(), but before any Start()s
                     yield return SceneManager.LoadSceneAsync(buildIndex); // wait and then load last scene                                                                     
                 }
             }

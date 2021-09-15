@@ -12,9 +12,15 @@ namespace RPG.CharaStats
     {
         [SerializeField] float experiencePoints = 0;
 
+        //public delegate void ExperienceGainedDelegate(); // our delegte class
+        //public event ExperienceGainedDelegate onExperienceGained; // new instance of our delegate
+        // or..
+        public event Action onExperienceGained; // called Action which is predefined instead of ExperienceGainedDelegate
+
         public void GainExperience(float addExperience) // called in Health.cs
         {
             experiencePoints += addExperience;
+            onExperienceGained(); // will call everything in our delegate list
         }
 
         public object CaptureState()
