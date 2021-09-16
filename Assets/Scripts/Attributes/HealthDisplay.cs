@@ -17,7 +17,7 @@ namespace RPG.Attributes
         private void Update()
         {
             // second param, if we want decimal places will be 0.0, or 0.00 etc
-            GetComponent<Text>().text = string.Format("{0:0}%", health.GetHealthPercentage());
+            GetComponent<Text>().text = string.Format("{0:0}/{1:0}", health.GetHealthPoints(), health.GetMaxHealthPoints());
         }
     }
 }

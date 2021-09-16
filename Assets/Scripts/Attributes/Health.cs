@@ -39,13 +39,25 @@ namespace RPG.Attributes
         // Instigator -6- ? more passing in, ugh
         public void TakeDamage(GameObject instigator, float damage)
         {
+            print(gameObject.name + "took damage" + damage);
+
             healthPoints = Mathf.Max(healthPoints - damage, 0);
             if (healthPoints == 0 && isDead == false)
             {
                 Die();
                 AwardExperience(instigator); // will reward instigator(Fighter.cs) who attacked after Die()
             }
-        }       
+        }
+
+        public float GetHealthPoints()
+        {
+            return healthPoints;
+        }
+
+        public float GetMaxHealthPoints()
+        {
+            return GetComponent<BaseCharaStats>().GetStatFromProg(UpCharaStats.Health);
+        }
 
         public float GetHealthPercentage()
         {

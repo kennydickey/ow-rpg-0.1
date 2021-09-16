@@ -3,6 +3,7 @@ using RPG.Attributes;
 
 namespace RPG.Combat
 {
+    // This allows us to create our weapon SO's and is part of each SO created
     [CreateAssetMenu(fileName = "Weapon", menuName = "MakeWeapon/NewWeapon", order = 0)]
     public class Weapon : ScriptableObject
     {
@@ -72,18 +73,18 @@ namespace RPG.Combat
         }
 
                                 // Instigator -2- gameObject from fighter who attacked then becomes the value of vv
-        public void LaunchProjectile(Transform rightHandTr, Transform leftHandTr, Health target, GameObject instigator)
+        public void LaunchProjectile(Transform rightHandTr, Transform leftHandTr, Health target, GameObject instigator, float calculatedDamage)
         {
             if (isRightHanded)
             {
                 Projectile projectileInstance = Instantiate(projectile, rightHandTr.position, Quaternion.identity);
             // Instigator -3- Which then is the value of vv
-                projectileInstance.SetTarget(target, instigator, weaponDamage); // instigator set here
+                projectileInstance.SetTarget(target, instigator, calculatedDamage); // instigator set here
             }
             else
             {
                 Projectile projectileInstance = Instantiate(projectile, leftHandTr.position, Quaternion.identity);
-                projectileInstance.SetTarget(target, instigator, weaponDamage);
+                projectileInstance.SetTarget(target, instigator, calculatedDamage); // previously weaponDamage
             }
             
         }

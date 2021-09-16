@@ -23,7 +23,7 @@ namespace RPG.Combat
             }
             Health health = fighter.GetTarget(); // this will be the Health component on the player's target
             // second param, if we want decimal places will be 0.0, or 0.00 etc
-            GetComponent<Text>().text = string.Format("{0:0}%", health.GetHealthPercentage());
+            GetComponent<Text>().text = string.Format("{0:0}/{1:0}", health.GetHealthPoints(), health.GetMaxHealthPoints());
         }
     }
 }

@@ -4,6 +4,7 @@ using RPG.Core;
 using RPG.Attributes;
 using RPG.Combat;
 using RPG.Saving;
+using RPG.CharaStats;
 
 public class Fighter : MonoBehaviour, Iaction, ISaveable
 {
@@ -67,14 +68,15 @@ public class Fighter : MonoBehaviour, Iaction, ISaveable
     void Hit()
     {
         if (target == null) return;
+        float damage = GetComponent<BaseCharaStats>().GetStatFromProg(UpCharaStats.Damage);
         if (currentWeaponSO.HasProjectile())
         {
             // // Instigator -1- our fighter gameObject is the instigator who attacked, so starts here
-            currentWeaponSO.LaunchProjectile(rightHand, leftHand, target, gameObject);
+            currentWeaponSO.LaunchProjectile(rightHand, leftHand, target, gameObject, damage);
         }
         else
-        {       
-            target.TakeDamage(this.gameObject, currentWeaponSO.GetDamage());
+        {
+            target.TakeDamage(this.gameObject, damage);//<- create
         }
 
     }
