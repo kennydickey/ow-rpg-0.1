@@ -2534,6 +2534,10 @@ PrefabInstance:
       propertyPath: charaProgSO
       value: 
       objectReference: {fileID: 11400000, guid: 79584519055a749c292ecd907c7f805f, type: 2}
+    - target: {fileID: 1921985497549717534, guid: 3483bd755b4a34160b515adee151ad52, type: 3}
+      propertyPath: lvUpParticle
+      value: 
+      objectReference: {fileID: 1770094935522392, guid: 7098bdbdcde165049872f566c6a00e5f, type: 3}
     - target: {fileID: 3839826190888495162, guid: 3483bd755b4a34160b515adee151ad52, type: 3}
       propertyPath: m_Name
       value: Player

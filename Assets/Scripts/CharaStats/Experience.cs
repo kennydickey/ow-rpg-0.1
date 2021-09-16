@@ -20,7 +20,7 @@ namespace RPG.CharaStats
         public void GainExperience(float addExperience) // called in Health.cs
         {
             experiencePoints += addExperience;
-            onExperienceGained(); // will call everything in our delegate list
+            onExperienceGained(); // will call everything in our delegate list when GainExperience() is called
         }
 
         public object CaptureState()

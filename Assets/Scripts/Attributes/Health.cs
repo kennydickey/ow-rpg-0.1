@@ -2,20 +2,33 @@
 using RPG.Saving;
 using RPG.CharaStats;
 using RPG.Core;
+using System;
 
 namespace RPG.Attributes
 {
     public class Health : MonoBehaviour, ISaveable
     {
+        [SerializeField] float regenPercentage = 70;
+
         float healthPoints = -1f; // just the value uninitialized
         public bool isDead = false;
 
         private void Start()
         {
-            if(healthPoints < 0)
+            BaseCharaStats baseCharaStats = GetComponent<BaseCharaStats>();
+            baseCharaStats.onLevelUp += RegenHealth;
+
+            if (healthPoints < 0)
             {
                 healthPoints = GetComponent<BaseCharaStats>().GetStatFromProg(UpCharaStats.Health);
-            }
+            }         
+        }
+
+        private void RegenHealth()
+        {
+            // gets the value that we set for initial health in our CharaProgSo, times a percent
+            float regenPoints = GetComponent<BaseCharaStats>().GetStatFromProg(UpCharaStats.Health) * (regenPercentage / 100);
+            healthPoints = Mathf.Max(healthPoints, regenPoints); // returns larger of the two
         }
 
         public bool IsDead()

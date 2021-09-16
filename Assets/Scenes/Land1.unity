@@ -1661,6 +1661,7 @@ MonoBehaviour:
   startCharaLevel: 1
   charaClass: 0
   charaProgSO: {fileID: 11400000, guid: 79584519055a749c292ecd907c7f805f, type: 2}
+  lvUpParticle: {fileID: 0}
 --- !u!4 &1421463562 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1011816940966597869, guid: 8c91a72b0de6a4f3d8fe0c6bfbd2f8e4, type: 3}
@@ -3101,6 +3102,10 @@ PrefabInstance:
     - target: {fileID: 3934962072965765930, guid: e4022cc8dcfab4023b92c1f1df76cb73, type: 3}
       propertyPath: healthDisplay
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3934962072965765930, guid: e4022cc8dcfab4023b92c1f1df76cb73, type: 3}
+      propertyPath: regenPercentage
+      value: 70
       objectReference: {fileID: 0}
     - target: {fileID: 4436766137487073362, guid: e4022cc8dcfab4023b92c1f1df76cb73, type: 3}
       propertyPath: m_RootOrder

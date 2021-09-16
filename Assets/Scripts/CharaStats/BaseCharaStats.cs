@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace RPG.CharaStats
@@ -8,8 +9,11 @@ namespace RPG.CharaStats
         [SerializeField] int startCharaLevel = 1;
         [SerializeField] CharaClass charaClass; // our ienum
         [SerializeField] CharaProgression charaProgSO = null; // our scriptableobject
+        [SerializeField] GameObject lvUpParticle = null;
 
         int currentLevel = 0; // invalid here, must initialize afterward
+
+        public event Action onLevelUp; //new
 
         private void Start()
         {
@@ -22,14 +26,20 @@ namespace RPG.CharaStats
             }
         }
 
-        private void UpdateLevel()
+        private void UpdateLevel() // bug in here somewhere
         {
             int newLevel = CalculateLevel();
             if(newLevel > currentLevel) // may need to tweak logic if it's decided that levels can go down also
             {
                 currentLevel = newLevel; // updating currentLevel to reflect new
-                print("levelled up");
-            }
+                LvUpEffect();
+                onLevelUp();
+            }           
+        }
+
+        private void LvUpEffect()
+        {
+            Instantiate(lvUpParticle, transform); // calls for transform of the parent fyi
         }
 
         public float GetStatFromProg(UpCharaStats stat)// whatever user inputs when calling is the stat they will recieve
