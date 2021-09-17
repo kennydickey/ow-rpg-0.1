@@ -5,8 +5,9 @@ using RPG.Attributes;
 using RPG.Combat;
 using RPG.Saving;
 using RPG.CharaStats;
+using System.Collections.Generic;
 
-public class Fighter : MonoBehaviour, Iaction, ISaveable
+public class Fighter : MonoBehaviour, Iaction, ISaveable, IModifierProvider
 {
     [SerializeField] float timeSinceAttack = Mathf.Infinity; // to be ready only at start
     [SerializeField] float attackBuffer = 1f; // !Must be set in inspector
@@ -110,8 +111,16 @@ public class Fighter : MonoBehaviour, Iaction, ISaveable
         GetComponent<Animator>().ResetTrigger("attack"); //prevent trigger bug
         GetComponent<Animator>().SetTrigger("stopAttack");
         target = null;
-        GetComponent<Mover>().Cancel(); // also cancel movement
-        
+        GetComponent<Mover>().Cancel(); // also cancel movement        
+    }
+
+    public IEnumerable<float> GetAdditiveModI(UpCharaStats stat)
+    {
+        if(stat == UpCharaStats.Damage) // if stat in question is Damage stat..
+        {
+            yield return currentWeaponSO.GetDamage(); // additive modifier on top of base damage
+            // can have multiple yield returns for future reference
+        }
     }
 
     public void EquipWeapon(Weapon weapon)
@@ -133,4 +142,5 @@ public class Fighter : MonoBehaviour, Iaction, ISaveable
         Weapon savedWeapon = UnityEngine.Resources.Load<Weapon>(savedWeaponName); // looks for Objects with Weapon in Resources
         EquipWeapon(savedWeapon);
     }
+
 }

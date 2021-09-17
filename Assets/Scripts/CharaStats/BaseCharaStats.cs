@@ -44,8 +44,8 @@ namespace RPG.CharaStats
 
         public float GetStatFromProg(UpCharaStats stat)// whatever user inputs when calling is the stat they will recieve
         {
-            return charaProgSO.GetNewStatFromProg(charaClass, stat, GetLevel());
-        }
+            return charaProgSO.GetNewStatFromProg(charaClass, stat, GetLevel()) + GetAdditiveMod(stat); // just float + float
+        }       
 
         public int GetLevel()
         {
@@ -56,7 +56,20 @@ namespace RPG.CharaStats
             return currentLevel;
         }
 
-        public int CalculateLevel()
+        private float GetAdditiveMod(UpCharaStats stat) // stat will be whatever we pass in when calling this method
+        {
+            float total = 0; // total of all of our modifiers
+            foreach (IModifierProvider provider in GetComponents<IModifierProvider>()) // in multiple ImodifierProviders
+            {
+                foreach (float modifierCount in provider.GetAdditiveModI(stat))
+                {
+                    total += modifierCount; // adding a whatever float value of whatever float modifier is to total
+                }
+            }
+            return total; // returns 0 if no modifiers found
+        }
+
+        private int CalculateLevel()
         {
             Experience experience = GetComponent<Experience>();
             if (experience == null) return startCharaLevel; // for enemies mostly, just exits function
