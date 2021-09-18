@@ -10,6 +10,7 @@ namespace RPG.CharaStats
         [SerializeField] CharaClass charaClass; // our ienum
         [SerializeField] CharaProgression charaProgSO = null; // our scriptableobject
         [SerializeField] GameObject lvUpParticle = null;
+        [SerializeField] bool shouldUseModifiers = false;
 
         int currentLevel = 0; // invalid here, must initialize afterward
 
@@ -44,8 +45,14 @@ namespace RPG.CharaStats
 
         public float GetStatFromProg(UpCharaStats stat)// whatever user inputs when calling is the stat they will recieve
         {
-            return charaProgSO.GetNewStatFromProg(charaClass, stat, GetLevel()) + GetAdditiveMod(stat); // just float + float
+            // just float + float                                       ..then make into 1.whatever percentage
+            return (GetBaseStatFromProg(stat) + GetAdditiveMod(stat)) * (1 + GetPercentageMod(stat)/100);
         }       
+
+        private float GetBaseStatFromProg(UpCharaStats stat)
+        {
+            return charaProgSO.GetNewStatFromProg(charaClass, stat, GetLevel());
+        }
 
         public int GetLevel()
         {
@@ -58,10 +65,27 @@ namespace RPG.CharaStats
 
         private float GetAdditiveMod(UpCharaStats stat) // stat will be whatever we pass in when calling this method
         {
+            if (!shouldUseModifiers) return 0; // for our enemies that shouldn't, player has this ticked
+
             float total = 0; // total of all of our modifiers
             foreach (IModifierProvider provider in GetComponents<IModifierProvider>()) // in multiple ImodifierProviders
             {
-                foreach (float modifierCount in provider.GetAdditiveModI(stat))
+                foreach (float modifierCount in provider.GetAdditiveModsI(stat))
+                {
+                    total += modifierCount; // adding a whatever float value of whatever float modifier is to total
+                }
+            }
+            return total; // returns 0 if no modifiers found
+        }
+
+        private float GetPercentageMod(UpCharaStats stat) // used above in GetStatFromProg
+        {
+            if (!shouldUseModifiers) return 0;
+
+            float total = 0; // total of all of our modifiers
+            foreach (IModifierProvider provider in GetComponents<IModifierProvider>()) // in multiple ImodifierProviders
+            {
+                foreach (float modifierCount in provider.GetPercentageModsI(stat))
                 {
                     total += modifierCount; // adding a whatever float value of whatever float modifier is to total
                 }

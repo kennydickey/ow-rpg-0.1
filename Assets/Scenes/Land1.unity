@@ -1662,6 +1662,7 @@ MonoBehaviour:
   charaClass: 0
   charaProgSO: {fileID: 11400000, guid: 79584519055a749c292ecd907c7f805f, type: 2}
   lvUpParticle: {fileID: 0}
+  shouldUseModifiers: 0
 --- !u!4 &1421463562 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1011816940966597869, guid: 8c91a72b0de6a4f3d8fe0c6bfbd2f8e4, type: 3}
@@ -3227,6 +3228,10 @@ PrefabInstance:
       propertyPath: charaProgSO
       value: 
       objectReference: {fileID: 11400000, guid: 79584519055a749c292ecd907c7f805f, type: 2}
+    - target: {fileID: 6353838093753374103, guid: e4022cc8dcfab4023b92c1f1df76cb73, type: 3}
+      propertyPath: shouldUseModifiers
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8305287458096342379, guid: e4022cc8dcfab4023b92c1f1df76cb73, type: 3}
       propertyPath: m_IsActive
       value: 1

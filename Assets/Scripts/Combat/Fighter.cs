@@ -114,12 +114,21 @@ public class Fighter : MonoBehaviour, Iaction, ISaveable, IModifierProvider
         GetComponent<Mover>().Cancel(); // also cancel movement        
     }
 
-    public IEnumerable<float> GetAdditiveModI(UpCharaStats stat)
+    public IEnumerable<float> GetAdditiveModsI(UpCharaStats stat)
     {
         if(stat == UpCharaStats.Damage) // if stat in question is Damage stat..
         {
             yield return currentWeaponSO.GetDamage(); // additive modifier on top of base damage
             // can have multiple yield returns for future reference
+        }
+    }
+
+    public IEnumerable<float> GetPercentageModsI(UpCharaStats stat) // for use in BaseCharaStats
+    {
+        if (stat == UpCharaStats.Damage)
+        {
+            yield return currentWeaponSO.GetWeaponPercentageBonus();
+
         }
     }
 
