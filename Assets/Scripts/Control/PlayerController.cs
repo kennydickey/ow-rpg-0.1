@@ -1,12 +1,30 @@
 using UnityEngine;
 using RPG.Movement;
 using RPG.Attributes;
+using System;
 
 namespace RPG.Control
 {
     public class PlayerController : MonoBehaviour
     {
         Health health;
+
+        enum CursorType
+        {
+            None,
+            Movement,
+            Combat
+        }
+
+        [System.Serializable]
+        struct CursorMapping
+        {
+            public CursorType type; // our enum displayed to inspector
+            public Texture2D texture;
+            public Vector2 hotspot;
+        }
+
+        [SerializeField] CursorMapping[] cursorMappings = null;
 
         private void Awake()
         {
@@ -17,8 +35,9 @@ namespace RPG.Control
         {
             if (health.IsDead()) return;
             if (InteractWithCombat()) return; // actually calls each method I think
-            if(InteractWithMovement()) return;
-            //print("edge of world"); 
+            if (InteractWithMovement()) return;
+            //print("edge of world");
+            SetCursor(CursorType.None); // from our enum
         }
 
         private bool InteractWithCombat() // just making a bool for if statement above
@@ -37,12 +56,13 @@ namespace RPG.Control
                     {
                         GetComponent<Fighter>().Attack(target.gameObject);
                     }
+                SetCursor(CursorType.Combat); // from our enum
                     return true;
                 }
             
             return false; // no combat targets
 
-        }
+        }       
 
         private bool InteractWithMovement()
         {
@@ -55,6 +75,7 @@ namespace RPG.Control
                 {
                     GetComponent<Mover>().StartMoveAction(hit.point, 1f); // 1f is full speed                
                 }
+                SetCursor(CursorType.Movement); // from our enum
                 return true;
             }
             //if() //if something happens move player to a fixed target
@@ -62,6 +83,24 @@ namespace RPG.Control
             //    GetComponent<NavMeshAgent>().destination = target.position;
             //}
             return false;
+        }
+
+        private void SetCursor(CursorType type)
+        {
+            CursorMapping mapping = GetCursorMapping(type);
+            Cursor.SetCursor(mapping.texture, mapping.hotspot, CursorMode.Auto); // SetCursor is a unity function, hotspot is location of the cursor basically
+        }
+
+        private CursorMapping GetCursorMapping(CursorType type)
+        {
+            foreach (CursorMapping mapping in cursorMappings) // for each one in array of mappings
+            {
+                if(mapping.type == type)
+                {
+                    return mapping; // finds first matching CursorMapping in array
+                }
+            }
+            return cursorMappings[0]; // if none found, return first item in CursorMapping[]
         }
 
         private static Ray GetMouseRay()
