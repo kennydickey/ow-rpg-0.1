@@ -14,17 +14,15 @@ namespace RPG.Saving
         public IEnumerator LoadLastScene(string saveFile)
         {
             Dictionary<string, object> state = LoadFile(saveFile);
+            int buildIndex = SceneManager.GetActiveScene().buildIndex;
             if (state.ContainsKey("lastScene"))
             {
-                int buildIndex = (int)state["lastScene"]; // int as a value that is updated in CaptureState
-
-                if (buildIndex != SceneManager.GetActiveScene().buildIndex) // if last is not current scene, load last scene
-                {
-                    // LoadSceneAsync runs after Awakes(), but before any Start()s
-                    yield return SceneManager.LoadSceneAsync(buildIndex); // wait and then load last scene                                                                     
-                }
+                // just overwrite the buildIndex value
+                buildIndex = (int)state["lastScene"]; // int as a value that is updated in CaptureState
             }
-            
+            // LoadSceneAsync runs after Awakes(), but before any Start()s
+            yield return SceneManager.LoadSceneAsync(buildIndex); // wait and then load last scene       
+            // RestoreState needs to be called after all Awake(), but before any Start()
             RestoreState(state); // restore all SaveableEntity uid's
 
         }
