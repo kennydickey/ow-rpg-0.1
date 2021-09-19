@@ -20,14 +20,16 @@ namespace RPG.SceneManagement
         }
 
         private IEnumerator LoadLastSceneSW() // calls start as a coroutine
-        {
-            Fader fader = FindObjectOfType<Fader>();
-            fader.FadeOutImmediate();
-
+        {           
             yield return GetComponent<SavingSystem>().LoadLastScene(defaultSaveFile);
             // or without start as a coroutine..
             //StartCoroutine(GetComponent<SavingSystem>().LoadLastScene(defaultSaveFile));
             //Load();
+
+            // initialize and call fader after yield LoadLastScene() which is called in Awake(), bc too early for fader
+            // also so that it can access it's CanvasGroup, which will not have initialized yet on Awake()
+            Fader fader = FindObjectOfType<Fader>();
+            fader.FadeOutImmediate(); 
 
             // we can yield return rather than start coroutine since it's a nested coroutine
             yield return fader.FadeIn(fadeInTime);

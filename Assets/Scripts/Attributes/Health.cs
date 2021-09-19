@@ -15,13 +15,20 @@ namespace RPG.Attributes
 
         private void Start()
         {
-            BaseCharaStats baseCharaStats = GetComponent<BaseCharaStats>();
-            baseCharaStats.onLevelUp += RegenHealth;
-
             if (healthPoints < 0)
             {
                 healthPoints = GetComponent<BaseCharaStats>().GetStatFromProg(UpCharaStats.Health);
             }         
+        }
+
+        private void OnEnable()
+        {
+            GetComponent<BaseCharaStats>().onLevelUp += RegenHealth;
+        }
+
+        private void OnDisable()
+        {
+            GetComponent<BaseCharaStats>().onLevelUp -= RegenHealth;
         }
 
         private void RegenHealth()

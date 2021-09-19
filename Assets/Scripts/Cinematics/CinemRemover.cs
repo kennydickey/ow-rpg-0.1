@@ -11,11 +11,21 @@ namespace RPG.Cinematics
         [SerializeField] PlayerController playerEnabled;
         GameObject player;
 
-        void Start()
+        void Awake()
+        {            
+            player = GameObject.FindWithTag("Player");
+        }
+
+        private void OnEnable()
         {
             GetComponent<PlayableDirector>().played += DisableControl; // to disable movement
             GetComponent<PlayableDirector>().stopped += EnableControl;
-            player = GameObject.FindWithTag("Player");
+        }
+
+        private void OnDisable()
+        {
+            GetComponent<PlayableDirector>().played -= DisableControl; // to disable movement
+            GetComponent<PlayableDirector>().stopped -= EnableControl;
         }
 
         void DisableControl(PlayableDirector playableDirector)

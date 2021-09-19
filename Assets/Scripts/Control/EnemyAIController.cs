@@ -26,13 +26,19 @@ namespace RPG.Control
 
         int waypointIndex = 0;
 
-        private void Start()
-        {          
+        private void Awake()
+        {
+            // references should be setup in time for a public method here that could be called in Start() elsewhere
             fighter = GetComponent<Fighter>();
             mover = GetComponent<Mover>();
             player = GameObject.FindWithTag("Player");
             health = GetComponent<Health>();
-            guardPosition = transform.position; // starts at our position
+        }
+
+        private void Start()
+        {
+            // starts at our position
+            guardPosition = transform.position; // transform uses a different Monobehaviour, so we should not access on Awake()
         }
 
         void Update()

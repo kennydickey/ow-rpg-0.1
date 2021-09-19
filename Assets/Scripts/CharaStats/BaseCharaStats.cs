@@ -16,14 +16,35 @@ namespace RPG.CharaStats
 
         public event Action onLevelUp; //new
 
+        Experience experience;
+
+        private void Awake()
+        {
+            experience = GetComponent<Experience>();
+        }
+
         private void Start()
         {
+            // cannot move ths to Awake() bs we are accessing another class, would be too soon
             currentLevel = CalculateLevel();
-            Experience experience = GetComponent<Experience>();
-            if(experience != null)
+        }
+
+        // OnEnable can be called multiple times on a class
+        private void OnEnable() // called after Awake() for the same method
+        {
+            if (experience != null)
             {
                 // when onExperienceGained is called in Experience script, UpdateLevel will execute as it is subscribed v
                 experience.onExperienceGained += UpdateLevel;
+            }
+        }
+
+        private void OnDisable()
+        {
+            if (experience != null)
+            {
+                // unsubscribing so that we don't get callbacks while disabled
+                experience.onExperienceGained -= UpdateLevel;
             }
         }
 
