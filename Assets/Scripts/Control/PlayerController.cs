@@ -2,6 +2,7 @@ using UnityEngine;
 using RPG.Movement;
 using RPG.Attributes;
 using System;
+using UnityEngine.EventSystems;
 
 namespace RPG.Control
 {
@@ -13,7 +14,8 @@ namespace RPG.Control
         {
             None,
             Movement,
-            Combat
+            Combat,
+            UI
         }
 
         [System.Serializable]
@@ -33,39 +35,52 @@ namespace RPG.Control
 
         void Update()
         {
-            if (health.IsDead()) return;
-            if (InteractWithCombat()) return; // actually calls each method I think
+            if (InteractWithUI()) return;
+            if (health.IsDead())
+            {
+                SetCursor(CursorType.None); // from our enum
+                return;
+            }
+
+            if (InteractWithComponent()) return; // replaced InteractWithCombat()
             if (InteractWithMovement()) return;
             //print("edge of world");
             SetCursor(CursorType.None); // from our enum
         }
 
-        private bool InteractWithCombat() // just making a bool for if statement above
+        private bool InteractWithUI()
         {
+            // careful, this includes Fader vv, so in FaderCanvas prefab, deselect Interactable and Blocks Raycasts
+            if(EventSystem.current.IsPointerOverGameObject()) // is over UI Gameobject
+            {
+                SetCursor(CursorType.UI); // from our enum
+                return true;
+            }
+            return false;
+        }
 
-                RaycastHit[] hits = Physics.RaycastAll(GetMouseRay()); // returns list of hits
-                foreach (RaycastHit hit in hits)
+
+        private bool InteractWithComponent()
+        {
+            RaycastHit[] hits = Physics.RaycastAll(GetMouseRay()); // returns list of hits
+            foreach (RaycastHit hit in hits)
+            {
+                IRaycastable[] iRaycastables =  hit.transform.GetComponents<IRaycastable>();
+                foreach(IRaycastable raycastable in iRaycastables)
                 {
-                    CombatTarget target = hit.transform.GetComponent<CombatTarget>();
-                    if (target == null) continue;
-                    if (!GetComponent<Fighter>().CanAttack(target.gameObject)) // if can't attack..
+                    if (raycastable.HandleRaycast(this)) // 'this' is the PlayerController which is called for
                     {
-                    continue; // continue within foreach on to next hit object
+                        SetCursor(CursorType.Combat);
+                        return true;
                     }
-                    if (Input.GetMouseButton(0)) // consider GetMouseButtonDown()
-                    {
-                        GetComponent<Fighter>().Attack(target.gameObject);
-                    }
-                SetCursor(CursorType.Combat); // from our enum
-                    return true;
                 }
-            
-            return false; // no combat targets
-
-        }       
+            }
+            return false; // if no objects have HandleRaycast()
+        }    
 
         private bool InteractWithMovement()
         {
+            // ! navmesh does not have a component that we can make IRaycastable
             //Debug.DrawRay(GetMouseRay().origin, GetMouseRay().direction * 100); // visualization
             RaycastHit hit; // << informatuion from hit event stored here
             bool hashit = Physics.Raycast(GetMouseRay(), out hit); // storing in hit, information about where the ray hit, which can be one of multiple ptoperties such as point
