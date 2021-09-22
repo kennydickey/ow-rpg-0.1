@@ -446,6 +446,14 @@ PrefabInstance:
       propertyPath: target
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 4575298421177804312, guid: 3b1ff74b826414945a10337256ef6ca2, type: 3}
+      propertyPath: cursorMappings.Array.data[4].type
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4575298421177804312, guid: 3b1ff74b826414945a10337256ef6ca2, type: 3}
+      propertyPath: cursorMappings.Array.data[4].texture
+      value: 
+      objectReference: {fileID: 2800000, guid: f8c873f1e53e83f4aabf342d6be1dfc3, type: 3}
     - target: {fileID: 5357699630114549733, guid: 3b1ff74b826414945a10337256ef6ca2, type: 3}
       propertyPath: m_Name
       value: Player

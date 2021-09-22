@@ -45,6 +45,11 @@ namespace RPG.Combat
             }
         }
 
+        public CursorType GetCursorType()
+        {
+            return CursorType.Pickup;
+        }
+
         public bool HandleRaycast(PlayerController callingController) // called from PlayerController script
         {
             if (Input.GetMouseButtonDown(0))
@@ -53,5 +58,6 @@ namespace RPG.Combat
             }
             return true;
         }
+        
     }
 }
