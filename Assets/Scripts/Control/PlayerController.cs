@@ -43,7 +43,7 @@ namespace RPG.Control
         private bool InteractWithUI()
         {
             // careful, this includes Fader vv, so in FaderCanvas prefab, deselect Interactable and Blocks Raycasts
-            if(EventSystem.current.IsPointerOverGameObject()) // is over UI Gameobject
+            if (EventSystem.current.IsPointerOverGameObject()) // is over UI Gameobject
             {
                 SetCursor(CursorType.UI); // from our enum
                 return true;
@@ -54,11 +54,11 @@ namespace RPG.Control
 
         private bool InteractWithComponent()
         {
-            RaycastHit[] hits = Physics.RaycastAll(GetMouseRay()); // returns list of hits
+            RaycastHit[] hits = RaycastAllSorted(); // returns list of hits
             foreach (RaycastHit hit in hits)
             {
-                IRaycastable[] iRaycastables =  hit.transform.GetComponents<IRaycastable>();
-                foreach(IRaycastable raycastable in iRaycastables)
+                IRaycastable[] iRaycastables = hit.transform.GetComponents<IRaycastable>();
+                foreach (IRaycastable raycastable in iRaycastables)
                 {
                     if (raycastable.HandleRaycast(this)) // 'this' is the PlayerController which is called for
                     {
@@ -68,7 +68,20 @@ namespace RPG.Control
                 }
             }
             return false; // if no objects have HandleRaycast()
-        }    
+        }
+
+        RaycastHit[] RaycastAllSorted()
+        {
+            // sorting from 2 , hits and distances
+            RaycastHit[] hits = Physics.RaycastAll(GetMouseRay()); // our unsorted array of hits
+            float[] distances = new float[hits.Length]; // array of floats with same length as our hits
+            for(var i = 0; i < hits.Length; i++)
+            {
+                distances[i] = hits[i].distance; // setting each distance value in array to actual distance of each hit
+            }
+            Array.Sort(distances, hits); // arranges using distances as the keys, and hits as items
+            return hits; // returns the now ordered list of hits
+        }
 
         private bool InteractWithMovement()
         {
