@@ -3,6 +3,7 @@ using RPG.Movement;
 using RPG.Attributes;
 using System;
 using UnityEngine.EventSystems;
+using UnityEngine.AI;
 
 namespace RPG.Control
 {
@@ -19,6 +20,7 @@ namespace RPG.Control
         }
 
         [SerializeField] CursorMapping[] cursorMappings = null;
+        [SerializeField] float maxNavMeshProjecttionDist = 1f;
 
         private void Awake()
         {
@@ -86,14 +88,14 @@ namespace RPG.Control
         private bool InteractWithMovement()
         {
             // ! navmesh does not have a component that we can make IRaycastable
-            //Debug.DrawRay(GetMouseRay().origin, GetMouseRay().direction * 100); // visualization
-            RaycastHit hit; // << informatuion from hit event stored here
-            bool hashit = Physics.Raycast(GetMouseRay(), out hit); // storing in hit, information about where the ray hit, which can be one of multiple ptoperties such as point
-            if (hashit)
+            //Debug.DrawRay(GetMouseRay().origin, GetMouseRay().direction * 100); // visualization           
+            Vector3 target;
+            bool hashit = RaycastNavMash(out target);
+            if (hashit) // if hashit bool is true..
             {
                 if (Input.GetMouseButton(0))
                 {
-                    GetComponent<Mover>().StartMoveAction(hit.point, 1f); // 1f is full speed                
+                    GetComponent<Mover>().StartMoveAction(target, 1f); // // move to declared Vector3, 1f is full speed               
                 }
                 SetCursor(CursorType.Movement); // from our enum
                 return true;
@@ -103,6 +105,28 @@ namespace RPG.Control
             //    GetComponent<NavMeshAgent>().destination = target.position;
             //}
             return false;
+        }
+
+        // all this is to not have move cursor over things that aren't navmesh
+        private bool RaycastNavMash(out Vector3 target) // requesting out as (out ReturnType name), need a bool and a Vector3
+        {
+            target = new Vector3();
+
+            RaycastHit hit; // << informatuion from hit event stored here
+            // storing in hit, information about where the ray hit, which can be one of multiple ptoperties such as point
+            bool hashit = Physics.Raycast(GetMouseRay(), out hit);
+            if (!hashit) return false;
+            // find nearest navmeth point
+            NavMeshHit navMeshHit;
+            bool hasCastToNavMesh =
+                NavMesh.SamplePosition(hit.point,
+                out navMeshHit,
+                maxNavMeshProjecttionDist,
+                NavMesh.AllAreas); // AllAreas is default
+            if (!hasCastToNavMesh) return false;
+
+            target = navMeshHit.position; // update target to position on navmesh we raycast to
+            return true;
         }
 
         private void SetCursor(CursorType type)
