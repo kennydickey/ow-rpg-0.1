@@ -11,7 +11,12 @@ namespace RPG.Attributes
     public class Health : MonoBehaviour, ISaveable
     {
         [SerializeField] float regenPercentage = 70;
-        [SerializeField] UnityEvent takeDamageEvent;
+        [SerializeField] UnityEvent<float> takeDamageEvent; // unity events can take arguments such as <float>
+
+        // following no longer needed, unity can now handle generics I think v
+        //[SerializeField] TakeDamageEvent takeDamageEvent;
+        //[System.Serializable]
+        //public class TakeDamageEvent : UnityEvent<float> {} // inherit and make serializeable
 
         float healthPoints = -1f; // just the value uninitialized
         public bool isDead = false;
@@ -49,7 +54,6 @@ namespace RPG.Attributes
         // Instigator -6- ? more passing in, ugh
         public void TakeDamage(GameObject instigator, float damage)
         {
-            print(gameObject.name + "took damage" + damage);
             healthPoints = Mathf.Max(healthPoints - damage, 0);
             if (healthPoints == 0 && isDead == false)
             {
@@ -58,7 +62,7 @@ namespace RPG.Attributes
             }
             else
             {
-                takeDamageEvent.Invoke(); // only take damage if not dead
+                takeDamageEvent.Invoke(damage); // only take damage if not dead
             }
         }
 

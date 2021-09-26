@@ -78,7 +78,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 100
+  m_Text: 2
 --- !u!1 &7206237265233035729
 GameObject:
   m_ObjectHideFlags: 0
@@ -166,7 +166,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1000
-  m_PresetInfoIsWorld: 0
+  m_PresetInfoIsWorld: 1
 --- !u!114 &3283515416168599828
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -237,7 +237,8 @@ Animation:
   m_Enabled: 1
   serializedVersion: 3
   m_Animation: {fileID: 7400000, guid: 2377f59fee76242ddbe6b0a511a8ac48, type: 2}
-  m_Animations: []
+  m_Animations:
+  - {fileID: 7400000, guid: 2377f59fee76242ddbe6b0a511a8ac48, type: 2}
   m_WrapMode: 0
   m_PlayAutomatically: 1
   m_AnimatePhysics: 0
