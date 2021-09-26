@@ -4,6 +4,7 @@ using RPG.CharaStats;
 using RPG.Core;
 using System;
 using UnityEngine.Events;
+using RPG.UI;
 
 namespace RPG.Attributes
 {
@@ -49,7 +50,6 @@ namespace RPG.Attributes
         public void TakeDamage(GameObject instigator, float damage)
         {
             print(gameObject.name + "took damage" + damage);
-
             healthPoints = Mathf.Max(healthPoints - damage, 0);
             if (healthPoints == 0 && isDead == false)
             {

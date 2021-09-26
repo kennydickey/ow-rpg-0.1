@@ -11,6 +11,8 @@ namespace RPG.UI
         public void Spawn(float damageAmount) // can use this function to spawn text when damage is caused
         {
             DamageText damageInstance = Instantiate<DamageText>(damageTextPrefab, transform);
+            damageInstance.SetTextValue(damageAmount);
         }
+
     }
 }
