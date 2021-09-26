@@ -3,12 +3,14 @@ using RPG.Saving;
 using RPG.CharaStats;
 using RPG.Core;
 using System;
+using UnityEngine.Events;
 
 namespace RPG.Attributes
 {
     public class Health : MonoBehaviour, ISaveable
     {
         [SerializeField] float regenPercentage = 70;
+        [SerializeField] UnityEvent takeDamageEvent;
 
         float healthPoints = -1f; // just the value uninitialized
         public bool isDead = false;
@@ -18,7 +20,7 @@ namespace RPG.Attributes
             if (healthPoints < 0)
             {
                 healthPoints = GetComponent<BaseCharaStats>().GetStatFromProg(UpCharaStats.Health);
-            }         
+            }
         }
 
         private void OnEnable()
@@ -53,6 +55,10 @@ namespace RPG.Attributes
             {
                 Die();
                 AwardExperience(instigator); // will reward instigator(Fighter.cs) who attacked after Die()
+            }
+            else
+            {
+                takeDamageEvent.Invoke(); // only take damage if not dead
             }
         }
 
