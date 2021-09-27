@@ -12,6 +12,7 @@ namespace RPG.Attributes
     {
         [SerializeField] float regenPercentage = 70;
         [SerializeField] UnityEvent<float> takeDamageEvent; // unity events can take arguments such as <float>
+        [SerializeField] UnityEvent onDie;
 
         // following no longer needed, unity can now handle generics I think v
         //[SerializeField] TakeDamageEvent takeDamageEvent;
@@ -57,6 +58,7 @@ namespace RPG.Attributes
             healthPoints = Mathf.Max(healthPoints - damage, 0);
             if (healthPoints == 0 && isDead == false)
             {
+                onDie.Invoke();
                 Die();
                 AwardExperience(instigator); // will reward instigator(Fighter.cs) who attacked after Die()
             }

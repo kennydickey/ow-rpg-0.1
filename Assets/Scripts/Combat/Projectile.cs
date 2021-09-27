@@ -1,5 +1,6 @@
 using UnityEngine;
 using RPG.Attributes;
+using UnityEngine.Events;
 
 namespace RPG.Combat
 {
@@ -12,6 +13,7 @@ namespace RPG.Combat
         [SerializeField] GameObject impactEffect = null;
         [SerializeField] GameObject[] toDestroyImmediate = null;
         [SerializeField] float lifeAfterImpact = 1;
+        [SerializeField] UnityEvent onProjectileHit;
 
         Health projectileTarget = null; // uses RPG.Core
         float projectileDamage = 0; // no damage from projectile as of now, weapon controls amount
@@ -61,6 +63,7 @@ namespace RPG.Combat
             // // Instigator -5- takes damage from whichever Fighter.cs did LaunchProjectile
             projectileTarget.TakeDamage(projectileInstigator, projectileDamage); // Takedamage method is on Health component of our target
             //projectileSpeed = 0; // maybe not needed, for the case where projectiles go through target
+            onProjectileHit.Invoke();
 
             if (impactEffect != null)
             {

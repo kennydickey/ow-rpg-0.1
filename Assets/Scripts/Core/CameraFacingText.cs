@@ -7,7 +7,7 @@ namespace RPG.Core
 {
     public class CameraFacingText : MonoBehaviour
     {
-        void Update()
+        void LateUpdate() // to update healthbar position after enemy movement
         {
             transform.forward = Camera.main.transform.forward;
         }
