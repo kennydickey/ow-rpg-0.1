@@ -28,24 +28,24 @@ namespace RPG.SceneManagement
             canvasGroup.alpha = 1;
         }
 
-        public IEnumerator FadeOut(float time) // total time taken
+        public Coroutine FadeOut(float time) // total time taken
         {
             return fade(1, time);
         }
 
-        public IEnumerator FadeIn(float time) // total time taken
+        public Coroutine FadeIn(float time) // total time taken
         {
             return fade(0, time);
         }
 
-        public IEnumerator fade(float targetFadeValue, float time)
+        public Coroutine fade(float targetFadeValue, float time)
         {
             if (currentActiveFade != null)
             {
                 StopCoroutine(currentActiveFade);
             }
             currentActiveFade = StartCoroutine(FadeRoutine(targetFadeValue, time));
-            yield return currentActiveFade;
+            return currentActiveFade;
         }
 
         private IEnumerator FadeRoutine(float targetFadeValue, float time)

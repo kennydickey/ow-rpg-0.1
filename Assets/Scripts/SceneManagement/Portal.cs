@@ -2,6 +2,8 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.SceneManagement;
+using RPG.Core;
+using RPG.Control;
 
 namespace RPG.SceneManagement
 {
@@ -37,8 +39,11 @@ namespace RPG.SceneManagement
             DontDestroyOnLoad(gameObject);
 
             Fader fader = FindObjectOfType<Fader>();
-
             SavingWrapper savingWrapper = FindObjectOfType<SavingWrapper>();
+            PlayerController playerController = GameObject.FindWithTag("Player").GetComponent<PlayerController>();
+
+            //remove control from player
+            playerController.enabled = false;
 
             yield return fader.FadeOut(fadeOutTime);
 
@@ -47,6 +52,10 @@ namespace RPG.SceneManagement
 
             yield return SceneManager.LoadSceneAsync(toScene);
             //yield return new WaitForSeconds(2); // just to see destroy happening for now
+
+            // Have to find player GameObject again bc it's a new player in a new scene
+            PlayerController nextScenePlayerController = GameObject.FindWithTag("Player").GetComponent<PlayerController>();
+            nextScenePlayerController.enabled = false;
 
             // loads necessary state for new world
             savingWrapper.Load();
@@ -58,7 +67,10 @@ namespace RPG.SceneManagement
             savingWrapper.Save();
 
             yield return new WaitForSeconds(fadeWait);
-            fader.StartCoroutine(fader.FadeIn(fadeInTime));
+            fader.FadeIn(fadeInTime);
+
+            // yield return are done, restore control
+            nextScenePlayerController.enabled = true;
 
             Destroy(gameObject);
         }
@@ -88,6 +100,11 @@ namespace RPG.SceneManagement
             player.GetComponent<NavMeshAgent>().enabled = true;
 
 
+        }
+
+        public void Cancel()
+        {
+            
         }
     }
 }
