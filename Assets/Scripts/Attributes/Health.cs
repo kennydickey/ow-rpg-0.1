@@ -79,7 +79,12 @@ namespace RPG.Attributes
         public float GetHealthPercentage()
         {
             // amount of health in relation to base health, gives us a fraction, 100 x gives us percent
-            return 100 * (healthPoints / GetComponent<BaseCharaStats>().GetStatFromProg(UpCharaStats.Health));           
+            return 100 * GetFraction();           
+        }
+
+        public float GetFraction()
+        {
+            return healthPoints / GetComponent<BaseCharaStats>().GetStatFromProg(UpCharaStats.Health);
         }
 
         private void Die()

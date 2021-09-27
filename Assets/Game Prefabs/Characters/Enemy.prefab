@@ -1624,6 +1624,17 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 3839826190888495162, guid: 3483bd755b4a34160b515adee151ad52, type: 3}
   m_PrefabInstance: {fileID: 943546379122888388}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &8719796757176713319 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8366235228760886947, guid: 3483bd755b4a34160b515adee151ad52, type: 3}
+  m_PrefabInstance: {fileID: 943546379122888388}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4058284212432643838}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 796809328754646578f132f49fd552d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &1011816940966597869 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 221402383227329065, guid: 3483bd755b4a34160b515adee151ad52, type: 3}
@@ -1684,8 +1695,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4557206210178810148, guid: 21769b787601f4f3a9b28ba6b7f2ef6c, type: 3}
+      propertyPath: rootCanvas
+      value: 
+      objectReference: {fileID: 2330198991094256814}
+    - target: {fileID: 4557206210178810148, guid: 21769b787601f4f3a9b28ba6b7f2ef6c, type: 3}
+      propertyPath: healthComponent
+      value: 
+      objectReference: {fileID: 8719796757176713319}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 21769b787601f4f3a9b28ba6b7f2ef6c, type: 3}
+--- !u!223 &2330198991094256814 stripped
+Canvas:
+  m_CorrespondingSourceObject: {fileID: 7342993455540528251, guid: 21769b787601f4f3a9b28ba6b7f2ef6c, type: 3}
+  m_PrefabInstance: {fileID: 5021806082153476309}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &9123624546158896659
 PrefabInstance:
   m_ObjectHideFlags: 0
