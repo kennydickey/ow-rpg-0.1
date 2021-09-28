@@ -25,7 +25,7 @@ public class Fighter : MonoBehaviour, Iaction, ISaveable, IModifierProvider
         {
             EquipWeapon(defaultWeaponSO);
         }
-        EquipWeapon(defaultWeaponSO); // instead of defaultWeaponSO
+        //EquipWeapon(defaultWeaponSO); // instead of defaultWeaponSO // careful, this will set default when changing scenes
 
     }
 
