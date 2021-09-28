@@ -11,8 +11,9 @@ GameObject:
   - component: {fileID: 2263693097037025004}
   - component: {fileID: 2937925261282918729}
   - component: {fileID: 1090271591859402115}
+  - component: {fileID: 2478607056780365162}
   m_Layer: 0
-  m_Name: Spear2H_Epic
+  m_Name: MyGoblinSpearEpic
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -81,3 +82,15 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &2478607056780365162
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1450599212354180182}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8dca1727693f243e6bc15fc99fcb8516, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

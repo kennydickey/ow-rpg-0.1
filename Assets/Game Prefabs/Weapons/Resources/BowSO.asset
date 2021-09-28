@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74c34f0440556420b9588f0b28dcf49b, type: 3}
   m_Name: BowSO
   m_EditorClassIdentifier: 
-  equipPrefab: {fileID: 3044168978934373331, guid: f5d2889194aa14b8da9b38ef4d1bd97b, type: 3}
+  equipPrefab: {fileID: 2165091836748039656, guid: f5d2889194aa14b8da9b38ef4d1bd97b, type: 3}
   weaponAnimOverride: {fileID: 22100000, guid: 41775fdd5a4494567859e3ef2bc5643c, type: 2}
   weaponRange: 10
   weaponDamage: 5
+  weaponPercentageBonus: 0
   isRightHanded: 0
   projectile: {fileID: 1355129204984356582, guid: cbe4642c2a12a4137a895d4c51d0d40d, type: 3}

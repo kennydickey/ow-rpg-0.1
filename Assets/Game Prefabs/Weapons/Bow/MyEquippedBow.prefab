@@ -11,8 +11,9 @@ GameObject:
   - component: {fileID: 2410797039200092521}
   - component: {fileID: 1646915273247870668}
   - component: {fileID: 3548823307783125510}
+  - component: {fileID: 2165091836748039656}
   m_Layer: 0
-  m_Name: MyBowEpic
+  m_Name: MyEquippedBow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -81,3 +82,15 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &2165091836748039656
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3044168978934373331}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8dca1727693f243e6bc15fc99fcb8516, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -14,9 +14,9 @@ public class Fighter : MonoBehaviour, Iaction, ISaveable, IModifierProvider
 
     [SerializeField] Transform rightHand = null;
     [SerializeField] Transform leftHand = null;
-    [SerializeField] Weapon defaultWeaponSO = null; // unity will be looking for our Weapon ScriptableObject
+    [SerializeField] WeaponConfig defaultWeaponSO = null; // unity will be looking for our Weapon ScriptableObject
 
-    Weapon currentWeaponSO = null; // just to initialize as null
+    WeaponConfig currentWeaponSO = null; // just to initialize as null
     Health target; // will always be of health type so we don't have to GetComponent
 
     private void Start()
@@ -132,7 +132,7 @@ public class Fighter : MonoBehaviour, Iaction, ISaveable, IModifierProvider
         }
     }
 
-    public void EquipWeapon(Weapon weapon)
+    public void EquipWeapon(WeaponConfig weapon)
     {
         currentWeaponSO = weapon; // currentWeapon becomes whatever is specified when EquipWeapon called
         Animator animator = GetComponent<Animator>();
@@ -148,7 +148,7 @@ public class Fighter : MonoBehaviour, Iaction, ISaveable, IModifierProvider
     public void RestoreState(object state)
     {
         string savedWeaponName = (string)state; //state cast as a string here
-        Weapon savedWeapon = UnityEngine.Resources.Load<Weapon>(savedWeaponName); // looks for Objects with Weapon in Resources
+        WeaponConfig savedWeapon = UnityEngine.Resources.Load<WeaponConfig>(savedWeaponName); // looks for Objects with Weapon in Resources
         EquipWeapon(savedWeapon);
     }
 
