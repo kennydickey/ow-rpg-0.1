@@ -2,7 +2,7 @@ using UnityEngine;
 using RPG.Movement;
 using RPG.Core;
 using RPG.Attributes;
-
+using GameDevTV.Utils;
 
 namespace RPG.Control
 {
@@ -20,11 +20,13 @@ namespace RPG.Control
         Mover mover;
         GameObject player;
         Health health;
-        Vector3 guardPosition;
+        LazyValue<Vector3> guardPosition;
+
         float timeSinceSawPlayer = Mathf.Infinity; // only the starting value
         float timeSinceLastWaypoint = Mathf.Infinity;
 
         int waypointIndex = 0;
+
 
         private void Awake()
         {
@@ -33,12 +35,19 @@ namespace RPG.Control
             mover = GetComponent<Mover>();
             player = GameObject.FindWithTag("Player");
             health = GetComponent<Health>();
+
+            guardPosition = new LazyValue<Vector3>(GetGuardPosition);
+        }
+
+        private Vector3 GetGuardPosition()
+        {
+            return transform.position;
         }
 
         private void Start()
         {
             // starts at our position
-            guardPosition = transform.position; // transform uses a different Monobehaviour, so we should not access on Awake()
+            guardPosition.ForceInit(); // transform uses a different Monobehaviour, so we should not access on Awake()
         }
 
         void Update()
@@ -81,7 +90,7 @@ namespace RPG.Control
 
         private void PatrolBehaviour()
         {
-            Vector3 nextPosition = guardPosition;
+            Vector3 nextPosition = guardPosition.value;
 
             if(patrolPath != null) // if exists
             {

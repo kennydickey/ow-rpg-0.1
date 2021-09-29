@@ -1,4 +1,5 @@
 using System;
+using GameDevTV.Utils;
 using UnityEngine;
 
 namespace RPG.CharaStats
@@ -12,21 +13,23 @@ namespace RPG.CharaStats
         [SerializeField] GameObject lvUpParticle = null;
         [SerializeField] bool shouldUseModifiers = false;
 
-        int currentLevel = 0; // invalid here, must initialize afterward
-
         public event Action onLevelUp; //new
 
         Experience experience;
 
+        LazyValue<int> currentLevel;
+
         private void Awake()
         {
             experience = GetComponent<Experience>();
+            currentLevel = new LazyValue<int>(CalculateLevel);
+
         }
 
         private void Start()
         {
             // cannot move ths to Awake() bs we are accessing another class, would be too soon
-            currentLevel = CalculateLevel();
+            currentLevel.ForceInit();
         }
 
         // OnEnable can be called multiple times on a class
@@ -51,9 +54,9 @@ namespace RPG.CharaStats
         private void UpdateLevel() // bug in here somewhere
         {
             int newLevel = CalculateLevel();
-            if(newLevel > currentLevel) // may need to tweak logic if it's decided that levels can go down also
+            if(newLevel > currentLevel.value) // may need to tweak logic if it's decided that levels can go down also
             {
-                currentLevel = newLevel; // updating currentLevel to reflect new
+                currentLevel.value = newLevel; // updating currentLevel to reflect new
                 LvUpEffect();
                 onLevelUp();
             }           
@@ -77,11 +80,7 @@ namespace RPG.CharaStats
 
         public int GetLevel()
         {
-            if(currentLevel < 1) // since 0 is not a valid num here
-            {
-                currentLevel = CalculateLevel(); // ensures our currentLevel is cached and ready
-            }
-            return currentLevel;
+            return currentLevel.value; // currentLevel Calculates level every time, so no checking needed
         }
 
         private float GetAdditiveMod(UpCharaStats stat) // stat will be whatever we pass in when calling this method

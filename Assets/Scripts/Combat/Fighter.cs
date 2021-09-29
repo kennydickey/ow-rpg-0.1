@@ -6,6 +6,8 @@ using RPG.Combat;
 using RPG.Saving;
 using RPG.CharaStats;
 using System.Collections.Generic;
+using GameDevTV.Utils;
+using System;
 
 public class Fighter : MonoBehaviour, Iaction, ISaveable, IModifierProvider
 {
@@ -15,16 +17,24 @@ public class Fighter : MonoBehaviour, Iaction, ISaveable, IModifierProvider
     [SerializeField] Transform rightHand = null;
     [SerializeField] Transform leftHand = null;
     [SerializeField] WeaponConfig defaultWeaponSO = null; // unity will be looking for our Weapon ScriptableObject
-
-    WeaponConfig currentWeaponSO = null; // just to initialize as null
+    LazyValue<WeaponConfig> currentWeaponSO;
     Health target; // will always be of health type so we don't have to GetComponent
+
+
+    private void Awake()
+    {
+        currentWeaponSO = new LazyValue<WeaponConfig>(SetupDefaultWeapon);
+    }
+
+    private WeaponConfig SetupDefaultWeapon()
+    {
+        AttachWeapon(defaultWeaponSO);
+        return defaultWeaponSO;
+    }
 
     private void Start()
     {
-        if(currentWeaponSO == null) // if saving system has not already equipped a weapon
-        {
-            EquipWeapon(defaultWeaponSO);
-        }
+        currentWeaponSO.ForceInit();
         //EquipWeapon(defaultWeaponSO); // instead of defaultWeaponSO // careful, this will set default when changing scenes
 
     }
@@ -70,10 +80,10 @@ public class Fighter : MonoBehaviour, Iaction, ISaveable, IModifierProvider
     {
         if (target == null) return;
         float damage = GetComponent<BaseCharaStats>().GetStatFromProg(UpCharaStats.Damage);
-        if (currentWeaponSO.HasProjectile())
+        if (currentWeaponSO.value.HasProjectile())
         {
             // // Instigator -1- our fighter gameObject is the instigator who attacked, so starts here
-            currentWeaponSO.LaunchProjectile(rightHand, leftHand, target, gameObject, damage);
+            currentWeaponSO.value.LaunchProjectile(rightHand, leftHand, target, gameObject, damage);
         }
         else
         {
@@ -89,7 +99,7 @@ public class Fighter : MonoBehaviour, Iaction, ISaveable, IModifierProvider
 
     private bool IsInRange()
     {
-        return Vector3.Distance(transform.position, target.transform.position) < currentWeaponSO.GetRange();
+        return Vector3.Distance(transform.position, target.transform.position) < currentWeaponSO.value.GetRange();
     }
 
     public bool CanAttack(GameObject combatTarget) // for use in PlayerController
@@ -118,7 +128,7 @@ public class Fighter : MonoBehaviour, Iaction, ISaveable, IModifierProvider
     {
         if(stat == UpCharaStats.Damage) // if stat in question is Damage stat..
         {
-            yield return currentWeaponSO.GetDamage(); // additive modifier on top of base damage
+            yield return currentWeaponSO.value.GetDamage(); // additive modifier on top of base damage
             // can have multiple yield returns for future reference
         }
     }
@@ -127,22 +137,26 @@ public class Fighter : MonoBehaviour, Iaction, ISaveable, IModifierProvider
     {
         if (stat == UpCharaStats.Damage)
         {
-            yield return currentWeaponSO.GetWeaponPercentageBonus();
+            yield return currentWeaponSO.value.GetWeaponPercentageBonus();
 
         }
     }
 
     public void EquipWeapon(WeaponConfig weapon)
     {
-        currentWeaponSO = weapon; // currentWeapon becomes whatever is specified when EquipWeapon called
+        currentWeaponSO.value = weapon; // currentWeapon becomes whatever is specified when EquipWeapon called
+        AttachWeapon(weapon);
+    }
+
+    private void AttachWeapon(WeaponConfig weapon)
+    {
         Animator animator = GetComponent<Animator>();
         weapon.Spawn(rightHand, leftHand, animator);
-
     }
 
     public object CaptureState()
     {
-        return currentWeaponSO.name;
+        return currentWeaponSO.value.name;
     }
 
     public void RestoreState(object state)

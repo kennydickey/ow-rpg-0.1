@@ -5,7 +5,11 @@ using RPG.Core;
 using System;
 using UnityEngine.Events;
 using RPG.UI;
+using GameDevTV.Utils;
+using UnityEditor;
 
+// ! first LazyValue example, among also.. Fighter, EnemyAIController, BaseCharaStats
+// ! LazyValue ensures that everything using it can be initialized as needed after Awake() but can be forced by Start()
 namespace RPG.Attributes
 {
     public class Health : MonoBehaviour, ISaveable
@@ -19,15 +23,23 @@ namespace RPG.Attributes
         //[System.Serializable]
         //public class TakeDamageEvent : UnityEvent<float> {} // inherit and make serializeable
 
-        float healthPoints = -1f; // just the value uninitialized
+        LazyValue<float> healthPoints; // uninitialized
         public bool isDead = false;
+
+        private void Awake()
+        {
+            healthPoints = new LazyValue<float>(GetInitialHealth); // LazyValue will initialize healthpoints when we need it
+        }
+
+        private float GetInitialHealth() // needs to return a float since that is the param LazyValue expects
+        {
+            return GetComponent<BaseCharaStats>().GetStatFromProg(UpCharaStats.Health);
+        }
 
         private void Start()
         {
-            if (healthPoints < 0)
-            {
-                healthPoints = GetComponent<BaseCharaStats>().GetStatFromProg(UpCharaStats.Health);
-            }
+            // if healthpoints has not been initialized, initialized now vv
+            healthPoints.ForceInit(); // also a function of LazyValue
         }
 
         private void OnEnable()
@@ -44,7 +56,8 @@ namespace RPG.Attributes
         {
             // gets the value that we set for initial health in our CharaProgSo, times a percent
             float regenPoints = GetComponent<BaseCharaStats>().GetStatFromProg(UpCharaStats.Health) * (regenPercentage / 100);
-            healthPoints = Mathf.Max(healthPoints, regenPoints); // returns larger of the two
+            // getting .value ensures that value is from a fully initialized healthpoints right at this time with LazyValue, even without health.Start() or any Start()
+            healthPoints.value = Mathf.Max(healthPoints.value, regenPoints); // returns larger of the two
         }
 
         public bool IsDead()
@@ -55,8 +68,8 @@ namespace RPG.Attributes
         // Instigator -6- ? more passing in, ugh
         public void TakeDamage(GameObject instigator, float damage)
         {
-            healthPoints = Mathf.Max(healthPoints - damage, 0);
-            if (healthPoints == 0 && isDead == false)
+            healthPoints.value = Mathf.Max(healthPoints.value - damage, 0);
+            if (healthPoints.value == 0 && isDead == false)
             {
                 onDie.Invoke();
                 Die();
@@ -70,7 +83,7 @@ namespace RPG.Attributes
 
         public float GetHealthPoints()
         {
-            return healthPoints;
+            return healthPoints.value;
         }
 
         public float GetMaxHealthPoints()
@@ -86,7 +99,7 @@ namespace RPG.Attributes
 
         public float GetFraction()
         {
-            return healthPoints / GetComponent<BaseCharaStats>().GetStatFromProg(UpCharaStats.Health);
+            return healthPoints.value / GetComponent<BaseCharaStats>().GetStatFromProg(UpCharaStats.Health);
         }
 
         private void Die()
@@ -105,14 +118,14 @@ namespace RPG.Attributes
 
         public object CaptureState()
         {
-            return healthPoints;  //this is a float, so serializeable by default
+            return healthPoints.value;  //this is a float, so serializeable by default
         }
 
         public void RestoreState(object state)
         {
                           // vv we cannot change Isaveable's parameter, but we can cast here
-            healthPoints = (float)state;
-            if(healthPoints <= 0)
+            healthPoints.value = (float)state;
+            if(healthPoints.value <= 0)
             {
                 Die();
 
