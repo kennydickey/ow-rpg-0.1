@@ -18,23 +18,23 @@ namespace RPG.Combat
 
         const string weaponName = "Weapon"; // just an easier way to access Weapon as a string
 
-        public void Spawn(Transform rightHandTr, Transform leftHandTr, Animator animator)
+        public Weapon Spawn(Transform rightHandTr, Transform leftHandTr, Animator animator)
         {
             DestroyOldWeapon(rightHandTr, leftHandTr); // destroys whichever weapon it finds before we equip
 
+            Weapon weaponEquip = null; // already defaults at null, but just to be explicit
             if (equipPrefab != null) // if there is a prefab able to equip
             {
                 if (isRightHanded)
                 {
-                    Weapon weaponEquip = Instantiate(equipPrefab, rightHandTr);
+                    weaponEquip = Instantiate(equipPrefab, rightHandTr);
                     weaponEquip.gameObject.name = weaponName;
                 }
                 else
                 {
-                    Weapon weaponEquip = Instantiate(equipPrefab, leftHandTr);
+                    weaponEquip = Instantiate(equipPrefab, leftHandTr);
                     weaponEquip.gameObject.name = weaponName;
                 }
-
                 // otherwise don't create weapon for unarmed case
             }
 
@@ -50,8 +50,7 @@ namespace RPG.Combat
             {
                 animator.runtimeAnimatorController = overrideController.runtimeAnimatorController;
             }
-
-
+            return weaponEquip;
         }
 
         private void DestroyOldWeapon(Transform rightHandLook, Transform leftHandLook)

@@ -17,24 +17,24 @@ public class Fighter : MonoBehaviour, Iaction, ISaveable, IModifierProvider
     [SerializeField] Transform rightHand = null;
     [SerializeField] Transform leftHand = null;
     [SerializeField] WeaponConfig defaultWeaponSO = null; // unity will be looking for our Weapon ScriptableObject
-    LazyValue<WeaponConfig> currentWeaponSO;
     Health target; // will always be of health type so we don't have to GetComponent
-
+    WeaponConfig currentWeaponSO;
+    LazyValue<Weapon> currentWeaponInstance;
 
     private void Awake()
     {
-        currentWeaponSO = new LazyValue<WeaponConfig>(SetupDefaultWeapon);
+        currentWeaponSO = defaultWeaponSO;
+        currentWeaponInstance = new LazyValue<Weapon>(SetupDefaultWeapon);
     }
 
-    private WeaponConfig SetupDefaultWeapon()
+    private Weapon SetupDefaultWeapon()
     {
-        AttachWeapon(defaultWeaponSO);
-        return defaultWeaponSO;
+        return AttachWeapon(defaultWeaponSO);
     }
 
     private void Start()
     {
-        currentWeaponSO.ForceInit();
+        currentWeaponInstance.ForceInit();
         //EquipWeapon(defaultWeaponSO); // instead of defaultWeaponSO // careful, this will set default when changing scenes
 
     }
@@ -80,10 +80,16 @@ public class Fighter : MonoBehaviour, Iaction, ISaveable, IModifierProvider
     {
         if (target == null) return;
         float damage = GetComponent<BaseCharaStats>().GetStatFromProg(UpCharaStats.Damage);
-        if (currentWeaponSO.value.HasProjectile())
+
+        if(currentWeaponInstance.value != null)
+        {
+            currentWeaponInstance.value.OnHit(); // calls Our Weapon class method OnHit()
+        }
+
+        if (currentWeaponSO.HasProjectile())
         {
             // // Instigator -1- our fighter gameObject is the instigator who attacked, so starts here
-            currentWeaponSO.value.LaunchProjectile(rightHand, leftHand, target, gameObject, damage);
+            currentWeaponSO.LaunchProjectile(rightHand, leftHand, target, gameObject, damage);
         }
         else
         {
@@ -92,14 +98,14 @@ public class Fighter : MonoBehaviour, Iaction, ISaveable, IModifierProvider
 
     }
     // ! Save This
-    //void Shoot() // in a case where the evnt is called something else
+    //void Shoot() // in a case where the event is called something else
     //{       
     //    Hit();       
     //}
 
     private bool IsInRange()
     {
-        return Vector3.Distance(transform.position, target.transform.position) < currentWeaponSO.value.GetRange();
+        return Vector3.Distance(transform.position, target.transform.position) < currentWeaponSO.GetRange();
     }
 
     public bool CanAttack(GameObject combatTarget) // for use in PlayerController
@@ -128,7 +134,7 @@ public class Fighter : MonoBehaviour, Iaction, ISaveable, IModifierProvider
     {
         if(stat == UpCharaStats.Damage) // if stat in question is Damage stat..
         {
-            yield return currentWeaponSO.value.GetDamage(); // additive modifier on top of base damage
+            yield return currentWeaponSO.GetDamage(); // additive modifier on top of base damage
             // can have multiple yield returns for future reference
         }
     }
@@ -137,26 +143,26 @@ public class Fighter : MonoBehaviour, Iaction, ISaveable, IModifierProvider
     {
         if (stat == UpCharaStats.Damage)
         {
-            yield return currentWeaponSO.value.GetWeaponPercentageBonus();
+            yield return currentWeaponSO.GetWeaponPercentageBonus();
 
         }
     }
 
     public void EquipWeapon(WeaponConfig weapon)
     {
-        currentWeaponSO.value = weapon; // currentWeapon becomes whatever is specified when EquipWeapon called
-        AttachWeapon(weapon);
+        currentWeaponSO = weapon; // currentWeapon becomes whatever is specified when EquipWeapon called
+        currentWeaponInstance.value =  AttachWeapon(weapon);
     }
 
-    private void AttachWeapon(WeaponConfig weapon)
+    private Weapon AttachWeapon(WeaponConfig weapon)
     {
         Animator animator = GetComponent<Animator>();
-        weapon.Spawn(rightHand, leftHand, animator);
+        return weapon.Spawn(rightHand, leftHand, animator);
     }
 
     public object CaptureState()
     {
-        return currentWeaponSO.value.name;
+        return currentWeaponSO.name;
     }
 
     public void RestoreState(object state)
