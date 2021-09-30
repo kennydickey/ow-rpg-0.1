@@ -11,7 +11,6 @@ namespace RPG.Combat
 
         public void OnHit()
         {
-            print("weapon hit" + gameObject.name);
             onHit.Invoke();
         }
     }

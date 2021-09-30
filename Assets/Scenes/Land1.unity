@@ -6237,7 +6237,7 @@ PrefabInstance:
     - target: {fileID: 4792144143496560599, guid: e4022cc8dcfab4023b92c1f1df76cb73, type: 3}
       propertyPath: defaultWeaponSO
       value: 
-      objectReference: {fileID: 11400000, guid: 370aebcf8b4b8405cafe8f702227684f, type: 2}
+      objectReference: {fileID: 11400000, guid: bdf5867d08f484fe7b30548b4e7736c3, type: 2}
     - target: {fileID: 4792144143496560599, guid: e4022cc8dcfab4023b92c1f1df76cb73, type: 3}
       propertyPath: defaultWeaponName
       value: BowSO

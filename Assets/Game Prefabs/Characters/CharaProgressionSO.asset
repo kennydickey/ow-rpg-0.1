@@ -31,7 +31,7 @@ MonoBehaviour:
       - 100
     - newStat: 3
       levels:
-      - 10
+      - 2
       - 20
       - 30
       - 40

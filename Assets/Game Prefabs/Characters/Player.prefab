@@ -2499,7 +2499,7 @@ PrefabInstance:
     - target: {fileID: 535833182, guid: 3483bd755b4a34160b515adee151ad52, type: 3}
       propertyPath: defaultWeaponSO
       value: 
-      objectReference: {fileID: 11400000, guid: 8c91743cc85014de58c9cbdacbb6c4f4, type: 2}
+      objectReference: {fileID: 11400000, guid: bdf5867d08f484fe7b30548b4e7736c3, type: 2}
     - target: {fileID: 535833182, guid: 3483bd755b4a34160b515adee151ad52, type: 3}
       propertyPath: defaultWeaponName
       value: 
@@ -2554,7 +2554,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1034225728893845212, guid: 3483bd755b4a34160b515adee151ad52, type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1921985497549717534, guid: 3483bd755b4a34160b515adee151ad52, type: 3}
       propertyPath: charaProgSO
@@ -2582,7 +2582,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8146113576041572223, guid: 3483bd755b4a34160b515adee151ad52, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8366235228760886947, guid: 3483bd755b4a34160b515adee151ad52, type: 3}
       propertyPath: health
