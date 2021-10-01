@@ -81,6 +81,14 @@ namespace RPG.Attributes
             }
         }
 
+        public void Heal(float healthToRestore) // yes, this is where we restore hp
+        {
+            // sets our healthpoints to least value, so if first value is greater than getMax, Getmax is chosen
+            healthPoints.value = Mathf.Min(healthPoints.value + healthToRestore, GetMaxHealthPoints());
+
+        }
+
+
         public float GetHealthPoints()
         {
             return healthPoints.value;

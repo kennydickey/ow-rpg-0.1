@@ -44,7 +44,7 @@ SphereCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.5
-  m_Center: {x: 0, y: 1, z: 0}
+  m_Center: {x: 0, y: 0.32, z: 0}
 --- !u!114 &2879131662423881062
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -57,4 +57,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c196f3e1902664a5b9685a4b0ca3d7b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pickupSO: {fileID: 11400000, guid: bdf5867d08f484fe7b30548b4e7736c3, type: 2}
+  pickupSO: {fileID: 0}
+  healthToRestore: 0
+  pickupRespawnTime: 5
