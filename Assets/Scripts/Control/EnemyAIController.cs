@@ -10,6 +10,7 @@ namespace RPG.Control
     {
         [SerializeField] float chaseDistance = 2f;
         [SerializeField] float suspicionTime = 4f;
+        [SerializeField] float aggroDuration = 5f;
         [SerializeField] PatrolPath patrolPath;
         [SerializeField] float wayPointTolerance = 1f; // 1m
         [SerializeField] float wayPointDwell = 1f; // 1m
@@ -24,6 +25,7 @@ namespace RPG.Control
 
         float timeSinceSawPlayer = Mathf.Infinity; // only the starting value
         float timeSinceLastWaypoint = Mathf.Infinity;
+        float timeSinceAggrivated = Mathf.Infinity; // time since last aggo starts as never
 
         int waypointIndex = 0;
 
@@ -53,7 +55,7 @@ namespace RPG.Control
         void Update()
         {
             if (health.IsDead()) return;
-            if (InAttackRange() && fighter.CanAttack(player))
+            if (IsAggrivated() && fighter.CanAttack(player))
             {              
                 // if(gameObject.name/tag == "enemy") to select individual items or debug
                 AttackBehaviour();
@@ -70,11 +72,16 @@ namespace RPG.Control
             UpdateTimers();
         }
 
+        public void Aggrevate()
+        {
+            timeSinceAggrivated = 0; // resets aggro timer
+        }
+
         private void UpdateTimers()
         {
             timeSinceSawPlayer += Time.deltaTime;
             timeSinceLastWaypoint += Time.deltaTime;
-            
+            timeSinceAggrivated += Time.deltaTime; // timer is constantly growing
         }
 
         private void AttackBehaviour()
@@ -127,10 +134,11 @@ namespace RPG.Control
             return patrolPath.GetWaypoint(waypointIndex);
         }
 
-        private bool InAttackRange() // returns a float to compare with chaseDistance 
+        private bool IsAggrivated() // returns a float to compare with chaseDistance 
         {
             float distanceToPlayer = Vector3.Distance(player.transform.position, transform.position);
-            return distanceToPlayer < chaseDistance; // return bool in range or not         
+            // check aggro timer
+            return distanceToPlayer < chaseDistance || timeSinceAggrivated < aggroDuration; // return bool in range or not         
         }
 
         // Called by Unity when it wants us to draw gizmos on obj selected
