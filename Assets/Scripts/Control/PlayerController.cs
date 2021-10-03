@@ -21,7 +21,6 @@ namespace RPG.Control
 
         [SerializeField] CursorMapping[] cursorMappings = null;
         [SerializeField] float maxNavMeshProjecttionDist = 1f;
-        [SerializeField] float maxNavPathLength = 40f;
 
         private void Awake()
         {
@@ -94,6 +93,8 @@ namespace RPG.Control
             bool hashit = RaycastNavMash(out target);
             if (hashit) // if hashit bool is true..
             {
+                if (!GetComponent<Mover>().CanMoveTo(target)) return false; // if cannot move to target, cannot interact
+
                 if (Input.GetMouseButton(0))
                 {
                     GetComponent<Mover>().StartMoveAction(target, 1f); // // move to declared Vector3, 1f is full speed               
@@ -128,24 +129,13 @@ namespace RPG.Control
 
             target = navMeshHit.position; // update target to position on navmesh we raycast to
 
-            NavMeshPath path = new NavMeshPath(); // may have a null value, so we need to assign an abject
-            bool hasPath = NavMesh.CalculatePath(transform.position, target, NavMesh.AllAreas, path);
-            if (!hasPath) return false;
-            if (path.status != NavMeshPathStatus.PathComplete) return false; // will not move to location if not complete
-            if (GetPathLength(path) > maxNavPathLength) return false;
+            //NavMeshPath path = new NavMeshPath(); // may have a null value, so we need to assign an abject
+            //bool hasPath = NavMesh.CalculatePath(transform.position, target, NavMesh.AllAreas, path);
+            //if (!hasPath) return false;
+            //if (path.status != NavMeshPathStatus.PathComplete) return false; // will not move to location if not complete
+            //if (GetPathLength(path) > maxNavPathLength) return false;
 
             return true;
-        }
-
-        private float GetPathLength(NavMeshPath path)
-        {
-            float total = 0; //accumulator that we will return at the end
-            if (path.corners.Length < 2) return total; // not enough to calc
-            for(int i = 0; i < path.corners.Length - 1; i++) // Length-1 taking into account there is no post after the last
-            {
-                total += Vector3.Distance(path.corners[i], path.corners[i + 1]); //total of distance between each path corner
-            }
-            return total;
         }
 
         private void SetCursor(CursorType type)

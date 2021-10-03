@@ -12,9 +12,11 @@ namespace RPG.Movement
     {
         [SerializeField] Transform target;
         [SerializeField] float maxSpeed = 6f;
+        [SerializeField] float maxNavPathLength = 40f;
 
         NavMeshAgent navMeshAgent;
         Health health;
+
 
         private void Awake()
         {
@@ -35,6 +37,27 @@ namespace RPG.Movement
             GetComponent<ActionScheduler>().StartAction(this); // this monobehaviour
             GetComponent<Fighter>().Cancel();
             MoveTo(destination, speedFraction);
+        }
+
+        public bool CanMoveTo(Vector3 destination)
+        {
+            NavMeshPath path = new NavMeshPath(); // may have a null value, so we need to assign an abject
+            bool hasPath = NavMesh.CalculatePath(transform.position, destination, NavMesh.AllAreas, path);
+            if (!hasPath) return false;
+            if (path.status != NavMeshPathStatus.PathComplete) return false; // will not move to location if not complete
+            if (GetPathLength(path) > maxNavPathLength) return false;
+            return true;
+        }
+
+        private float GetPathLength(NavMeshPath path)
+        {
+            float total = 0; //accumulator that we will return at the end
+            if (path.corners.Length < 2) return total; // not enough to calc
+            for (int i = 0; i < path.corners.Length - 1; i++) // Length-1 taking into account there is no post after the last
+            {
+                total += Vector3.Distance(path.corners[i], path.corners[i + 1]); //total of distance between each path corner
+            }
+            return total;
         }
 
         public void MoveTo(Vector3 destination, float speedFraction)

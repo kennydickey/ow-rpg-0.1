@@ -111,6 +111,7 @@ public class Fighter : MonoBehaviour, Iaction, ISaveable, IModifierProvider
     public bool CanAttack(GameObject combatTarget) // for use in PlayerController
     {
         if (combatTarget == null) return false;
+        if(!GetComponent<Mover>().CanMoveTo(combatTarget.transform.position)) return false; // if out of range, can't attack
         Health targetToTest = combatTarget.GetComponent<Health>(); // info from combatTarget
         return targetToTest != null && !targetToTest.IsDead(); // can attack if IsDead is false
     }
