@@ -46,7 +46,7 @@ public class Fighter : MonoBehaviour, Iaction, ISaveable, IModifierProvider
         // !if target is null && isinrange, result is nullreferror
         if (target == null) return; // so if target is null, we exit
         if (target.IsDead()) return;
-        if (!IsInRange()) // if not in range to attack
+        if (!IsInRange(target.transform)) // if not in range to attack
         {
             GetComponent<Mover>().MoveTo(target.transform.position, 1f); // 1f is full speed
         }
@@ -103,15 +103,18 @@ public class Fighter : MonoBehaviour, Iaction, ISaveable, IModifierProvider
     //    Hit();       
     //}
 
-    private bool IsInRange()
+    private bool IsInRange(Transform targetTransform)
     {
-        return Vector3.Distance(transform.position, target.transform.position) < currentWeaponSO.GetRange();
+        return Vector3.Distance(transform.position, targetTransform.position) < currentWeaponSO.GetRange();
     }
 
     public bool CanAttack(GameObject combatTarget) // for use in PlayerController
     {
         if (combatTarget == null) return false;
-        if(!GetComponent<Mover>().CanMoveTo(combatTarget.transform.position)) return false; // if out of range, can't attack
+        if (!GetComponent<Mover>().CanMoveTo(combatTarget.transform.position) && !IsInRange(combatTarget.transform))
+        {
+            return false; // if out of range, can't attack
+        }
         Health targetToTest = combatTarget.GetComponent<Health>(); // info from combatTarget
         return targetToTest != null && !targetToTest.IsDead(); // can attack if IsDead is false
     }
