@@ -6521,6 +6521,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 210603651848189006, guid: e4022cc8dcfab4023b92c1f1df76cb73, type: 3}
+      propertyPath: sphereCastRadius
+      value: 0.2
+      objectReference: {fileID: 0}
     - target: {fileID: 531477405552740782, guid: e4022cc8dcfab4023b92c1f1df76cb73, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 7.9000244
