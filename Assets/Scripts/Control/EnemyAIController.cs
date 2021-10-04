@@ -3,6 +3,7 @@ using RPG.Movement;
 using RPG.Core;
 using RPG.Attributes;
 using GameDevTV.Utils;
+using System;
 
 namespace RPG.Control
 {
@@ -16,6 +17,7 @@ namespace RPG.Control
         [SerializeField] float wayPointDwell = 1f; // 1m
         [Range(0,1)] // sets slider for patrolSpeedFraction vv
         [SerializeField] float patrolSpeedFraction = 0.2f;
+        [SerializeField] float shoutDistance;
 
         Fighter fighter;
         Mover mover;
@@ -88,7 +90,23 @@ namespace RPG.Control
         {
             timeSinceSawPlayer = 0; // stays at zero through updates
             fighter.Attack(player);
+
+            AggrevateNearby();
         }
+
+        private void AggrevateNearby()
+        {
+            // finds all enemies within a certain radius, no direction or max dist necessary, so just up and 0
+                               // from our Enemy.transform.position vv
+            RaycastHit[] hits =  Physics.SphereCastAll(transform.position, shoutDistance, Vector3.up, 0);
+            foreach(RaycastHit hit in hits)
+            {
+                EnemyAIController enemyAi = hit.collider.GetComponent<EnemyAIController>(); // hit.anyComponentOnCollidedEnemy
+                if (enemyAi == null) continue; // skip this one iteration of for loop
+                enemyAi.Aggrevate(); // so in summar, any enemy within shouting distance specified is aggroed
+            }
+        }
+
         private void SuspicionBehaviour()
         {
             GetComponent<ActionScheduler>().CancelCurrentAction();
