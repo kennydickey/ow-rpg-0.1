@@ -61,6 +61,8 @@ namespace RPG.SceneManagement
 
         public void Load() // made this it's own method and public so it can be called from other scripts
         {
+            //broken here right now
+            //StartCoroutine(GetComponent<SavingSystem>().LoadLastScene(defaultSaveFile));
             GetComponent<SavingSystem>().Load(defaultSaveFile);
         }
 
