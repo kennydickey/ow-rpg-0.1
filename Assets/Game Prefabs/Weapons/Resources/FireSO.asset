@@ -12,6 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74c34f0440556420b9588f0b28dcf49b, type: 3}
   m_Name: FireSO
   m_EditorClassIdentifier: 
+  itemID: 63746a91-2f96-4860-a0b6-528f4819bc3f
+  displayName: Fire
+  description: 
+  icon: {fileID: 21300000, guid: aba0f700d91d4fc4fa8c724899ab04ab, type: 3}
+  pickup: {fileID: 8032790129483179010, guid: 06ee91ce4ec77446292954d442ba3673, type: 3}
+  stackable: 0
+  allowedEquipLocation: 5
   equipPrefab: {fileID: 0}
   weaponAnimOverride: {fileID: 22100000, guid: ca5f47d0aa0fa4a5180000b3c48d0f2c, type: 2}
   weaponRange: 10

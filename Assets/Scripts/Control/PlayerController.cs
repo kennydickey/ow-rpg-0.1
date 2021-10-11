@@ -23,12 +23,14 @@ namespace RPG.Control
         [SerializeField] float maxNavMeshProjecttionDist = 1f;
         [SerializeField] float sphereCastRadius = 0.2f;
 
+        bool isDraggingUI = false;
+
         private void Awake()
         {
             health = GetComponent<Health>();
         }
 
-        void Update()
+        void Update() // all below are bools to prevent each from happening simultaneously
         {
             if (InteractWithUI()) return;
             if (health.IsDead())
@@ -45,11 +47,23 @@ namespace RPG.Control
 
         private bool InteractWithUI()
         {
+            if (Input.GetMouseButtonUp(0))
+            {
+                isDraggingUI = false;
+            }
             // careful, this includes Fader vv, so in FaderCanvas prefab, deselect Interactable and Blocks Raycasts
             if (EventSystem.current.IsPointerOverGameObject()) // is over UI Gameobject
             {
+                if (Input.GetMouseButtonDown(0))
+                {
+                    isDraggingUI = true; // can only initiate drag when mouse down and over obj
+                }
                 SetCursor(CursorType.UI); // from our enum
                 return true;
+            }
+            if (isDraggingUI) // if is true
+            {
+                return true; // can interact with UI if isDragging
             }
             return false;
         }

@@ -12,6 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74c34f0440556420b9588f0b28dcf49b, type: 3}
   m_Name: GoblinSpearSO
   m_EditorClassIdentifier: 
+  itemID: 0504814c-2c1a-4dc1-a62e-286f3fb43b11
+  displayName: Goblin Spear
+  description: 
+  icon: {fileID: 0}
+  pickup: {fileID: 0}
+  stackable: 0
+  allowedEquipLocation: 5
   equipPrefab: {fileID: 2478607056780365162, guid: 28718c44578744138814d8b3104369ca, type: 3}
   weaponAnimOverride: {fileID: 22100000, guid: 7e00a58b16a20431eaac9ccd919b849c, type: 2}
   weaponRange: 1

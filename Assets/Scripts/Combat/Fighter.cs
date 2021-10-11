@@ -8,6 +8,7 @@ using RPG.CharaStats;
 using System.Collections.Generic;
 using GameDevTV.Utils;
 using System;
+using GameDevTV.Inventories;
 
 public class Fighter : MonoBehaviour, Iaction, ISaveable, IModifierProvider
 {
@@ -18,6 +19,7 @@ public class Fighter : MonoBehaviour, Iaction, ISaveable, IModifierProvider
     [SerializeField] Transform leftHand = null;
     [SerializeField] WeaponConfig defaultWeaponSO = null; // unity will be looking for our Weapon ScriptableObject
     Health target; // will always be of health type so we don't have to GetComponent
+    Equipment equipment;
     WeaponConfig currentWeaponSO;
     LazyValue<Weapon> currentWeaponInstance;
 
@@ -25,6 +27,11 @@ public class Fighter : MonoBehaviour, Iaction, ISaveable, IModifierProvider
     {
         currentWeaponSO = defaultWeaponSO;
         currentWeaponInstance = new LazyValue<Weapon>(SetupDefaultWeapon);
+        equipment = GetComponent<Equipment>();
+        if (equipment) // if weapon equipment equipped is true
+        {
+            equipment.equipmentUpdated += UpdateWeapon;
+        }
     }
 
     private Weapon SetupDefaultWeapon()
@@ -156,6 +163,19 @@ public class Fighter : MonoBehaviour, Iaction, ISaveable, IModifierProvider
     {
         currentWeaponSO = weapon; // currentWeapon becomes whatever is specified when EquipWeapon called
         currentWeaponInstance.value =  AttachWeapon(weapon);
+    }
+
+    private void UpdateWeapon()
+    {
+        var slottedWeapon = equipment.GetItemInSlot(EquipLocation.Weapon) as WeaponConfig;
+        if (slottedWeapon == null)
+        {
+            EquipWeapon(defaultWeaponSO);
+        }
+        else
+        {
+            EquipWeapon(slottedWeapon);
+        }
     }
 
     private Weapon AttachWeapon(WeaponConfig weapon)

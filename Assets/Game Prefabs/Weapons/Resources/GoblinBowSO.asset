@@ -12,6 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74c34f0440556420b9588f0b28dcf49b, type: 3}
   m_Name: GoblinBowSO
   m_EditorClassIdentifier: 
+  itemID: 955b0058-4ff7-4700-9d39-38d29f7a51fa
+  displayName: Goblin Bow
+  description: 
+  icon: {fileID: 0}
+  pickup: {fileID: 0}
+  stackable: 0
+  allowedEquipLocation: 5
   equipPrefab: {fileID: -8362148514904844626, guid: 0216eae944cf2424a9a78574a86e49a7, type: 3}
   weaponAnimOverride: {fileID: 22100000, guid: e09a6f982ebea4edda70ad37c145fda1, type: 2}
   weaponRange: 5

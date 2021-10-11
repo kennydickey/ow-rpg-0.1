@@ -1,11 +1,12 @@
 using UnityEngine;
 using RPG.Attributes;
+using GameDevTV.Inventories;
 
 namespace RPG.Combat
 {
     // This allows us to create our weapon SO's and is part of each SO created
     [CreateAssetMenu(fileName = "Weapon", menuName = "MakeWeapon/NewWeapon", order = 0)]
-    public class WeaponConfig : ScriptableObject
+    public class WeaponConfig : EquipableItem
     {
         [SerializeField] Weapon equipPrefab = null;
         [SerializeField] AnimatorOverrideController weaponAnimOverride = null;
