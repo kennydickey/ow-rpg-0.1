@@ -1,12 +1,14 @@
 using UnityEngine;
 using RPG.Attributes;
 using GameDevTV.Inventories;
+using RPG.CharaStats;
+using System.Collections.Generic;
 
 namespace RPG.Combat
 {
     // This allows us to create our weapon SO's and is part of each SO created
     [CreateAssetMenu(fileName = "Weapon", menuName = "MakeWeapon/NewWeapon", order = 0)]
-    public class WeaponConfig : EquipableItem
+    public class WeaponConfig : EquipableItem, IModifierProvider
     {
         [SerializeField] Weapon equipPrefab = null;
         [SerializeField] AnimatorOverrideController weaponAnimOverride = null;
@@ -103,6 +105,23 @@ namespace RPG.Combat
         public float GetWeaponPercentageBonus() // percentage so that weapon percent stays relevant in relation to base dmg 
         {
             return weaponPercentageBonus;
+        }
+
+        // Special case similar to StatsEquipableItem
+        public IEnumerable<float> GetAdditiveModsI(UpCharaStats stat)
+        {
+            if(stat == UpCharaStats.Damage) // if name of stat called in function is Damage..
+            {
+                yield return weaponDamage;
+            }
+        }
+        // Special case similar to StatsEquipableItem
+        public IEnumerable<float> GetPercentageModsI(UpCharaStats stat)
+        {
+            if (stat == UpCharaStats.Damage) // if name of stat called in function is Damage..
+            {
+                yield return weaponPercentageBonus;
+            }
         }
     }
 }

@@ -10,7 +10,7 @@ using GameDevTV.Utils;
 using System;
 using GameDevTV.Inventories;
 
-public class Fighter : MonoBehaviour, Iaction, ISaveable, IModifierProvider
+public class Fighter : MonoBehaviour, Iaction, ISaveable
 {
     [SerializeField] float timeSinceAttack = Mathf.Infinity; // to be ready only at start
     [SerializeField] float attackBuffer = 1f; // !Must be set in inspector
@@ -139,24 +139,6 @@ public class Fighter : MonoBehaviour, Iaction, ISaveable, IModifierProvider
         GetComponent<Animator>().SetTrigger("stopAttack");
         target = null;
         GetComponent<Mover>().Cancel(); // also cancel movement        
-    }
-
-    public IEnumerable<float> GetAdditiveModsI(UpCharaStats stat)
-    {
-        if(stat == UpCharaStats.Damage) // if stat in question is Damage stat..
-        {
-            yield return currentWeaponSO.GetDamage(); // additive modifier on top of base damage
-            // can have multiple yield returns for future reference
-        }
-    }
-
-    public IEnumerable<float> GetPercentageModsI(UpCharaStats stat) // for use in BaseCharaStats
-    {
-        if (stat == UpCharaStats.Damage)
-        {
-            yield return currentWeaponSO.GetWeaponPercentageBonus();
-
-        }
     }
 
     public void EquipWeapon(WeaponConfig weapon)
