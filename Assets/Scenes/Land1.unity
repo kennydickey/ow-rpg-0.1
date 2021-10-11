@@ -1761,6 +1761,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PickupVariantHealth
       objectReference: {fileID: 0}
+    - target: {fileID: 7934998044316900931, guid: d667ef0a2635d4b7b92e45975a204aee, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d667ef0a2635d4b7b92e45975a204aee, type: 3}
 --- !u!4 &672968995 stripped
@@ -7077,7 +7081,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2698632362480543291, guid: e4022cc8dcfab4023b92c1f1df76cb73, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -570.7499
+      value: -570.74976
       objectReference: {fileID: 0}
     - target: {fileID: 2880420429401916287, guid: e4022cc8dcfab4023b92c1f1df76cb73, type: 3}
       propertyPath: m_fontStyle
