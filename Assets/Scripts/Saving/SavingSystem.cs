@@ -44,6 +44,7 @@ namespace RPG.Saving
             File.Delete(GetPathFromFile(saveFile)); // deletes the file found in the file path provided
         }
 
+        // PRIVATE
 
         private void SaveFile(string saveFile, object capturedState)
         {

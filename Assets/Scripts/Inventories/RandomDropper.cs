@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using GameDevTV.Inventories;
+using RPG.CharaStats;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -11,25 +12,28 @@ namespace RPG.Inventories
         // CONFIG DATA
         [Tooltip("How far pickups can be fall from dropper")]
         [SerializeField] float scatterDistance = 1;
-        [SerializeField] InventoryItem[] dropLibrary;
-        [SerializeField] int numberOfDrops = 2;
+        [SerializeField] DropLibrary dropLibrary;
 
         // CONSTANTS
-        const int attempts = 30; // max navmesh sample attempts
+        const int ATTEMPTS = 30; // max navmesh sample attempts
 
         public void RandomDrop()
         {
-            for (int i = 0; i < attempts; i++)
+            var baseStats = GetComponent<BaseCharaStats>();
+
+            var drops = dropLibrary.GetRandomDrops(baseStats.GetLevel()); // GetRandomDrops uses our current level
+            foreach(var drop in drops)
             {
-                InventoryItem randomItem = dropLibrary[Random.Range(0, dropLibrary.Length)];
-                DropItem(randomItem, 1); // second number is number to drob and stackabilty
-            }             
+                DropItem(drop.item, drop.number); // second number is number to drob and stackabilty
+
+            }
+
         }
 
         // Start is called before the first frame update
         protected override Vector3 GetDropLocation() // overrides ItemDropper.GetDropLocation
         {
-            for (int i = 0; i < attempts; i++)
+            for (int i = 0; i < ATTEMPTS; i++)
             {
                Vector3 randomPoint = transform.position + (Random.insideUnitSphere * scatterDistance);
                 NavMeshHit hit;
