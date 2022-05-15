@@ -4,6 +4,7 @@ using RPG.Attributes;
 using System;
 using UnityEngine.EventSystems;
 using UnityEngine.AI;
+using GameDevTV.Inventories;
 
 namespace RPG.Control
 {
@@ -32,6 +33,15 @@ namespace RPG.Control
 
         void Update() // all below are bools to prevent each from happening simultaneously
         {
+            //except for this one
+            CheckSpecialAbilityKeys();
+
+
+            //if (Input.GetKeyDown(KeyCode.Space)) // just for testing drops
+            //{
+            //    GetComponent<ItemDropper>().DropItem(InventoryItem.GetFromID("15f52c59a2bb7-4e2d-add7-ee315f52c59a"));
+            //}
+
             if (InteractWithUI()) return;
             if (health.IsDead())
             {
@@ -42,7 +52,20 @@ namespace RPG.Control
             if (InteractWithComponent()) return; // replaced InteractWithCombat()
             if (InteractWithMovement()) return;
             //print("edge of world");
-            SetCursor(CursorType.None); // from our enum
+            SetCursor(CursorType.None); // from our enum          
+        }
+
+        private void CheckSpecialAbilityKeys()
+        {
+            var actionStore = GetComponent<ActionStore>();
+            if (Input.GetKeyDown(KeyCode.Alpha1))
+            {
+                actionStore.Use(0, gameObject);
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha2))
+            {
+                actionStore.Use(1, gameObject);
+            }
         }
 
         private bool InteractWithUI()
@@ -176,4 +199,5 @@ namespace RPG.Control
             return Camera.main.ScreenPointToRay(Input.mousePosition);
         }
     }
+   
 }

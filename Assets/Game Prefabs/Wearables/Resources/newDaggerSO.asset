@@ -10,16 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f685ee6a2923245759bfefcf6b029409, type: 3}
-  m_Name: HealtyHatSO
+  m_Name: newDaggerSO
   m_EditorClassIdentifier: 
-  itemID: 46634a35-7f57-4271-b9aa-7b9cd12d39e6
-  displayName: Healthy Hat
-  description: um
-  icon: {fileID: 21300000, guid: 7a704c5f161380f438bfabaf93560dc3, type: 3}
-  pickup: {fileID: 236392791357939999, guid: f345b097441b14ac28ac82959a402e0f, type: 3}
+  itemID: 61142bad-9274-4bc1-ae4c-e1f7fb41f3ab
+  displayName: 
+  description: 
+  icon: {fileID: 21300000, guid: cc8043ad07ebd21418922bbd4249d577, type: 3}
+  pickup: {fileID: 622886615728941530, guid: 81d9cf94d30c04038952c72bedd99f19, type: 3}
   stackable: 0
-  allowedEquipLocation: 0
-  additiveModifiers:
-  - stat: 0
-    value: 20
+  allowedEquipLocation: 5
+  additiveModifiers: []
   percentageModifiers: []

@@ -69,7 +69,7 @@ namespace RPG.SceneManagement
         public void Delete()
         {
             GetComponent<SavingSystem>().Delete(defaultSaveFile);
-
+            print("deleting");
         }
     }
   

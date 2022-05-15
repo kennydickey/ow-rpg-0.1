@@ -207,6 +207,38 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5358678604695827422, guid: 1973af7fc3e1d2b428983f58906580be, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7260453448564003565, guid: 1973af7fc3e1d2b428983f58906580be, type: 3}
+      propertyPath: m_textAlignment
+      value: 65535
+      objectReference: {fileID: 0}
+    - target: {fileID: 7260453448564003565, guid: 1973af7fc3e1d2b428983f58906580be, type: 3}
+      propertyPath: m_TextStyleHashCode
+      value: -1183493901
+      objectReference: {fileID: 0}
+    - target: {fileID: 7260453448564003565, guid: 1973af7fc3e1d2b428983f58906580be, type: 3}
+      propertyPath: m_VerticalAlignment
+      value: 512
+      objectReference: {fileID: 0}
+    - target: {fileID: 7260453448564003565, guid: 1973af7fc3e1d2b428983f58906580be, type: 3}
+      propertyPath: m_HorizontalAlignment
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7958634321023792893, guid: 1973af7fc3e1d2b428983f58906580be, type: 3}
+      propertyPath: itemNumber
+      value: 
+      objectReference: {fileID: 4894019447730879255}
+    - target: {fileID: 8412335385952159984, guid: 1973af7fc3e1d2b428983f58906580be, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 8412335385952159984, guid: 1973af7fc3e1d2b428983f58906580be, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 50
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1973af7fc3e1d2b428983f58906580be, type: 3}
 --- !u!224 &3044871503539116358 stripped
@@ -223,5 +255,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 493934aefc2d7c9469174527fc9bf167, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &4894019447730879255 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8072735512489810035, guid: 1973af7fc3e1d2b428983f58906580be, type: 3}
+  m_PrefabInstance: {fileID: 3738852935408870244}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
