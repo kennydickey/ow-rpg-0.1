@@ -9,19 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
+  m_Script: {fileID: 11500000, guid: 5f4d683ece69e4d56addb8566cba3690, type: 3}
   m_Name: NewDialogue1
-  m_EditorClassIdentifier: Assembly-CSharp::DialogueConfig
-  nodes:
-  - uniqueID: 
-    text: 
-    children: []
-  - uniqueID: 
-    text: 
-    children: []
-  - uniqueID: 
-    text: 
-    children: []
-  - uniqueID: 
-    text: 
-    children: []
+  m_EditorClassIdentifier: 
+  nodes: []
