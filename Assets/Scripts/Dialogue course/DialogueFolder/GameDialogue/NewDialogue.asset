@@ -9,6 +9,21 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 810bdae46421b40f8a287057bcfcdeab, type: 3}
-  m_Name: DialogueWeapon2
+  m_Script: {fileID: 11500000, guid: 5f4d683ece69e4d56addb8566cba3690, type: 3}
+  m_Name: NewDialogue
   m_EditorClassIdentifier: 
+  nodes:
+  - uniqueID: a
+    text: hello
+    children:
+    - b
+    - c
+  - uniqueID: b
+    text: hello yourself
+    children:
+    - 
+  - uniqueID: c
+    text: silence
+    children:
+    - 
+    - 

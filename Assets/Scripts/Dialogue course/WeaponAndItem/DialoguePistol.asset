@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 810bdae46421b40f8a287057bcfcdeab, type: 3}
-  m_Name: DialogueWeapon1
+  m_Name: DialoguePistol
   m_EditorClassIdentifier: 
-  maxAmmo: 14
-  damage: 1
+  maxAmmo: 5
+  damage: 2
   areaDamage: 0

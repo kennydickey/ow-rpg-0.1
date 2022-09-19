@@ -11,12 +11,8 @@ public class DialogItemInventory : MonoBehaviour
     {
         foreach(var item in contents)
         {
-            Debug.Log($"has item: {item.GetnName()}");
+            Debug.Log($"backpack has item: {item.GetnName()}");
         }
     }
 
-    void Update()
-    {
-        
-    }
 }

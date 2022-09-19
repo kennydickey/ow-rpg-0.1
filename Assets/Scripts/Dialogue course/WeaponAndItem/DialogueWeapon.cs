@@ -14,7 +14,8 @@ public class DialogueWeapon : MonoBehaviour
 
     public void Shoot()
     {
-        Debug.Log($"Did {config.damage} damage, with {config.name} and {config.maxAmmo} remaining");
+        // config.name gets filename, others we specified and take from game input
+        Debug.Log($"Did {config.damage} damage, with {config.name} and {config.maxAmmo} ammo remaining");
         
     }
 }

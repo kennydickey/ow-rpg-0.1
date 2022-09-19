@@ -9,10 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f4d683ece69e4d56addb8566cba3690, type: 3}
-  m_Name: NewDialogue1
+  m_Script: {fileID: 11500000, guid: 6347b5eb21d61456ca67d5a2fa5801c1, type: 3}
+  m_Name: DialogueItemPickAxe
   m_EditorClassIdentifier: 
-  nodes:
-  - uniqueID: 
-    text: so
-    children: []
+  itemName: Pickaxe
+  description: Chops Trees
+  itemWeight: 1

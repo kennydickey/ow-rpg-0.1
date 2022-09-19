@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6347b5eb21d61456ca67d5a2fa5801c1, type: 3}
   m_Name: DialogueItemPotion
   m_EditorClassIdentifier: 
-  itemName: potion
-  description: increase health
-  itemWeight: 2
+  itemName: Potion
+  description: Increase Health
+  itemWeight: 1
